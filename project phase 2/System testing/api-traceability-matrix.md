@@ -2,29 +2,30 @@
 
 ## Scope and status
 
-เชื่อม API ทั้ง 24 operations จาก [API inventory](api-inventory.md) กับ System Test 3 เคสที่ออกแบบไว้
+Maps all 24 operations in the [API inventory](api-inventory.md) to the three planned system test cases.
 
-**Baseline:** แผน System Test เดิมก่อนเพิ่มขั้นตอนปิด gaps  
-**Execution status:** Not Run ทุกเคส  
-**Endpoint evidence:** ยังไม่มี Network capture หรือผล API test ยืนยันการเรียกจริง
+**Baseline:** Original system test plan, before adding gap-closing steps.  
+**Execution status:** Not Run for every case.  
+**Endpoint evidence:** No network capture or API test results confirm actual endpoint calls.
 
-ตารางนี้เป็น **behavioral mapping**: ขั้นตอนผ่าน UI ตรวจพฤติกรรมที่สัมพันธ์กับ API ไม่ได้ยืนยันว่า UI เรียก endpoint นั้น โดยเฉพาะ WordPress Admin อาจใช้ form submission หรือกลไกอื่น การตรวจ Network ยืนยันได้เฉพาะ endpoint ที่ปรากฏจริง; API ที่ UI ไม่ได้เรียกต้องมี direct API test แยก
+This is a **behavioral mapping**: UI steps exercise behavior related to an API operation, but do not prove that the UI calls that endpoint. WordPress Admin may use form submissions or other mechanisms. Network inspection can confirm only requests actually observed; endpoints not called by the UI need separate direct API tests.
 
-ตัวเลขคือ step ของแต่ละเคสตาม baseline ในท้ายเอกสาร:
-- **P (Planned):** มีขั้นตอนตรวจพฤติกรรมที่สัมพันธ์โดยชัดเจน แต่ยังไม่รัน
-- **I (Indirect):** สัมพันธ์ทางอ้อม ยังไม่ตรวจ operation นั้นโดยตรง
-- **C (Conditional):** ขั้นตอนขึ้นกับเงื่อนไข อาจไม่ได้ดำเนินการทุกครั้ง
-- **— (Gap):** ยังไม่มีขั้นตอนชัดเจน
+Numbers refer to the baseline steps reproduced later in this document:
 
-P ไม่ได้หมายถึง Pass และไม่ได้หมายถึง verified API coverage
+- **P (Planned):** An explicit step checks related behavior, but has not been executed.
+- **I (Indirect):** Related behavior is exercised indirectly; the operation itself is not checked.
+- **C (Conditional):** The step depends on a condition and may not run every time.
+- **— (Gap):** No explicit step exists.
+
+P does not mean Pass or verified API coverage.
 
 ## Test case index
 
 | Short ID | Full ID | Scenario |
 |---|---|---|
-| ST-01 | ST-G05-01 | Staff สร้างสินค้าและคูปอง → Customer ซื้อพร้อมส่วนลด → Staff ตรวจ order/stock และปิด order |
-| ST-02 | ST-G05-02 | Staff ตั้ง stock → Customer ลองจำนวนผิดปกติ แก้/ลบ cart และซื้อ → Staff ตรวจ order/stock → Customer ตรวจ stock ที่เหลือ |
-| ST-03 | ST-G05-03 | Staff สร้างสินค้าและแก้ราคา → Customer สมัคร/login ซื้อ และดูประวัติ → Staff ตรวจ customer/order และปิด order → Customer ตรวจสถานะ |
+| ST-01 | ST-G05-01 | Staff creates a product and coupon → Customer purchases with the discount → Staff checks the order/stock and completes the order |
+| ST-02 | ST-G05-02 | Staff sets stock → Customer tries unusual quantities, changes/removes cart items and purchases → Staff checks order/stock → Customer checks remaining availability |
+| ST-03 | ST-G05-03 | Staff creates a product and changes its price → Customer registers/logs in, purchases and views history → Staff checks customer/order and completes it → Customer checks status |
 
 ## 1. Store API
 
@@ -32,17 +33,17 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/store/v1`
 
 | API ID | Method / Endpoint | ST-01 steps | ST-02 steps | ST-03 steps | Mapping | Coverage / limitation |
 |---|---|---|---|---|---|---|
-| S01 | GET `/products` | 3 | 2 | 3 | P | ค้นหา/ดูรายการ; ยังขาด pagination, sorting, price filters และ query combinations |
-| S02 | GET `/products/{id}` | 3 | 2, 12 | 3 | P | รายละเอียด ราคา และความพร้อมซื้อ; ยังขาด invalid ID และ variation coverage |
-| S03 | GET `/products/categories` | — | — | 3 | I | เลือกดูตามหมวดหมู่ ไม่ได้ตรวจ category-list response |
-| S04 | GET `/cart` | 4, 7 | 4–9 | 6, 8 | P | ตรวจรายการ จำนวน และยอด cart; ยังไม่ตรวจ token lifecycle โดยตรง |
-| S05 | POST `/cart/add-item` | 4 | 3–4, 9, 12 | 6 | P | เพิ่มสินค้าปกติและลองเกิน stock; UI อาจป้องกัน input ก่อนส่ง request |
-| S06 | POST `/cart/update-item` | — | 5–7 | — | P | เปลี่ยนจำนวน รวมศูนย์และเกิน stock; ต้องกำหนด oracle ของ quantity=0 หลังสำรวจ UI |
-| S07 | POST `/cart/remove-item` | — | 8 | — | C | Remove ทำเฉพาะเมื่อสินค้ายังอยู่หลัง quantity=0 จึงอาจถูกข้าม |
-| S08 | POST `/cart/apply-coupon` | 5–6 | — | — | P | คูปองไม่มีอยู่และคูปองลด 10%; ยังขาด expired/usage-limit/minimum-spend cases |
-| S09 | POST `/cart/remove-coupon` | — | — | — | — | ยังไม่มีการนำคูปองออกและตรวจยอดคืน |
-| S10 | GET `/checkout` | 7–8 | 10 | 6, 8 | I | เปิดหน้า checkout ไม่เท่ากับตรวจ draft-order API response |
-| S11 | POST `/checkout` | 9 | 10 | 7, 9 | P | COD สำเร็จและช่องบังคับว่าง; validation อาจเกิดที่ UI ก่อนส่ง request |
+| S01 | GET `/products` | 3 | 2 | 3 | P | Search/list products; pagination, sorting, price filters and query combinations remain untested |
+| S02 | GET `/products/{id}` | 3 | 2, 12 | 3 | P | Details, price and availability; invalid IDs and variations remain untested |
+| S03 | GET `/products/categories` | — | — | 3 | I | Browse by category; does not inspect the category-list response |
+| S04 | GET `/cart` | 4, 7 | 4–9 | 6, 8 | P | Check items, quantities and totals; token lifecycle is not checked directly |
+| S05 | POST `/cart/add-item` | 4 | 3–4, 9, 12 | 6 | P | Normal and excessive quantities; UI validation may prevent a request |
+| S06 | POST `/cart/update-item` | — | 5–7 | — | P | Change quantities, including zero and above-stock values; finalize the expected zero-quantity behavior after UI inspection |
+| S07 | POST `/cart/remove-item` | — | 8 | — | C | Remove is used only if the item remains after quantity=0, so this step may be skipped |
+| S08 | POST `/cart/apply-coupon` | 5–6 | — | — | P | Nonexistent and valid 10% coupons; expired, usage-limit and minimum-spend cases remain untested |
+| S09 | POST `/cart/remove-coupon` | — | — | — | — | No coupon-removal or restored-total check |
+| S10 | GET `/checkout` | 7–8 | 10 | 6, 8 | I | Opening checkout does not directly check the draft-order API response |
+| S11 | POST `/checkout` | 9 | 10 | 7, 9 | P | Successful COD and a missing required field; UI validation may prevent a request |
 
 ## 2. Admin REST API
 
@@ -50,127 +51,127 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/v3`
 
 | API ID | Method / Endpoint | ST-01 steps | ST-02 steps | ST-03 steps | Mapping | Coverage / limitation |
 |---|---|---|---|---|---|---|
-| A01 | GET `/products` | — | — | — | — | ยังไม่มีขั้นตอนตรวจรายการ/ค้นหาสินค้าฝั่ง staff อย่างชัดเจน |
-| A02 | POST `/products` | 1 | 1 | 1 | P | Staff สร้าง simple product; ไม่ยืนยันว่า admin UI ใช้ REST endpoint นี้ |
-| A03 | GET `/products/{id}` | 11 | 11 | 2 | P | Staff ตรวจข้อมูล stock/ราคาของสินค้ารายตัว |
-| A04 | PUT `/products/{id}` | — | — | 2 | P | Staff แก้ราคา; stock ลดอัตโนมัติหลังซื้อไม่ใช่ coverage ของ PUT นี้ |
-| A05 | DELETE `/products/{id}?force=true` | — | — | — | — | ยังไม่มีการลบสินค้าถาวร; ย้ายไป Trash อย่างเดียวไม่ตรงกับ force=true |
-| A06 | GET `/products/categories` | — | — | 1 | I | เลือกหมวดหมู่เดิมขณะสร้างสินค้า ไม่ได้ตรวจ category-list response |
-| A07 | POST `/products/categories` | — | — | — | — | ยังไม่มีการสร้างหมวดหมู่ |
-| A08 | GET `/orders` | 10 | — | — | P | ค้นหา order ฝั่ง staff; ยังขาด status/date filters และ pagination |
-| A09 | GET `/orders/{id}` | 10 | 11 | 11 | P | ตรวจ order รายตัวและความตรงกันกับฝั่งลูกค้า |
-| A10 | PUT `/orders/{id}` | 12 | — | 12 | P | เปลี่ยนเป็น Completed; ยังขาดสถานะอื่นและ invalid transition cases |
-| A11 | GET `/coupons` | — | — | — | — | ยังไม่มีขั้นตอนเปิดรายการ/ค้นหาคูปองโดยชัดเจน |
-| A12 | POST `/coupons` | 2 | — | — | P | สร้างคูปอง percent 10%; ยังขาด fixed_cart/fixed_product |
-| A13 | GET `/customers` | — | — | 11 | I | ตรวจข้อมูล customer ที่สัมพันธ์กับ order; ยังไม่ได้กำหนดการเปิดรายการ Customers โดยตรง |
+| A01 | GET `/products` | — | — | — | — | No explicit staff product-list/search check |
+| A02 | POST `/products` | 1 | 1 | 1 | P | Staff creates a simple product; does not confirm that Admin UI uses this REST endpoint |
+| A03 | GET `/products/{id}` | 11 | 11 | 2 | P | Staff checks an individual product's stock/price |
+| A04 | PUT `/products/{id}` | — | — | 2 | P | Staff changes the price; automatic stock reduction after purchase is not coverage of this PUT operation |
+| A05 | DELETE `/products/{id}?force=true` | — | — | — | — | No permanent deletion; moving a product to Trash does not match force=true |
+| A06 | GET `/products/categories` | — | — | 1 | I | Select an existing category when creating a product; no direct category-list response check |
+| A07 | POST `/products/categories` | — | — | — | — | No category creation |
+| A08 | GET `/orders` | 10 | — | — | P | Staff searches for an order; status/date filters and pagination remain untested |
+| A09 | GET `/orders/{id}` | 10 | 11 | 11 | P | Inspect an order and compare it with the customer confirmation |
+| A10 | PUT `/orders/{id}` | 12 | — | 12 | P | Change status to Completed; other statuses and invalid transitions remain untested |
+| A11 | GET `/coupons` | — | — | — | — | No explicit coupon-list/search check |
+| A12 | POST `/coupons` | 2 | — | — | P | Create a 10% coupon; fixed_cart and fixed_product remain untested |
+| A13 | GET `/customers` | — | — | 11 | I | Inspect the customer associated with an order; opening the Customers list is not explicitly required yet |
 
 ## 3. Coverage summary
 
-นับแต่ละ API ID เพียงครั้งเดียว แม้สัมพันธ์กับหลายเคส
+Count each API ID once, even if it maps to multiple cases.
 
 | Mapping status | Store | Admin | Total |
 |---|---|---|---|
-| P — มีขั้นตอนสัมพันธ์ชัดเจน แต่ยังไม่รัน | 7 | 7 | 14 |
-| I — ทางอ้อม | 2 | 2 | 4 |
-| C — ขึ้นกับเงื่อนไข | 1 | 0 | 1 |
-| Gap — ไม่มีขั้นตอนชัดเจน | 1 | 4 | 5 |
+| P — Explicit related steps, not executed | 7 | 7 | 14 |
+| I — Indirect | 2 | 2 | 4 |
+| C — Conditional | 1 | 0 | 1 |
+| Gap — No explicit steps | 1 | 4 | 5 |
 | **Total operations** | **11** | **13** | **24** |
 
-- รวมการเชื่อมโยงแบบ P/I/C: **19/24 operations** เป็นเพียงความสัมพันธ์ตามแผน ไม่ใช่ผลทดสอบ
-- Gaps: **S09, A01, A05, A07, A11**
-- ทุกเคสยังเป็น **Not Run**; ยังไม่มีผล Pass/Fail หรือจำนวน API ที่ยืนยันว่าได้ทดสอบจริง
-- การจับคู่ครบ 24 operations ในอนาคตไม่เท่ากับครอบคลุมทุก input, response, authorization rule หรือ error condition
+- P/I/C mappings total **19/24 operations**. These are planned relationships, not test results.
+- Gaps: **S09, A01, A05, A07, A11**.
+- All cases are **Not Run**. No Pass/Fail results or verified API coverage count is available.
+- Mapping all 24 operations would not cover every input, response, authorization rule or error condition.
 
 ## 4. Proposed gap-closing steps — not yet part of baseline
 
-ข้อเสนอด้านล่างยังไม่ได้รันและยังไม่นำไปนับใน matrix ข้างต้น เมื่อยอมรับและเพิ่มลง test cases ให้ปรับเลขขั้นตอนและ matrix พร้อมกัน
+These proposals have not been executed and are not counted in the matrix above. When incorporated into the test cases, update the step references and matrix together.
 
 | Proposal | Insert at | Action | Expected result | API IDs |
 |---|---|---|---|---|
-| GAP-01 | ST-01 หลัง step 2 | เปิด Coupons และค้นหารหัสที่สร้าง | พบคูปองและค่าประเภท/ส่วนลดถูกต้อง | A11 |
-| GAP-02 | ST-01 หลัง step 6 | Remove coupon แล้ว apply ใหม่ | ยอดสินค้าหลังลบกลับเป็น 400 บาท; หลังใช้ใหม่เป็น 360 บาท โดยแยกค่าจัดส่ง/ภาษี | S09, S08 |
-| GAP-03 | ST-03 ก่อน step 1 | สร้าง category ชื่อ G05 พร้อม RUN_ID และตรวจรายการ | พบ category ใหม่ตามข้อมูลที่สร้าง แล้วใช้กับสินค้าของเคส | A07, A06 |
-| GAP-04 | ST-03 หลัง step 1 | เปิด Products ค้นหาชื่อเฉพาะ แล้วเปิดสินค้า | พบสินค้าถูกตัว รายละเอียดตรงกับที่สร้าง | A01, A03 |
-| GAP-05 | ST-03 ช่วงท้าย | สร้างสินค้าทิ้งแยกจากสินค้าที่อยู่ใน order แล้วลบถาวร | ไม่พบสินค้าที่ลบในรายการ staff/customer; สินค้าของ order เดิมยังอยู่ | A02, A05, A01, S01 |
-| REFINE-01 | ST-02 step 8 | หาก cart ว่างให้เพิ่มสินค้า 1 ชิ้นก่อน แล้วกด Remove เสมอ | ทดสอบ Remove จริงทุกรอบ และ cart ว่างหลังลบ | S07 |
-| REFINE-02 | ST-03 step 11 | ระบุให้เปิด Customers แล้วค้นหาด้วยอีเมลทดสอบ | พบ customer ที่ถูกต้องและสัมพันธ์กับ order | A13 |
+| GAP-01 | ST-01 after step 2 | Open Coupons and search for the created code | The coupon appears with the correct type and discount | A11 |
+| GAP-02 | ST-01 after step 6 | Remove the coupon, then apply it again | Merchandise total returns to 400 THB, then becomes 360 THB after reapplication; account for shipping/tax separately | S09, S08 |
+| GAP-03 | ST-03 before step 1 | Create a G05 category with RUN_ID and inspect the list | The new category matches the input and can be assigned to the case's product | A07, A06 |
+| GAP-04 | ST-03 after step 1 | Open Products, search for the unique name and open the result | The correct product appears with matching details | A01, A03 |
+| GAP-05 | Near the end of ST-03 | Create a disposable product separate from the ordered product, then permanently delete it | The deleted product is absent from staff/customer listings; the ordered product remains intact | A02, A05, A01, S01 |
+| REFINE-01 | ST-02 step 8 | If the cart is empty, add one item first; always click Remove | Remove is exercised every run and leaves an empty cart | S07 |
+| REFINE-02 | ST-03 step 11 | Explicitly open Customers and search by the test email | The correct customer appears and matches the order | A13 |
 
-ข้อเสนอเหล่านี้ปิด behavioral gaps ได้ แต่ยังต้องมี direct API tests หรือ Network evidence เพื่ออ้าง endpoint coverage
+These changes address behavioral gaps. Direct API tests or network evidence are still required to claim endpoint coverage.
 
 ## 5. Baseline step reference
 
-อ้างอิงแผนที่ออกแบบในบทสนทนา ณ 9 November 2026 ตารางย่อนี้ทำให้เลขขั้นตอนใน matrix อ่านได้โดยไม่ต้องย้อนบทสนทนา **ไม่ใช่สิ่งทดแทน manual test case ฉบับเต็ม** ซึ่งต้องมี preconditions, test data, expected/actual result รายขั้นตอน, tester/date และ screenshots
+Based on the test plan designed on 9 November 2026. This reference makes the matrix self-contained. **It does not replace full manual test cases**, which need preconditions, test data, expected/actual results for every step, tester/date and screenshots.
 
-ใช้ข้อมูลชื่อขึ้นต้น G05 และ RUN_ID ไม่ซ้ำ สินค้าทุกชิ้นเป็นข้อมูลที่กลุ่มสร้างเอง
+Prefix test data names with G05 and a unique RUN_ID. All products must be created by this group.
 
 ### ST-G05-01 — Coupon purchase and order completion
 
-Test data: simple product ราคา 200 บาท stock 20; คูปอง percent 10% จำกัดเฉพาะสินค้านี้; ซื้อ 2 ชิ้น
+Test data: simple product priced at 200 THB, stock 20; a 10% coupon restricted to this product; purchase quantity 2.
 
 | Step | Planned action / checkpoint |
 |---|---|
-| 1 | Staff สร้างและ publish สินค้า เปิด manage stock ปิด backorders |
-| 2 | Staff สร้างคูปอง 10% จำกัดเฉพาะสินค้า |
-| 3 | Customer ค้นหาและเปิดสินค้า ตรวจราคา 200 บาทและพร้อมซื้อ |
-| 4 | เพิ่ม 2 ชิ้น ตรวจยอดสินค้า 400 บาท |
-| 5 | ใช้คูปองที่ไม่มีอยู่ ต้องถูกปฏิเสธและยอดไม่เปลี่ยน |
-| 6 | ใช้คูปองที่สร้าง ตรวจส่วนลด 40 บาท ยอดสินค้าหลังลด 360 บาท |
-| 7 | ไป checkout แล้วกลับ cart ตรวจสินค้า/จำนวน/คูปอง และยังไม่มี order ที่สั่งซื้อสำเร็จ |
-| 8 | กลับ checkout กรอกข้อมูลสมมติครบ เลือก COD ตรวจยอดรวมตามค่าจัดส่งและภาษีที่แสดง |
-| 9 | Place order ครั้งเดียว ตรวจ confirmation และ order number |
-| 10 | Staff ค้นหา order และตรวจข้อมูลกับ confirmation |
-| 11 | Staff ตรวจ stock เหลือ 18 |
-| 12 | Staff เปลี่ยนเป็น Completed และเปิดตรวจสถานะอีกครั้ง |
+| 1 | Staff creates and publishes the product, enables stock management and disables backorders |
+| 2 | Staff creates the product-restricted 10% coupon |
+| 3 | Customer searches for and opens the product; checks the 200 THB price and availability |
+| 4 | Add two items; verify a 400 THB merchandise total |
+| 5 | Apply a nonexistent coupon; expect rejection with no change in total |
+| 6 | Apply the created coupon; verify a 40 THB discount and 360 THB discounted merchandise total |
+| 7 | Open checkout and return to the cart; check product/quantity/coupon and that no order has been successfully placed |
+| 8 | Return to checkout, enter complete fictional details, select COD and verify the total including displayed shipping/tax |
+| 9 | Click Place order once; verify confirmation and order number |
+| 10 | Staff searches for the order and compares its details with the confirmation |
+| 11 | Staff verifies that remaining stock is 18 |
+| 12 | Staff changes the order to Completed and reopens it to verify the status |
 
 ### ST-G05-02 — Quantity, stock and cart changes
 
-Test data: simple product ราคา 150 บาท stock 3; manage stock enabled; backorders และ sold individually disabled
+Test data: simple product priced at 150 THB, stock 3; stock management enabled; backorders and sold individually disabled.
 
 | Step | Planned action / checkpoint |
 |---|---|
-| 1 | Staff สร้างและ publish สินค้าตามข้อมูลทดสอบ |
-| 2 | Customer ค้นหาและเปิดสินค้า ตรวจราคา/พร้อมซื้อ |
-| 3 | ลองเพิ่ม 4 ชิ้น ต้องไม่ยอมให้ cart มีเกิน stock 3 |
-| 4 | เพิ่ม 1 ชิ้น ตรวจยอดสินค้า 150 บาท |
-| 5 | เปลี่ยนเป็น 3 ชิ้น ตรวจยอดสินค้า 450 บาท |
-| 6 | ลองเปลี่ยนเป็น 4 ชิ้น ต้องไม่บันทึกจำนวนเกิน stock |
-| 7 | ลอง quantity=0; สำรวจว่าระบบลบรายการหรือ UI ป้องกันศูนย์ แล้วกำหนด expected behavior ให้แน่นอนก่อน automation |
-| 8 | หากสินค้ายังอยู่ กด Remove และตรวจ cart ว่าง |
-| 9 | กลับสินค้าแล้วเพิ่ม 2 ชิ้น ตรวจยอดสินค้า 300 บาทและไม่มีรายการซ้ำ |
-| 10 | Checkout ด้วยข้อมูลสมมติและ COD ตรวจ confirmation |
-| 11 | Staff ตรวจ order 2 ชิ้นและ stock เหลือ 1 |
-| 12 | Customer เปิดสินค้าใหม่แล้วลองเพิ่ม 2 ชิ้น ต้องไม่ยอมให้เกิน stock ที่เหลือ |
+| 1 | Staff creates and publishes the product using the specified test data |
+| 2 | Customer searches for and opens the product; checks price and availability |
+| 3 | Try adding four items; the cart must not accept more than the available stock of three |
+| 4 | Add one item; verify a 150 THB merchandise total |
+| 5 | Change the quantity to three; verify a 450 THB merchandise total |
+| 6 | Try changing the quantity to four; the cart must not retain a quantity above stock |
+| 7 | Try quantity=0; inspect whether it removes the item or is blocked by the UI, then finalize the expected behavior before automation |
+| 8 | If the item remains, click Remove and verify that the cart is empty |
+| 9 | Return to the product and add two items; verify a 300 THB merchandise total with no duplicate lines |
+| 10 | Check out with fictional details and COD; verify confirmation |
+| 11 | Staff verifies an order quantity of two and remaining stock of one |
+| 12 | Customer reopens the product and tries adding two; the remaining stock limit must be enforced |
 
 ### ST-G05-03 — Updated price, customer account and order history
 
-Test data: simple product ราคาเริ่ม 250 บาท เปลี่ยนเป็น 225 บาท stock 10; category ที่มีอยู่; customer ใหม่ใช้อีเมลสมมติเฉพาะ RUN_ID
+Test data: simple product initially priced at 250 THB, changed to 225 THB, stock 10; an existing category; a new customer with a fictional email unique to RUN_ID.
 
 | Step | Planned action / checkpoint |
 |---|---|
-| 1 | Staff สร้างสินค้าและเลือก category ที่มีอยู่ |
-| 2 | Staff เปลี่ยนราคา 250 → 225 บาท บันทึกและเปิดตรวจใหม่ |
-| 3 | Customer เลือกหมวดหมู่ ค้นหา และเปิดสินค้า ตรวจราคาปัจจุบัน |
-| 4 | Customer สมัครบัญชีใหม่ผ่าน My account |
-| 5 | Logout/login และตรวจว่าเป็นบัญชีที่ถูกต้อง |
-| 6 | เพิ่มสินค้า 1 ชิ้น ไป checkout ตรวจราคา 225 บาท |
-| 7 | เว้น Address line 1 แล้วลองสั่งซื้อ ต้องแจ้งช่องบังคับและไม่แสดงการซื้อสำเร็จ |
-| 8 | กลับ cart แล้วเข้า checkout อีกครั้ง ตรวจข้อมูล cart และ login session |
-| 9 | กรอกครบและสั่งซื้อ COD ตรวจ confirmation และราคา 225 บาท |
-| 10 | Customer เปิด My account → Orders ตรวจ order ของตน |
-| 11 | Staff เปิด order และตรวจข้อมูล customer ที่สัมพันธ์กัน |
-| 12 | Staff เปลี่ยน order เป็น Completed |
-| 13 | Customer refresh ประวัติ ตรวจสถานะ Completed |
-| 14 | Logout/login อีกครั้ง ตรวจว่า order และสถานะยังอยู่ |
+| 1 | Staff creates the product and selects an existing category |
+| 2 | Staff changes the price from 250 to 225 THB, saves and reopens the product to verify |
+| 3 | Customer browses the category, searches for and opens the product; verifies the current price |
+| 4 | Customer registers a new account through My account |
+| 5 | Log out and log in; verify that the correct account is active |
+| 6 | Add one item and open checkout; verify the 225 THB price |
+| 7 | Leave Address line 1 empty and attempt to order; expect required-field validation and no successful order confirmation |
+| 8 | Return to the cart and reopen checkout; verify cart contents and the login session |
+| 9 | Complete the details and place a COD order; verify confirmation and the 225 THB price |
+| 10 | Customer opens My account → Orders and checks their order |
+| 11 | Staff opens the order and checks its associated customer details |
+| 12 | Staff changes the order to Completed |
+| 13 | Customer refreshes order history and verifies the Completed status |
+| 14 | Log out and log in again; verify that the order and status remain available |
 
-หากการสมัครต้องยืนยันอีเมลที่บัญชีสมมติรับไม่ได้ ให้บันทึก Blocked และสอบถามผู้สอนเรื่องบัญชีทดสอบ ห้ามข้ามแล้วรายงานว่า Pass
+If registration requires email verification that the fictional account cannot receive, mark the case Blocked and ask the instructor about test accounts. Do not skip the step and report Pass.
 
 ## 6. Evidence and limitations
 
-- บันทึก actual result และ screenshot รายขั้นตอนเมื่อรันจริง; ขั้นตอนที่ทำต่อไม่ได้ให้ใช้ Blocked
-- หากตรวจ Network ให้ผูก API ID กับ test case/step, method, path, status และหลักฐาน โดยไม่เผย password, Authorization, Cart-Token หรือข้อมูลส่วนบุคคล
-- Network capture ที่แสดงว่า request ถูกส่ง ยังไม่เพียงพอสำหรับยืนยันว่า response ถูกต้อง ต้องตรวจ expected status และ fields ด้วย
-- Account registration/login และ customer order history เป็น Web UI features ใน Guide ไม่เพิ่ม endpoint ที่คู่มือไม่ได้ระบุ
-- Basic Auth ผิด, Cart-Token/Nonce ผิด, ID ไม่พบ, malformed input และ query boundaries ยังต้องออกแบบใน API Testing suites
-- ห้ามแก้หรือลบ demo data หรือข้อมูลกลุ่มอื่น
-- ห้ามสร้าง orders/bookings ระหว่าง performance/load testing; checkout ในเอกสารนี้เป็น functional system testing
-- เอกสารนี้ไม่ได้เปลี่ยนข้อกำหนด Project 2 ให้ต้องทดสอบ API ครบ 24 operations: โจทย์ API Testing กำหนดขั้นต่ำ 3 operations โดยอย่างน้อย 1 operation สร้าง/เปลี่ยนข้อมูล
+- Record actual results and screenshots for each executed step. Mark steps that cannot proceed as Blocked.
+- When inspecting network traffic, associate API ID with case/step, method, path, status and evidence. Do not expose passwords, Authorization headers, Cart-Tokens or personal data.
+- A captured request alone does not prove response correctness. Check expected status and response fields too.
+- Account registration/login and customer order history are Web UI features in the guide. Do not invent undocumented endpoints.
+- Invalid Basic Auth, invalid Cart-Token/Nonce, unknown IDs, malformed input and query boundaries still need API test suite designs.
+- Do not modify/delete demo data or records owned by other groups.
+- Do not create orders/bookings during performance/load tests. Checkout here is functional system testing.
+- This document does not change Project 2 into a requirement to test all 24 API operations. The API Testing assignment requires at least three operations, including at least one that creates or changes data.
