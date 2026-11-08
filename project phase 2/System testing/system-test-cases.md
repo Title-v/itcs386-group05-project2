@@ -2,7 +2,7 @@
 
 These cases follow the supplied Project 2 template. All content is in English.
 
-**Status: Designed / Not Run.** Actual result, Pass or fail, and Tested by and date are intentionally blank. Step numbers match the original baseline in the [API traceability matrix](api-traceability-matrix.md). Proposed gap-closing steps in that document are not included here.
+**Status: Designed / Not Run.** Actual result, Pass or fail, and Tested by and date are intentionally blank. Step numbers match the original baseline in the [traceability matrix's API appendix](api-traceability-matrix.md). Proposed gap-closing steps in that document are not included here.
 
 ## Shared execution setup
 
@@ -106,6 +106,6 @@ If registration requires verification that the fictional address cannot receive,
 ## Related documentation
 
 - [API inventory](api-inventory.md)
-- [API traceability matrix and proposed coverage improvements](api-traceability-matrix.md)
+- [System requirement traceability matrix and API appendix](api-traceability-matrix.md)
 
-The feature-level requirement traceability matrix required by the assignment is distinct from the API behavioral matrix. Execution evidence and defect reports must be added after real manual runs; this document does not claim any completed testing.
+The linked traceability document contains the slide-style requirement matrix followed by the supporting API behavioral mapping. Execution evidence and defect reports must be added after real manual runs; this document does not claim any completed testing.
