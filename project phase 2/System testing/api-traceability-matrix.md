@@ -1,4 +1,68 @@
-# API Traceability Matrix — ITCS386 Group 5
+# System Test Traceability Matrix — ITCS386 Group 5
+
+## Requirement-to-test-case matrix
+
+This matrix follows slide 40, **System Test Cases and Traceability**, in `W11-Integration, System and UI Testing_v3.pdf`: each requirement is mapped to its test cases using two columns. **No test case** identifies a gap.
+
+Requirements below are group-defined, testable behaviors derived from the WooCommerce API Guide's features. R1–R22 are local document identifiers, not requirement numbers supplied by the instructor. They refine the earlier broad feature labels so missing behaviors remain visible.
+
+**Status: Designed / Not Run.** A mapping identifies planned coverage, not a passing result. See [System test cases](system-test-cases.md) for actions, input data and expected results.
+
+| Requirement | Test cases |
+|---|---|
+| **R1 Search for products by name** | ST-G05-01, ST-G05-02, ST-G05-03 |
+| **R2 Browse products in a selected category** | ST-G05-03 |
+| **R3 View product details, current price and availability** | ST-G05-01, ST-G05-02, ST-G05-03 |
+| **R4 Add products to the cart and display correct quantities and totals** | ST-G05-01, ST-G05-02, ST-G05-03 |
+| **R5 Change cart quantities and enforce stock limits** | ST-G05-02 |
+| **R6 Remove an item and recalculate the cart** | ST-G05-02 (conditional: step 8) |
+| **R7 Apply a valid coupon and reject a nonexistent coupon** | ST-G05-01 |
+| **R8 Remove a coupon and restore the undiscounted total** | No test case |
+| **R9 Preserve cart contents when returning from checkout** | ST-G05-01, ST-G05-03 |
+| **R10 Reject checkout when required address data is missing** | ST-G05-03 |
+| **R11 Place a COD order and display the correct confirmation** | ST-G05-01, ST-G05-02, ST-G05-03 |
+| **R12 Register a customer account and log out/log in** | ST-G05-03 |
+| **R13 View the customer's own order history and updated status** | ST-G05-03 |
+| **R14 Create and publish a product with price, category and stock settings** | ST-G05-01, ST-G05-02, ST-G05-03 |
+| **R15 Update a product price and show the new price to customers** | ST-G05-03 |
+| **R16 Reduce stock correctly after a successful purchase** | ST-G05-01, ST-G05-02 |
+| **R17 Permanently delete a group-owned product** | No test case |
+| **R18 Create a product category** | No test case |
+| **R19 Inspect order details and change the status to Completed** | ST-G05-01, ST-G05-03 |
+| **R20 Create a product-restricted percentage coupon** | ST-G05-01 |
+| **R21 List registered customers and locate a specific customer** | No test case |
+| **R22 Browse catalog pages using sorting and price filters** | No test case |
+
+## Test case key
+
+| Test case ID | Title |
+|---|---|
+| ST-G05-01 | Purchase with a coupon and complete the order |
+| ST-G05-02 | Validate quantity limits, cart changes and remaining stock |
+| ST-G05-03 | Verify updated pricing, customer account and order history |
+
+## Coverage notes and gaps
+
+- R14 is covered across the cases: all three create products with price/stock settings; category assignment is explicit in ST-G05-03 step 1.
+- R6 is conditional because ST-G05-02 step 8 is skipped if quantity zero already removed the item. Make removal unconditional before claiming reliable coverage on every run.
+- R21 remains a gap: ST-G05-03 step 11 inspects the customer associated with an order, but does not explicitly open or check the registered-customer list.
+- R8, R17 and R18 can be addressed by the proposed coupon-removal, product-deletion and category-creation steps in the API appendix.
+- R22 needs explicit catalog paging, sorting and price-filter steps with expected results.
+- ST-G05-02's zero-quantity expectation must be agreed before formal execution. ST-G05-03 registration may be Blocked if an approved test-email setup is unavailable.
+- The current matrix includes **22 requirements: 16 with unconditional planned mappings, 1 conditional mapping and 5 with no test case**. These counts describe this requirement breakdown, not complete specification coverage or execution results.
+- Other untested variants, including product variations and additional coupon types, remain outside the three-case baseline. Do not describe this plan as full coverage of every guide detail.
+
+## Sources and scope
+
+- `W11-Integration, System and UI Testing_v3.pdf`, slides 33 and 40: observable system behavior and the Requirement / Test cases format.
+- WooCommerce API Guide, section 3: shop features; sections 4–5: related API operations.
+- [Current manual system test cases](system-test-cases.md).
+
+The requirement matrix is the primary system-testing view. The API mapping below is supporting technical traceability; UI behavior does not prove that a particular endpoint was called.
+
+---
+
+# Appendix — API Behavioral Traceability
 
 ## Scope and status
 
