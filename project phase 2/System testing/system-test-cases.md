@@ -100,7 +100,6 @@ If registration requires verification that the fictional address cannot receive,
 |---|---|---|---|---|---|
 | 0a | Staff opens Products → Categories, creates the run-specific category, then searches the category list. | G05 Category {RUN_ID}; slug g05-category-{RUN_ID} | Exactly the intended new category appears with the correct name/slug. Record its ID; existing categories are unchanged. | | |
 | 1 | Staff creates and publishes the product in the new category. Open the Products list, search its unique name and reopen its details. | Unique name, price 250 THB, stock 10, category created in step 0a | The intended product appears in the staff list, is published, and has the specified price, stock and new category assignment. | | |
-
 | 2 | Staff changes the regular price, saves and reopens the product. | Price 225 THB | Saved price is 225 THB after reopening. | | |
 | 3 | Customer locates the product through the newly created category and through search, then opens its details. | New category and unique product name | Both routes locate the correct product; product details show the current price of 225 THB. | | |
 | 4 | Customer registers a new account through My account, completing the supported setup flow. | Unique username if required, case email, test password | Registration succeeds and the customer can access My account after any required setup/verification. | | |
