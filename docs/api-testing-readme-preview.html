@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="HTML review draft: Thai explanation of the three ITCS386 WooCommerce API testing suites and 15 cases.">
+  <title>API Testing · README Review Draft — ITCS386 Phase 2</title>
+  <style>:root{color-scheme:light;--bg:#e9edf3;--toolbar:#f8fafc;--paper:#fff;--ink:#172435;--muted:#5b6878;--line:#dce3eb;--soft:#f3f6fa;--accent:#1768a6;--accent-soft:#e8f3fc;--green:#146c52;--green-soft:#e9f6ef;--amber:#9a5a00;--amber-soft:#fff5df;--red:#a33d41;--red-soft:#fff0ef;--table-head:#eff4f8;--shadow:0 12px 40px #23384b1a;--gutter:#8b98a8;--selection:#a7d5ff88;--body:Arial,"Noto Sans Thai",sans-serif;--mono:"SFMono-Regular",Consolas,monospace}*{box-sizing:border-box}html{scroll-behavior:auto}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.68 var(--body)}body[data-theme=dark]{color-scheme:dark;--bg:#121923;--toolbar:#1a2430;--paper:#1b2633;--ink:#edf3f8;--muted:#b0bdc9;--line:#384757;--soft:#243241;--accent:#7fc4fb;--accent-soft:#203a50;--green:#7bdbb5;--green-soft:#203a33;--amber:#f3c66f;--amber-soft:#40351f;--red:#ffaaa5;--red-soft:#44282b;--table-head:#253442;--shadow:0 14px 50px #0006;--gutter:#9ba9b8;--selection:#315d8288}a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}a:hover{text-decoration-thickness:2px}button{font:inherit;color:inherit}.toolbar{position:sticky;z-index:20;top:0;display:flex;align-items:center;gap:9px;min-height:56px;padding:8px clamp(12px,3vw,30px);background:var(--toolbar);border-bottom:1px solid var(--line);box-shadow:0 2px 12px #1724350b}.toolbar-brand{font-weight:750;font-size:14px;white-space:nowrap;margin-right:auto;letter-spacing:.02em}.toolbar button{min-width:36px;height:36px;border:1px solid var(--line);background:var(--paper);border-radius:9px;cursor:pointer;font-weight:650}.toolbar button:hover{border-color:var(--accent)}.toolbar button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}.toolbar .theme-button{padding:0 12px;white-space:nowrap}.zoom-readout{min-width:50px;text-align:center;font-variant-numeric:tabular-nums;font-size:13px;color:var(--muted)}.hint{font-size:11px;color:var(--muted);white-space:nowrap;margin-left:8px}.viewer{overflow:auto;height:calc(100vh - 57px);padding:34px 24px 80px;overscroll-behavior:contain;scrollbar-gutter:stable}.stage{position:relative;width:min(100%,900px);margin:0 auto;transform-origin:top left;will-change:transform}.paper-wrap{position:relative;padding-left:54px}.paper{position:relative;width:100%;min-height:100vh;padding:65px clamp(26px,7.4vw,78px) 48px;background:var(--paper);box-shadow:var(--shadow);border:1px solid var(--line);border-radius:3px}.line-gutter{position:absolute;top:0;left:0;width:42px;pointer-events:none;user-select:none;color:var(--gutter);font:10px/1 var(--mono);font-variant-numeric:tabular-nums}.line-label{position:absolute;right:4px;transform:translateY(-50%);height:13px;min-width:24px;text-align:right;white-space:nowrap;padding:1px 3px;border-radius:4px;background:color-mix(in srgb,var(--bg) 82%,transparent);opacity:.7}.line-label::before{content:attr(data-number)}.line-hint{position:fixed;z-index:30;left:12px;bottom:12px;background:var(--ink);color:var(--paper);font:11px var(--mono);padding:6px 9px;border-radius:6px;opacity:0;transition:opacity .12s;pointer-events:none}.line-hint.visible{opacity:.9}.hover-band{position:absolute;left:0;right:0;pointer-events:none;background:color-mix(in srgb,var(--accent) 10%,transparent);border-radius:3px;z-index:0}.paper>*{position:relative;z-index:1}.paper::selection,.paper *::selection{background:var(--selection)}.hero{padding:10px 0 32px;border-bottom:1px solid var(--line)}.eyebrow{font:700 11px/1.45 var(--mono);letter-spacing:.11em;color:var(--accent);margin:0 0 11px;text-transform:uppercase}.hero h1{font-size:clamp(32px,5.4vw,51px);line-height:1.22;letter-spacing:-.025em;margin:0;max-width:760px}.hero h1 span{font-size:.73em;color:var(--muted)}.dek{font-size:19px;line-height:1.65;color:var(--muted);max-width:740px;margin:22px 0 18px}.draft-banner{display:inline-flex;gap:9px;align-items:center;padding:8px 12px;border:1px solid var(--amber);background:var(--amber-soft);border-radius:9px;font-size:13px}.status-dot{width:8px;height:8px;border-radius:50%;background:var(--amber)}.hero-facts{display:flex;gap:0;margin-top:30px}.hero-facts div{display:grid;gap:1px;padding:0 28px;border-left:1px solid var(--line)}.hero-facts div:first-child{padding-left:0;border:0}.hero-facts strong{font-size:20px;line-height:1.4}.hero-facts span{color:var(--muted);font-size:12px}.contents{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:25px 0 8px;padding:16px 0 20px;border-bottom:1px solid var(--line)}.contents>div{padding:0 10px;border-left:1px solid var(--line)}.contents>div:first-child{border:0;padding-left:0}.nav-kicker{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}.contents a{font-size:12px;font-weight:700;line-height:1.5;text-decoration:none}.chapter{padding:42px 0 35px;border-bottom:1px solid var(--line)}.section-heading{display:flex;align-items:flex-start;gap:15px;margin-bottom:19px}.section-no{flex:0 0 auto;display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font:700 12px var(--mono)}.section-heading .eyebrow{margin:1px 0 4px}.section-heading h2{font-size:clamp(24px,3vw,32px);line-height:1.32;letter-spacing:-.018em;margin:0}.chapter p{margin:12px 0}.chapter>p{max-width:780px}.chapter strong{font-weight:750}.chapter h3{font-size:17px;line-height:1.4;margin:7px 0}.concept-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:22px 0}.concept-grid article{background:var(--soft);border:1px solid var(--line);padding:17px;border-radius:12px}.concept-grid p{font-size:13px;color:var(--muted);margin:5px 0 0}.concept-label,.formula-label{font:700 10px var(--mono);letter-spacing:.07em;color:var(--accent);text-transform:uppercase}.formula-panel{display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:22px;padding:20px 22px;border:1px solid var(--line);border-radius:13px;background:var(--soft);margin:20px 0}.formula{font:700 clamp(20px,3vw,29px)/1.4 var(--mono);color:var(--ink);margin-top:7px}.formula-panel p{font-size:13px;color:var(--muted);margin:0}.split-note{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.split-note>div{padding:15px 17px;border-left:3px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0}.split-note strong,.split-note span{display:block}.split-note span{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.65}.callout{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;margin:20px 0;border-radius:11px;border:1px solid var(--line)}.callout p{margin:0;font-size:14px}.callout-icon{flex:0 0 24px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;font-weight:800}.callout.blue{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 30%,var(--line))}.callout.blue .callout-icon{background:var(--accent);color:var(--paper)}.callout.amber{background:var(--amber-soft);border-color:color-mix(in srgb,var(--amber) 35%,var(--line))}.callout.amber .callout-icon{background:var(--amber);color:var(--paper)}.callout.green{background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 32%,var(--line))}.callout.green .callout-icon{background:var(--green);color:var(--paper)}.callout.red{background:var(--red-soft);border-color:color-mix(in srgb,var(--red) 32%,var(--line))}.callout.red .callout-icon{background:var(--red);color:var(--paper)}.table-scroll{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:10px}.table-scroll table{width:100%;border-collapse:collapse;text-align:left;font-size:13px;line-height:1.58}.table-scroll th,.table-scroll td{vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--line)}.table-scroll thead th{background:var(--table-head);font-size:11px;color:var(--muted);font-weight:750}.table-scroll tbody tr:last-child>*{border-bottom:0}.table-scroll tbody th{font-weight:700;white-space:nowrap}.suite-table td:nth-child(3),.suite-table th:nth-child(3){text-align:center}.suite-table tbody td:last-child{font-size:12px}.count-pill{display:inline-grid;place-items:center;min-width:28px;height:26px;padding:0 7px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font:700 12px var(--mono)}.count-pill.total{background:var(--ink);color:var(--paper)}.total-row{background:var(--soft);font-weight:750}.case-table code{display:block;font:700 12px var(--mono);color:var(--accent)}.case-table small{display:block;white-space:normal;color:var(--muted);font-size:10px;margin-top:4px;max-width:145px}.case-table th:first-child{width:150px}.case-table td:nth-child(2){width:34%}.evidence-table tbody th{font:700 12px var(--mono);white-space:nowrap}.contrast{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;margin:21px 0}.contrast-side{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}.contrast-side span,.contrast-side strong,.contrast-side small{display:block}.contrast-side span{font-size:11px;color:var(--muted)}.contrast-side strong{margin:6px 0;font-size:17px}.contrast-side small{font-size:11px;color:var(--muted);line-height:1.5}.contrast-side.draft{border-color:var(--amber)}.contrast-side.absent{border-color:var(--red)}.contrast-vs{text-align:center;font-size:11px;color:var(--muted)}.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:stretch;gap:9px;margin:22px 0}.flow article{position:relative;min-width:0;padding:15px 14px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}.flow-no{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--paper);font:700 12px var(--mono)}.flow article h3{font-size:14px;margin:10px 0 5px}.flow article p{font-size:11px;line-height:1.55;color:var(--muted);margin:0}.flow-arrow{align-self:center;color:var(--accent);font-size:19px}.code-card{border:1px solid var(--line);border-radius:11px;overflow:hidden;margin:20px 0;background:#111c29;color:#e4edf6}.code-title{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 13px;border-bottom:1px solid #304151;font-size:11px;color:#b9c8d6}.safe-label{color:#8ee0bd}.code-card pre{overflow:auto;margin:0;padding:16px 18px;font:13px/1.7 var(--mono)}.limit-list{padding-left:22px}.limit-list li{padding:5px 0 5px 4px}.source-note{color:var(--muted);font-size:12px}.source-note summary{cursor:pointer;color:var(--accent);font-weight:650}.source-pair{display:flex;gap:12px;flex-wrap:wrap;margin-top:23px}.source-pair a{display:inline-flex;padding:9px 13px;border:1px solid var(--line);border-radius:9px;text-decoration:none;font-size:13px;font-weight:700}.source-pair a:hover{background:var(--accent-soft)}.doc-footer{display:flex;justify-content:space-between;gap:16px;padding:20px 0 0;color:var(--muted);font-size:11px}.reading-block{isolation:isolate}.line-label:hover{opacity:1}.viewer.dragging{cursor:grabbing;user-select:none}.viewer.drag-ready{cursor:grab}
+@media(max-width:800px){.contents{grid-template-columns:repeat(2,1fr);row-gap:12px}.contents>div:nth-child(odd){padding-left:0;border-left:0}.flow{grid-template-columns:1fr 1fr}.flow-arrow{display:none}.paper{padding:40px 28px}.paper-wrap{padding-left:44px}.line-gutter{width:36px}.formula-panel{grid-template-columns:1fr;gap:9px}.hint{display:none}}
+@media(max-width:520px){body{font-size:15px}.toolbar{gap:5px;padding-inline:8px}.toolbar-brand{font-size:12px}.toolbar button{min-width:32px;height:32px}.toolbar .theme-button{padding:0 8px;font-size:12px}.zoom-readout{min-width:42px}.viewer{padding:18px 8px 48px}.stage{width:100%}.paper-wrap{padding-left:35px}.line-gutter{width:29px}.line-label{font-size:9px}.paper{padding:30px 17px 32px}.hero h1{font-size:30px}.dek{font-size:16px}.hero-facts div{padding-inline:13px}.hero-facts strong{font-size:16px}.hero-facts span{font-size:10px}.contents{grid-template-columns:1fr 1fr}.contents>div{padding:0 7px}.chapter{padding:31px 0 25px}.section-heading{gap:10px}.section-no{width:35px;height:35px}.concept-grid{grid-template-columns:1fr}.split-note{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.table-scroll{margin-inline:-2px}.table-scroll table{font-size:12px}.table-scroll th,.table-scroll td{padding:9px 8px}.case-table th:first-child{width:110px}.case-table small{max-width:103px;font-size:9px}.contrast{grid-template-columns:1fr}.contrast-vs br{display:none}.doc-footer{flex-direction:column}.code-title{align-items:flex-start;flex-direction:column}}
+@media(max-width:520px){.toolbar{height:88px;min-height:88px;flex-wrap:wrap;align-content:center;row-gap:4px}.toolbar-brand{flex:1 0 100%;margin-right:0}.viewer{height:calc(100vh - 88px)}}
+@media print{body,body[data-theme=dark]{--bg:#fff;--toolbar:#fff;--paper:#fff;--ink:#172435;--muted:#515e6c;--line:#ccd4dd;--soft:#f4f6f8;--accent:#14598b;--accent-soft:#edf5fb;--green:#17654f;--green-soft:#edf8f1;--amber:#8b5200;--amber-soft:#fff7e5;--red:#96383c;--red-soft:#fff2f1;--table-head:#eff3f6;--gutter:transparent;color-scheme:light;background:#fff;color:#172435}.toolbar,.line-gutter,.line-hint{display:none!important}.viewer{height:auto;overflow:visible;padding:0}.stage{width:100%!important;transform:none!important}.paper-wrap{padding:0}.paper{box-shadow:none;border:0;border-radius:0;padding:12mm 15mm;min-height:0}.hover-band{display:none!important}.chapter,.hero,.contents{break-inside:avoid}.table-scroll{overflow:visible}.table-scroll table{font-size:10pt}.source-pair a{color:#14598b}}
+.scale-frame{position:relative;flex:none;margin:0 auto;overflow:visible}
+.stage{position:absolute!important;top:0;left:0;width:var(--logical-width,900px)!important;height:auto!important;margin:0!important;transform-origin:top left}
+.paper-wrap{width:100%;padding-left:54px}
+.paper{min-height:0}
+.line-label{pointer-events:auto;cursor:help}
+@media(max-width:800px){.paper-wrap{padding-left:44px}}
+@media(max-width:520px){.paper-wrap{padding-left:35px}}
+@media print{.scale-frame{position:static!important;width:auto!important;height:auto!important;margin:0!important;overflow:visible}.stage{position:static!important;width:100%!important;height:auto!important;transform:none!important}.paper-wrap{width:100%;padding:0}.paper{width:100%;min-height:0}}
+.paper>.hover-band{position:absolute;z-index:0;pointer-events:none}
+</style>
+</head>
+<body>
+  <div class="toolbar" role="toolbar" aria-label="Reader controls">
+    <span class="toolbar-brand">API TESTING · REVIEW DRAFT</span>
+    <button type="button" data-action="zoom-out" aria-label="Zoom out">−</button>
+    <span class="zoom-readout" aria-live="polite">100%</span>
+    <button type="button" data-action="zoom-in" aria-label="Zoom in">+</button>
+    <button type="button" data-action="zoom-reset" aria-label="Reset zoom">Reset</button>
+    <button type="button" class="theme-button" aria-pressed="false">☾ Dark</button>
+    <span class="hint">⌘ + drag pan · Ctrl + wheel zoom</span>
+  </div>
+  <div class="viewer" tabindex="0" aria-label="Scrollable document. Use Command plus drag to pan, Control plus wheel to zoom.">
+    <div class="scale-frame"><div class="stage"><div class="paper-wrap"><aside class="line-gutter" aria-hidden="true"></aside><main class="paper" id="paper" aria-label="API testing README review draft">
+<header class="hero reading-block" data-reading-block="hero">
+<p class="eyebrow">ITCS386 · PROJECT PHASE 2 · API TESTING</p>
+<h1>ทดสอบ API ร้าน WooCommerce<br>
+<span>จากข้อมูลตั้งต้น ไปถึงผลที่ตรวจได้</span>
+</h1>
+<p class="dek">เอกสารอ่านประกอบฉบับร่างนี้อธิบายว่า API tests ทั้ง 15 กรณีทำอะไร เตรียมข้อมูลอย่างไร และใช้หลักฐานแบบไหนตัดสินว่าผ่าน</p>
+<div class="draft-banner">
+<span class="status-dot">
+</span>
+<span>
+<strong>HTML review draft</strong> — ยังไม่ใช่เอกสารที่อนุมัติ และไม่ได้แทนที่ <a href="../README.md">README.md</a>
+</span>
+</div>
+<div class="hero-facts">
+<div>
+<strong>3</strong>
+<span>operation suites</span>
+</div>
+<div>
+<strong>15</strong>
+<span>distinct API cases</span>
+</div>
+<div>
+<strong>9 Nov 2026</strong>
+<span>วันที่รันจริง · Bangkok</span>
+</div>
+</div>
+</header>
+<nav class="contents reading-block" data-reading-block="contents" aria-label="สารบัญ">
+<div>
+<span class="nav-kicker">อ่านเป็นลำดับ</span>
+<a href="#why">01 · ทำไมต้องทดสอบ</a>
+</div>
+<div>
+<span class="nav-kicker">ออกแบบกรณีทดสอบ</span>
+<a href="#design">02 · ISP และ BCC</a>
+</div>
+<div>
+<span class="nav-kicker">สาม operation</span>
+<a href="#suite-list">03 · S01–S03 / 15 cases</a>
+</div>
+<div>
+<span class="nav-kicker">การเตรียมและเก็บข้อมูล</span>
+<a href="#lifecycle">04 · fixture ถึง cleanup</a>
+</div>
+<div>
+<span class="nav-kicker">ผลที่มีหลักฐาน</span>
+<a href="#evidence">05 · run และข้อจำกัด</a>
+</div>
+</nav>
+<section class="chapter reading-block" id="why" data-reading-block="why">
+<div class="section-heading">
+<span class="section-no">01</span>
+<div>
+<p class="eyebrow">PURPOSE · API ONLY</p>
+<h2>เริ่มจากสิ่งที่ผู้ซื้อและผู้ดูแลร้านต้องทำ</h2>
+</div>
+</div>
+<p>ร้านออนไลน์มีทั้งข้อมูลที่ลูกค้าดูได้ และข้อมูลที่ผู้ดูแลร้านต้องจัดการ การทดสอบชุดนี้ตรวจสามงานที่เกี่ยวกับสินค้า: <strong>ค้นหารายการ</strong>, <strong>เปิดดูสินค้าหนึ่งชิ้น</strong> และ <strong>สร้างสินค้าใหม่</strong> โดยส่งคำขอ HTTP ไปยัง WooCommerce ร้านเรียนที่มีอยู่แล้ว</p>
+<p>โจทย์สำคัญไม่ใช่แค่ “ได้คำตอบกลับมาไหม” แต่คือข้อมูลตั้งต้นตรงกับกรณีที่ต้องการหรือเปล่า แล้วรหัสสถานะและเนื้อหาคำตอบตรงตามที่คาดไว้หรือไม่ เช่น draft มีอยู่จริงแต่ลูกค้าทั่วไปไม่ควรมองเห็น ส่วน ID ที่ไม่มีสินค้าอยู่จริงก็ต้องไม่ถูกเข้าใจผิดว่าเป็น draft</p>
+<div class="callout blue">
+<span class="callout-icon">i</span>
+<p>
+<strong>ขอบเขตของหน้านี้:</strong> อธิบายเฉพาะ API testing 3 suites / 15 distinct cases งาน API นี้ไม่ได้แก้โค้ดเว็บไซต์ ปลั๊กอิน ธีม หรือการตั้งค่าร้าน</p>
+</div>
+<p class="source-note">แหล่งหลัก: <a href="../README.md">README.md</a> · ขอบเขตและเหตุผลของ API: บรรทัด 3–17, 131–147</p>
+</section>
+<section class="chapter reading-block" id="design" data-reading-block="design">
+<div class="section-heading">
+<span class="section-no">02</span>
+<div>
+<p class="eyebrow">TEST DESIGN · INPUT SPACE PARTITIONING</p>
+<h2>แบ่ง “โลกของอินพุต” ก่อนเลือกตัวอย่าง</h2>
+</div>
+</div>
+<p>
+<strong>Input Space Partitioning (ISP)</strong> จัดอินพุตหรือเงื่อนไขตั้งต้นที่คล้ายกันให้อยู่ในกลุ่มเดียวกัน เรียกว่า <em>block</em> แล้วเลือกตัวแทนจากแต่ละกลุ่ม แทนการลองค่าจำนวนมากแบบไม่มีหลัก</p>
+<div class="concept-grid">
+<article>
+<span class="concept-label">Characteristic</span>
+<h3>คุณสมบัติที่แบ่งกลุ่ม</h3>
+<p>เช่น จำนวนสินค้าต่อหน้า หรือสถานะการเผยแพร่</p>
+</article>
+<article>
+<span class="concept-label">Block</span>
+<h3>กลุ่มค่าที่มีความหมายร่วม</h3>
+<p>เช่น per_page ที่ถูกช่วง 1–100 หรือค่าต่ำกว่าขอบเขต</p>
+</article>
+<article>
+<span class="concept-label">Base choice</span>
+<h3>ชุดปกติที่ใช้เทียบ</h3>
+<p>เลือกค่าปกติที่ทำงานร่วมกันได้ แล้วเปลี่ยนทีละ characteristic</p>
+</article>
+</div>
+<div class="formula-panel">
+<div>
+<span class="formula-label">Base Choice Coverage (BCC)</span>
+<div class="formula">1 + Σ (จำนวน blocks ของแต่ละ characteristic − 1)</div>
+</div>
+<p>นับ base case หนึ่งครั้ง แล้วเพิ่มกรณีสำหรับ block ที่ไม่ใช่ base ของแต่ละคุณสมบัติ เมื่อชุดค่าทำงานร่วมกันได้</p>
+</div>
+<div class="split-note">
+<div>
+<strong>BCC cases</strong>
+<span>สร้างจากการเปลี่ยน block ทีละ characteristic</span>
+</div>
+<div>
+<strong>Boundary probes</strong>
+<span>ตรวจค่าขอบเขตเพิ่ม เช่น 1 และ 100; ไม่ได้แปลว่าเป็น block ใหม่</span>
+</div>
+</div>
+<p>โมเดลนี้จำกัดเฉพาะส่วนที่ประกาศไว้ ไม่ได้อ้างว่าครอบคลุมทุก filter ทุกค่าผิดรูปแบบ หรือทุก combination และไม่ได้อ้าง Pair-Wise หรือ All Combinations Coverage</p>
+<details class="source-note">
+<summary>ดูที่มาของนิยาม</summary>
+<p>
+<a href="../README.md">README.md</a> · “How to read the ISP design”, บรรทัด 51–59</p>
+</details>
+</section>
+<section class="chapter reading-block" id="suites" data-reading-block="suite-overview">
+<div class="section-heading">
+<span class="section-no">03</span>
+<div>
+<p class="eyebrow">THREE OPERATIONS · FIFTEEN CASES</p>
+<h2>หนึ่ง suite ต่อหนึ่งงาน API</h2>
+</div>
+</div>
+<p>แต่ละไฟล์ทดสอบเป็นหนึ่ง operation suite; ตาราง parametrize ทำให้แต่ละแถวกลายเป็นกรณีทดสอบแยกกัน</p>
+<div class="table-scroll">
+<table class="suite-table">
+<thead>
+<tr>
+<th>Suite</th>
+<th>งานที่ตรวจ</th>
+<th>จำนวน</th>
+<th>ดู source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>S01</th>
+<td>Store API · ดู/ค้นหารายการสินค้า</td>
+<td>
+<span class="count-pill">7</span>
+</td>
+<td>
+<a href="../API%20testing/test_product_list.py">test_product_list.py</a>
+</td>
+</tr>
+<tr>
+<th>S02</th>
+<td>Store API · ดูสินค้าตาม ID</td>
+<td>
+<span class="count-pill">3</span>
+</td>
+<td>
+<a href="../API%20testing/test_product_detail.py">test_product_detail.py</a>
+</td>
+</tr>
+<tr>
+<th>S03</th>
+<td>Admin API · สร้างสินค้า simple</td>
+<td>
+<span class="count-pill">5</span>
+</td>
+<td>
+<a href="../API%20testing/test_product_create.py">test_product_create.py</a>
+</td>
+</tr>
+<tr class="total-row">
+<th colspan="2">รวมกรณีทดสอบ API</th>
+<td>
+<span class="count-pill total">15</span>
+</td>
+<td>3 suites</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="callout amber">
+<span class="callout-icon">≠</span>
+<p>
+<strong>อย่าสับสนจำนวน:</strong> เป็น 15 กรณีที่แตกต่างกัน ไม่ใช่ 31 กรณี การรันซ้ำทั้งชุดใช้ตรวจความทำซ้ำและความเป็นอิสระจากลำดับ ไม่ได้เพิ่มจำนวนกรณีในแบบทดสอบ</p>
+</div>
+</section>
+<section class="chapter reading-block" id="suite-list" data-reading-block="suite-list">
+<div class="section-heading">
+<span class="section-no">S01</span>
+<div>
+<p class="eyebrow">GET · PRODUCT COLLECTION</p>
+<h2>ค้นหารายการสินค้า — 7 cases</h2>
+</div>
+</div>
+<p>ทดสอบจำนวนรายการที่ขอ (per_page) และความสัมพันธ์ระหว่างคำค้นกับ fixture ที่เตรียมไว้ ทุกกรณีสร้างสินค้าสาธารณะชื่อไม่ซ้ำของตัวเองก่อนเรียก Store API</p>
+<div class="table-scroll">
+<table class="case-table">
+<thead>
+<tr>
+<th>Case ID</th>
+<th>Blocks / ค่าที่ส่ง</th>
+<th>ผลที่คาด</th>
+</tr>
+</thead>
+<tbody>
+<tr id="S01-01">
+<th>
+<code>S01-01</code>
+<small>base-valid-and-match</small>
+</th>
+<td>C1-B2, C2-B2 · per_page=10, ค้นหาชื่อ fixture แบบตรงตัว</td>
+<td>200; พบสินค้า fixture เพียงรายการเดียวและข้อมูล ID/ชื่อ/ราคา THB ถูกต้อง</td>
+</tr>
+<tr id="S01-02">
+<th>
+<code>S01-02</code>
+<small>below-minimum</small>
+</th>
+<td>C1-B1, C2-B2 · per_page=0, คำค้นตรง fixture</td>
+<td>400; rest_invalid_param และแจ้ง field per_page</td>
+</tr>
+<tr id="S01-03">
+<th>
+<code>S01-03</code>
+<small>above-maximum</small>
+</th>
+<td>C1-B3, C2-B2 · per_page=101, คำค้นตรง fixture</td>
+<td>400; ระบุว่า per_page ผิดช่วง</td>
+</tr>
+<tr id="S01-04">
+<th>
+<code>S01-04</code>
+<small>search-omitted</small>
+</th>
+<td>C1-B2, C2-B1 · per_page=10, ไม่ส่ง search</td>
+<td>200; ได้ list ที่ไม่ว่างและฟิลด์มีชนิดถูกต้อง ไม่กำหนดจำนวน catalog ตายตัว</td>
+</tr>
+<tr id="S01-05">
+<th>
+<code>S01-05</code>
+<small>search-no-match</small>
+</th>
+<td>C1-B2, C2-B3 · คำค้น marker ใหม่ที่ไม่ตรงสินค้า</td>
+<td>200; ได้ list ว่าง [] ไม่ใช่ 404</td>
+</tr>
+<tr id="S01-06">
+<th>
+<code>S01-06</code>
+<small>lower-valid-boundary</small>
+</th>
+<td>C1-B2, C2-B2 · per_page=1, คำค้นตรง fixture</td>
+<td>200; พบ fixture ถูกต้องและจำนวนไม่เกิน 1</td>
+</tr>
+<tr id="S01-07">
+<th>
+<code>S01-07</code>
+<small>upper-valid-boundary</small>
+</th>
+<td>C1-B2, C2-B2 · per_page=100, คำค้นตรง fixture</td>
+<td>200; จำนวนไม่เกิน 100 ไม่ได้คาดหวังว่าต้องมีสินค้า 100 รายการ</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="split-note">
+<div>
+<strong>Characteristic C1 · Interface-based · per_page</strong>
+<span>B1: integer ≤0 · B2: 1–100 · B3: integer ≥101<br>Base = B2, ใช้ 10</span>
+</div>
+<div>
+<strong>Characteristic C2 · Functionality-based · query เทียบกับข้อมูล</strong>
+<span>B1: ไม่ส่งคำค้น · B2: ตรง published fixture · B3: ไม่ตรงสินค้า<br>Base = B2</span>
+</div>
+</div>
+<p>
+<strong>นับอย่างไร:</strong> BCC มี 1 + (3−1) + (3−1) = 5 cases; เพิ่ม boundary probes ที่ถูกต้อง per_page=1 และ 100 อีก 2 รวมเป็น 7</p>
+<div class="callout blue">
+<span class="callout-icon">↔</span>
+<p>per_page คือจำนวนสูงสุดที่ร้องขอ ไม่ใช่จำนวนสินค้าใน catalog; จึงไม่ต้องสร้าง fixture 100 รายการ ส่วนราคาที่ Store API ส่งกลับเป็นหน่วยย่อย: “10000” กับ currency_minor_unit=2 หมายถึง 100.00 THB</p>
+</div>
+<p class="source-note">Source: <a href="../API%20testing/test_product_list.py">test_product_list.py</a> · parametrization/request/assertions (lines 11–46); <a href="../README.md">README.md</a> · “S01 — list/search products” (lines 61–82)</p>
+</section>
+<section class="chapter reading-block" id="suite-detail" data-reading-block="suite-detail">
+<div class="section-heading">
+<span class="section-no">S02</span>
+<div>
+<p class="eyebrow">GET · SINGLE PRODUCT</p>
+<h2>เปิดดูสินค้าหนึ่งชิ้น — 3 cases</h2>
+</div>
+</div>
+<p>Store API ต้องแสดงสินค้าที่เผยแพร่แล้ว แต่ต้องไม่เปิดเผย draft หรือสินค้าที่ไม่มีอยู่จริง กรณี draft และ absent คาดว่าจะได้ 404 เหมือนกัน แต่ตั้งข้อมูลคนละแบบเพื่อทดสอบเหตุผลทั้งสองอย่าง</p>
+<p>ขอบเขต: positive integer ID ของ simple product เท่านั้น; ไม่รวม slug, ID ผิดรูปแบบ, ศูนย์/ค่าลบ และ password-protected product</p>
+<div class="split-note"><div><strong>Characteristic C1 · Functionality-based · resource state</strong><span>B1: existing + published · B2: existing + unpublished · B3: absent<br>Base = B1; one characteristic ดังนั้น BCC = 1 + (3−1) = 3 cases</span></div></div>
+<div class="table-scroll">
+<table class="case-table">
+<thead>
+<tr>
+<th>Case ID</th>
+<th>สภาพข้อมูลก่อน request</th>
+<th>ผลที่คาด</th>
+</tr>
+</thead>
+<tbody>
+<tr id="S02-01">
+<th>
+<code>S02-01</code>
+<small>existing-published</small>
+</th>
+<td>สร้าง published product ของกรณีนี้; Admin GET ยืนยัน ID และ status</td>
+<td>Store GET 200; ID/ชื่อ/ราคา ตรงกับ fixture ที่รู้ค่าอยู่แล้ว</td>
+</tr>
+<tr id="S02-02">
+<th>
+<code>S02-02</code>
+<small>existing-draft</small>
+</th>
+<td>สร้าง draft product; Admin GET ยืนยันว่า ID ยังมีอยู่และ status เป็น draft</td>
+<td>Store GET 404 พร้อม error fields; ข้อมูล draft ต้องไม่หลุดสู่สาธารณะ</td>
+</tr>
+<tr id="S02-03">
+<th>
+<code>S02-03</code>
+<small>verified-absent</small>
+</th>
+<td>สร้าง draft ที่เป็นของ test นี้ ลบ ID นั้น แล้ว Admin GET ยืนยัน 404</td>
+<td>Store GET 404 พร้อม error fields; ไม่เดา ID ที่อาจยังมีคนใช้</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="contrast" data-spatial-owner="product-resource-state-contrast">
+<div class="contrast-side draft">
+<span>มีอยู่ แต่ไม่เผยแพร่</span>
+<strong>existing draft</strong>
+<small>Admin GET ก่อน Store GET = 200 / status draft</small>
+</div>
+<div class="contrast-vs">ต่างกันที่<br>precondition</div>
+<div class="contrast-side absent">
+<span>ไม่มี resource อยู่แล้ว</span>
+<strong>verified absent</strong>
+<small>Admin GET ก่อน Store GET = 404</small>
+</div>
+</div>
+<p>ถ้าทดสอบเฉพาะ ID ที่หายไป ก็ตรวจไม่เจอกรณีระบบเผลอเปิด draft จริงให้ลูกค้า การเตรียมข้อมูลและตรวจ Admin ก่อนจึงสำคัญพอ ๆ กับการ assert ผล Store</p>
+<p class="source-note">Source: <a href="../API%20testing/test_product_detail.py">test_product_detail.py</a> · test parameter/precondition/request/assertion (lines 9–31); <a href="../README.md">README.md</a> · “S02 — read one product” (lines 84–94)</p>
+</section>
+<section class="chapter reading-block" id="suite-create" data-reading-block="suite-create">
+<div class="section-heading">
+<span class="section-no">S03</span>
+<div>
+<p class="eyebrow">POST · CREATE SIMPLE PRODUCT</p>
+<h2>สร้างสินค้า — 5 cases</h2>
+</div>
+</div>
+<p>ทุกคำขอสร้างมีข้อมูลรูปแบบถูกต้องและข้อมูลเฉพาะตัว: ชื่อ G05-…, SKU ใหม่, simple product, ราคา 100.00 THB และ run marker ส่วนที่เปลี่ยนเพื่อทดสอบคือ authentication กับสถานะการเผยแพร่</p>
+<div class="split-note">
+<div>
+<strong>Characteristic C1 · Interface-based · credentials</strong>
+<span>B1: บัญชี Group 05 ถูกต้อง · B2: ไม่ส่ง credentials · B3: password ผิด<br>Base = B1</span>
+</div>
+<div>
+<strong>Characteristic C2 · Functionality-based · publication</strong>
+<span>B1: publish/default · B2: unpublished ที่ถูกต้อง · B3: status ที่ไม่รู้จัก<br>Base = B1, publish</span>
+</div>
+</div>
+<p>BCC ให้ 1 + (3−1) + (3−1) = 5 cases. draft ใช้แทนกลุ่ม unpublished ในการทดลองนี้ ไม่ได้หมายความว่า pending และ private ถูกทดสอบด้วย และไม่ได้อ้างว่าได้ทดสอบทุก interaction เช่น wrong password พร้อม invalid status</p>
+<div class="table-scroll">
+<table class="case-table">
+<thead>
+<tr>
+<th>Case ID</th>
+<th>ข้อมูลที่เปลี่ยน</th>
+<th>ผลที่คาดและการตรวจต่อ</th>
+</tr>
+</thead>
+<tbody>
+<tr id="S03-01">
+<th>
+<code>S03-01</code>
+<small>base-valid-published</small>
+</th>
+<td>auth ถูกต้อง + publish</td>
+<td>201; ID/ชื่อ/SKU/type/status/price ถูกต้อง; Admin อ่านกลับ; Store เปิดเห็นสินค้าได้</td>
+</tr>
+<tr id="S03-02">
+<th>
+<code>S03-02</code>
+<small>credentials-absent</small>
+</th>
+<td>ไม่ส่ง auth + publish</td>
+<td>401 + JSON error; exact-SKU lookup ยืนยันว่าไม่มีสินค้าใหม่</td>
+</tr>
+<tr id="S03-03">
+<th>
+<code>S03-03</code>
+<small>credentials-wrong</small>
+</th>
+<td>username เดิม + password ที่ตั้งใจให้ผิด</td>
+<td>401 + JSON error; ยืนยันว่าไม่มีสินค้าใหม่ โดยไม่ผูกกับ error-code เดียว</td>
+</tr>
+<tr id="S03-04">
+<th>
+<code>S03-04</code>
+<small>valid-unpublished</small>
+</th>
+<td>auth ถูกต้อง + draft</td>
+<td>201; Admin อ่านค่าที่บันทึกได้; Store GET 404 เพราะยังไม่เผยแพร่</td>
+</tr>
+<tr id="S03-05">
+<th>
+<code>S03-05</code>
+<small>invalid-publication-status</small>
+</th>
+<td>auth ถูกต้อง + not-a-status</td>
+<td>400; rest_invalid_param ระบุ field status; ไม่มีสินค้าใหม่</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="source-note">Source: <a href="../API%20testing/test_product_create.py">test_product_create.py</a> · test parameters/assertions (lines 11–47); <a href="../README.md">README.md</a> · “S03 — create a product” (lines 96–115); payload/factory: <a href="../API%20testing/shop_support.py">shop_support.py</a> (lines 119–164)</p>
+</section>
+<section class="chapter reading-block" id="lifecycle" data-reading-block="lifecycle">
+<div class="section-heading">
+<span class="section-no">04</span>
+<div>
+<p class="eyebrow">INDEPENDENT FIXTURES · SAFE OWNERSHIP</p>
+<h2>หนึ่งกรณี: เตรียม → เรียก → ตรวจ → เก็บกวาด</h2>
+</div>
+</div>
+<p>pytest ให้แต่ละกรณีมี HTTP client และ product factory ของตัวเอง จึงไม่ต้องพึ่งว่า suite ก่อนหน้ารันอะไรไปแล้ว Public Store API ไม่ได้รับ credentials ของกลุ่ม; Admin API ใช้ Shop API credentials เฉพาะเมื่อจำเป็น</p>
+<div class="flow" aria-label="วงจรชีวิตของหนึ่ง test case">
+<article>
+<span class="flow-no">1</span>
+<h3>เตรียม state</h3>
+<p>factory สร้างชื่อ/SKU/run marker ที่ไม่ซ้ำ แล้วสร้างหรือจัดสภาพสินค้า เช่น publish, draft หรือ absent</p>
+</article>
+<div class="flow-arrow">→</div>
+<article>
+<span class="flow-no">2</span>
+<h3>ส่ง request</h3>
+<p>เรียก Store route แบบ public หรือ Admin route ตาม operation พร้อม query/payload ที่ต้องการทดสอบ</p>
+</article>
+<div class="flow-arrow">→</div>
+<article>
+<span class="flow-no">3</span>
+<h3>assert ผล</h3>
+<p>ตรวจ status code, error fields หรือข้อมูลสินค้าและการมองเห็นจากมุม Admin/Store</p>
+</article>
+<div class="flow-arrow">→</div>
+<article>
+<span class="flow-no">4</span>
+<h3>cleanup ของตัวเอง</h3>
+<p>pytest teardown ตรวจ ID + ชื่อ + run marker ซ้ำก่อนลบ และ Admin GET ยืนยัน 404</p>
+</article>
+</div>
+<div class="callout green">
+<span class="callout-icon">✓</span>
+<p>
+<strong>กันการลบผิดเจ้าของ:</strong> ลบได้เฉพาะ product ที่ตรงกับ exact ID, ชื่อ G05-&lt;run&gt;-… และ marker itcs386_test_run ของ run นี้เท่านั้น สินค้า demo และสินค้ากลุ่มอื่นไม่ใช่ cleanup target</p>
+</div>
+<div class="callout red">
+<span class="callout-icon">!</span>
+<p>
+<strong>POST ไม่รู้ผลแน่ชัด ≠ ไม่มีสินค้า:</strong> ถ้าคำตอบขาดหายหลังส่ง POST, lookup ด้วย exact SKU ที่ว่างครั้งเดียวไม่ใช่หลักฐานว่าไม่มีการสร้าง ระบบเก็บสถานะเป็น uncertain, ไม่ retry POST แบบสุ่ม และไม่สรุปว่า cleanup สำเร็จ</p>
+</div>
+<p>ราคาก็มีรูปแบบต่างกันตาม API: ตอนสร้างส่ง 100.00; Store response ใช้ minor units เป็น 10000 และระบุ currency_minor_unit=2 ดังนั้นต้องอ่านค่าพร้อมหน่วย ไม่เทียบตัวเลขดิบข้ามรูปแบบ</p>
+<p class="source-note">Source: <a href="../API%20testing/conftest.py">conftest.py</a> · rows 12–47; <a href="../API%20testing/shop_support.py">shop_support.py</a> · rows 50–116, 119–216; offline regression <a href="../verification/test_api_support.py">test_api_support.py</a> · rows 1–65</p>
+</section>
+<section class="chapter reading-block" id="run" data-reading-block="run">
+<div class="section-heading">
+<span class="section-no">RUN</span>
+<div>
+<p class="eyebrow">CONFIGURATION · PREFLIGHT · PYTEST</p>
+<h2>ก่อนรัน: ตรวจบัญชีและเชื่อมต่อให้พร้อม</h2>
+</div>
+</div>
+<p>runner เริ่มด้วยการสร้าง run ID และใช้ pytest เรียกทั้งสามไฟล์ตามลำดับปกติ จากนั้น shop_config ตรวจว่ามี SHOP_USER และ SHOP_API_PASSWORD, username เป็นบัญชีที่กำหนด และ run ID รูปแบบถูกต้อง ก่อนทำ Admin read preflight ถ้า preflight ไม่ผ่านจะ fail ก่อนสร้างสินค้า</p>
+<p><strong>เครื่องมือแต่ละตัวทำอะไร:</strong> Python คือภาษาเขียน test; pytest ใช้ค้นหาและรันกรณีทดสอบพร้อมตรวจ assertions; requests เป็นไลบรารีที่ส่ง HTTP requests ไปยัง Store/Admin API เวอร์ชันที่ pin สำหรับ dependencies คือ pytest 9.2.0 และ requests 2.34.2 ตาม <a href="../requirements.txt">requirements.txt</a></p>
+<details class="source-note">
+<summary>ตั้งค่าครั้งแรก: สร้าง environment และติดตั้ง dependencies</summary>
+<p>ทำจากโฟลเดอร์ project phase 2 ก่อนรัน test:</p>
+<div class="code-card">
+<pre>
+<code>python3 -m venv .venv<br>source .venv/bin/activate<br>python -m pip install -r requirements.txt</code>
+</pre>
+</div>
+<p>คำสั่งนี้ติดตั้ง Python dependencies ลงใน virtual environment ของโครงการ ไม่ได้แก้ Python หรือ environment ของระบบ</p>
+</details>
+<div class="code-card">
+<div class="code-title">
+<span>macOS zsh · จากโฟลเดอร์ project phase 2</span>
+<span class="safe-label">ไม่บันทึกรหัสผ่านใน history</span>
+</div>
+<pre>
+<code>source .venv/bin/activate<br>export SHOP_USER="itcs386-g05"<br>read -s "SHOP_API_PASSWORD?Shop API password (hidden input): "<br>export SHOP_API_PASSWORD<br>python run_api_tests.py</code>
+</pre>
+</div>
+<p>ใช้ Shop API password ไม่ใช่รหัสเข้าเว็บไซต์; รับรหัสผ่านผ่าน hidden prompt และเก็บเป็น environment variable ชั่วคราวเท่านั้น อย่าใส่ credentials ลง source, screenshot หรือ Git ค่า SHOP_BASE_URL เป็น optional; runner ใช้ค่า default ที่โครงการระบุหากไม่กำหนด</p>
+<div class="callout amber">
+<span class="callout-icon">!</span>
+<p>นี่คือ classroom server ผ่าน HTTP ตามคู่มือและการตั้งค่าที่มี ไม่ใช่คำแนะนำด้านความปลอดภัยสำหรับ production</p>
+</div>
+<p class="source-note">ขั้นตอน runner: <a href="../README.md">README.md</a> · rows 19–49; suite order: <a href="../run_api_tests.py">run_api_tests.py</a> · rows 17–29; preflight: <a href="../API%20testing/conftest.py">conftest.py</a> · rows 12–47</p>
+</section>
+<section class="chapter reading-block" id="evidence" data-reading-block="evidence">
+<div class="section-heading">
+<span class="section-no">05</span>
+<div>
+<p class="eyebrow">DATED EVIDENCE · LIMITS</p>
+<h2>ผลที่มีหลักฐาน และสิ่งที่ผลนี้ยังบอกไม่ได้</h2>
+</div>
+</div>
+<p>README บันทึกการรันจริงกับ WooCommerce ร้านเรียนวันที่ <strong>9 พฤศจิกายน 2026 (Asia/Bangkok)</strong> มี full run สองครั้งและการรัน draft case แยกหนึ่งครั้ง ทั้งสอง full runs ผ่านครบ และสลับลำดับ suite ในรอบที่สอง</p>
+<div class="table-scroll">
+<table class="evidence-table">
+<thead>
+<tr>
+<th>เวลาไทย</th>
+<th>ลำดับ / ขอบเขต</th>
+<th>ผลที่บันทึก</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>00:35:22</th>
+<td>S01 → S02 → S03</td>
+<td>15 passed · 0 failures/errors/skips · 8.96 s<br><a href="../API%20testing/results/20261108T173522Z-fbc1f0d3/console.txt">console</a> · <a href="../API%20testing/results/20261108T173522Z-fbc1f0d3/junit.xml">JUnit XML</a> · <a href="../API%20testing/results/20261108T173522Z-fbc1f0d3/run.json">run metadata</a></td>
+</tr>
+<tr>
+<th>00:36:05</th>
+<td>S02-02 draft case เดี่ยว</td>
+<td>1 passed · 1.16 s<br><a href="../API%20testing/results/20261108T173605Z-0a164b81/console.txt">console</a> · <a href="../API%20testing/results/20261108T173605Z-0a164b81/junit.xml">JUnit XML</a> · <a href="../API%20testing/results/20261108T173605Z-0a164b81/run.json">run metadata</a></td>
+</tr>
+<tr>
+<th>00:36:06</th>
+<td>S03 → S02 → S01 · reverse order</td>
+<td>15 passed · 0 failures/errors/skips · 8.80 s<br><a href="../API%20testing/results/20261108T173606Z-0e33c528/console.txt">console</a> · <a href="../API%20testing/results/20261108T173606Z-0e33c528/junit.xml">JUnit XML</a> · <a href="../API%20testing/results/20261108T173606Z-0e33c528/run.json">run metadata</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="source-note">ผลถอดจาก README; ไม่มีการรันหรือยืนยันใหม่ใน draft นี้: <a href="../README.md">README.md</a> · “Execution results and limitations” และ “Data isolation and safe cleanup”; pointer ใน snapshot นี้: <a href="../API%20testing/results/latest-run.json">latest-run.json</a> และ <a href="../API%20testing/results/20261108T173606Z-0e33c528/run.json">dated run metadata</a>
+</p>
+<div class="callout green"><span class="callout-icon">✓</span><p>Audit dated 9 Nov reports <strong>25 disposable products created and 25 deleted</strong> across those runs; separate exact-run-marker queries found <strong>0 remaining products</strong>. These are the saved audit findings, not a new cleanup check performed by this draft. <a href="../API%20testing/results/20261108T173606Z-0e33c528/verification-audit.json">Open verification audit JSON</a>.</p></div>
+<div class="callout blue">
+<span class="callout-icon">⌁</span>
+<p>
+<strong>latest-run.json เป็น pointer ไม่ใช่สถานะ live:</strong> snapshot นี้ชี้ไป full run เวลา 00:36:06 ซึ่งลำดับคือ create → detail → list; runner เริ่มต้นตามลำดับ list → detail → create การรันเดี่ยว 00:36:05 อยู่ก่อนเวลาของ pointer นี้</p>
+</div>
+<ul class="limit-list">
+<li>7 offline checks ใน verification/ ตรวจความปลอดภัยและ recovery ของ harness ไม่ใช่กรณี API เพิ่มจาก 15</li>
+<li>ผลที่ผ่านรองรับเฉพาะ input model, routes และวันที่บันทึกไว้ ไม่ได้พิสูจน์ทุก input, ทุก feature หรือทุกลำดับที่เป็นไปได้</li>
+<li>ผล API ไม่ได้พิสูจน์ว่า UI ถูกต้อง ไม่ใช่การทดสอบ system scenarios หรือ performance และไม่ได้ยืนยันว่าไม่มี bug ทั้งหมด</li>
+<li>หลักฐานเป็นผลผ่าน HTTP/API; ไม่ได้ตรวจ state ภายในฐานข้อมูลโดยตรง</li>
+</ul>
+<p class="source-note"><strong>ถ้าการรันครั้งถัดไปล้มเหลว:</strong> เก็บ dated output ไว้ แล้วแยกว่าปัญหาอยู่ที่ SUT หรือ test/configuration โดยบันทึก request, expected result และ actual result ตาม <a href="../README.md">README.md</a> · “Execution results and limitations”. อย่าขยาย assertion ให้รับ 4xx ใดก็ได้หรือซ่อนกรณีที่ล้มเหลว</p>
+<div class="source-pair">
+<a href="../README.md">เปิด README source</a>
+<a href="api-testing-map.html">ไปยัง API testing map</a>
+</div>
+</section>
+<footer class="doc-footer reading-block" data-reading-block="footer">
+<span>เอกสาร HTML สำหรับ review · เนื้อหาอิง README และ source ที่ระบุ</span>
+<span>Draft only · ไม่เปลี่ยนหรืออนุมัติ README.md</span>
+</footer>
+</main>
+</div></div></div>
+  </div>
+  <div class="line-hint" aria-hidden="true"></div>
+  <script>/* Geometry only: no content edits, DOM wrapping, or browser state. */
+(function(root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.ScratchLineGeometry = api;
+})(typeof globalThis === 'object' ? globalThis : this, function() {
+  'use strict';
+  function nonWhitespaceRanges(text) {
+    return Array.from(text.matchAll(/\S+/gu), m => [m.index, m.index + m[0].length]);
+  }
+  function localFragment(rect, originTop, scale, source) {
+    return {t:(rect.top-originTop)/scale, b:(rect.bottom-originTop)/scale, source};
+  }
+  function groupFragments(fragments) {
+    const sorted = fragments.filter(r => Number.isFinite(r.t) && Number.isFinite(r.b) && r.b-r.t > .1)
+      .map(r => ({...r, source:r.source || r.id || '', h:r.b-r.t, c:(r.t+r.b)/2}))
+      .sort((a,b) => a.t-b.t || b.h-a.h || a.source.localeCompare(b.source));
+    const rows = [];
+    for (const r of sorted) {
+      let best = null, bestScore = -Infinity;
+      for (let i=rows.length-1;i>=0;i--) {
+        const row = rows[i];
+        if (row.source !== r.source) continue;
+        const overlap = Math.min(row.coreB,r.b)-Math.max(row.coreT,r.t);
+        const ratio = overlap/Math.min(row.coreB-row.coreT,r.h);
+        if (overlap <= .1 || ratio < .5) continue;
+        const score = ratio-Math.abs((row.coreT+row.coreB)/2-r.c)*.001;
+        if (score > bestScore) { best=row; bestScore=score; }
+      }
+      if (!best) rows.push({t:r.t,b:r.b,coreT:r.t,coreB:r.b,source:r.source});
+      else { best.t=Math.min(best.t,r.t); best.b=Math.max(best.b,r.b); best.coreT=Math.max(best.coreT,r.t); best.coreB=Math.min(best.coreB,r.b); }
+    }
+    return rows.sort((a,b)=>(a.t+a.b)-(b.t+b.b) || a.source.localeCompare(b.source))
+      .map(({t,b,source})=>({t,b,c:(t+b)/2,h:b-t,source}));
+  }
+  return Object.freeze({groupFragments, nonWhitespaceRanges, localFragment});
+});
+</script>
+  <script>(function(){
+  'use strict';
+  const docKey='itcs386-phase2-api-readme-scratch-v1';
+  const viewer=document.querySelector('.viewer'),frame=document.querySelector('.scale-frame'),stage=document.querySelector('.stage'),paper=document.querySelector('#paper');
+  const gutter=document.querySelector('.line-gutter'),hint=document.querySelector('.line-hint');
+  const zoomOut=document.querySelector('[data-action="zoom-out"]'),zoomIn=document.querySelector('[data-action="zoom-in"]'),zoomReset=document.querySelector('[data-action="zoom-reset"]'),zoomText=document.querySelector('.zoom-readout'),themeButton=document.querySelector('.theme-button');
+  let saved={};try{saved=JSON.parse(localStorage.getItem(docKey)||'{}')||{};}catch(_){saved={};}
+  let zoom=Number(saved.zoom)||100,theme=saved.theme==='dark'?'dark':'light',lineRows=[],resizeTimer=0,quietTimer=0,wheelActive=false,wheelDirection=0,hideHintTimer=0,logicalWidth=900;
+  function persist(){try{localStorage.setItem(docKey,JSON.stringify({...saved,zoom,theme}));}catch(_){} }
+  document.body.dataset.theme=theme;
+  function updateThemeLabel(){themeButton.textContent=theme==='dark'?'☼ Light':'☾ Dark';themeButton.setAttribute('aria-pressed',String(theme==='dark'));themeButton.setAttribute('aria-label','Switch to '+(theme==='dark'?'light':'dark')+' reader theme');}
+  function syncFrame(){const scale=zoom/100;stage.style.transform='scale('+scale+')';frame.style.width=(logicalWidth*scale)+'px';frame.style.height=(paper.scrollHeight*scale)+'px';}
+  function updateLogicalWidth(){const cs=getComputedStyle(viewer),available=viewer.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);logicalWidth=Math.max(280,Math.min(954,available));stage.style.setProperty('--logical-width',logicalWidth+'px');syncFrame();}
+  function setZoom(next,keepPosition=true){
+    const anchor=keepPosition?firstVisibleAnchor():null;
+    zoom=Math.max(60,Math.min(180,Math.round(next/10)*10));syncFrame();
+    zoomText.textContent=zoom+'%';zoomText.setAttribute('aria-label','Zoom '+zoom+' percent');persist();
+    if(anchor){requestAnimationFrame(()=>{viewer.scrollTop+=anchor.el.getBoundingClientRect().top-anchor.top;});}
+  }
+  function firstVisibleAnchor(){const nodes=paper.querySelectorAll('h1,h2,h3,p,table,pre');for(const el of nodes){const r=el.getBoundingClientRect();if(r.bottom>viewer.getBoundingClientRect().top+15)return{el,top:r.top};}return null;}
+  function applyTheme(next){resetWheelGesture();theme=next;document.body.dataset.theme=theme;updateThemeLabel();persist();}
+  themeButton.addEventListener('click',()=>applyTheme(theme==='dark'?'light':'dark'));
+  function resetWheelGesture(){clearTimeout(quietTimer);quietTimer=0;wheelActive=false;wheelDirection=0;}
+  function manualZoom(next){resetWheelGesture();setZoom(next);}
+  zoomIn.addEventListener('click',()=>manualZoom(zoom+10));zoomOut.addEventListener('click',()=>manualZoom(zoom-10));zoomReset.addEventListener('click',()=>manualZoom(100));
+  updateLogicalWidth();setZoom(zoom,false);updateThemeLabel();
+  document.addEventListener('wheel',e=>{
+    if(!e.ctrlKey||e.deltaY===0){if(!e.ctrlKey)resetWheelGesture();return;}
+    if(e.cancelable)e.preventDefault();
+    const direction=Math.sign(e.deltaY);
+    if(!wheelActive){wheelActive=true;wheelDirection=direction;setZoom(zoom-(direction*10));}
+    else if(direction!==wheelDirection){wheelDirection=direction;setZoom(zoom-(direction*10));}
+    clearTimeout(quietTimer);quietTimer=setTimeout(resetWheelGesture,160);
+  },{passive:false,capture:true});
+  document.addEventListener('keyup',e=>{if(e.key==='Control')resetWheelGesture();});
+  window.addEventListener('blur',resetWheelGesture);
+
+  function visible(node){for(let el=node.parentElement;el&&el!==paper;el=el.parentElement){if(el.hidden||el.getAttribute('aria-hidden')==='true')return false;if(el.tagName==='DETAILS'&&!el.open&&node.parentElement!==el.querySelector('summary')&&!el.querySelector('summary')?.contains(node))return false;const s=getComputedStyle(el);if(s.display==='none'||s.visibility==='hidden')return false;}return true;}
+  function ownerFor(node){const el=node.parentElement,spatial=el.closest('[data-spatial-owner]'),block=el.closest('[data-reading-block]');if(spatial)return'spatial:'+spatial.dataset.spatialOwner;const heading=el.closest('.section-heading');if(heading){if(!heading.dataset.spatialOwner){const section=heading.closest('section');heading.dataset.spatialOwner='section-heading-'+(section?.id||'unnamed');}return'spatial:'+heading.dataset.spatialOwner;}const row=el.closest('tr');if(row){if(!row.dataset.spatialOwner){const rowIndex=Array.from(row.parentElement.children).indexOf(row);row.dataset.spatialOwner=(block?.dataset.readingBlock||'paper')+'-table-row-'+rowIndex;}return'spatial:'+row.dataset.spatialOwner;}return block?.dataset.readingBlock||'paper';}
+  function groupSpatialFragments(fragments){
+    const owners=new Map();
+    for(const fragment of fragments){if(!Number.isFinite(fragment.t)||!Number.isFinite(fragment.b)||fragment.b-fragment.t<=.1)continue;const source=fragment.source||'spatial';if(!owners.has(source))owners.set(source,[]);owners.get(source).push(fragment);}
+    const grouped=[];
+    for(const [source,owned] of owners){
+      const rows=[];
+      const sorted=owned.sort((a,b)=>a.t-b.t||a.b-b.b);
+      for(const r of sorted){
+        const band={t:r.t,b:r.b};let merged=true;
+        while(merged){merged=false;for(let i=rows.length-1;i>=0;i--){const row=rows[i];if(Math.min(row.b,band.b)-Math.max(row.t,band.t)>.1){band.t=Math.min(band.t,row.t);band.b=Math.max(band.b,row.b);rows.splice(i,1);merged=true;}}}
+        rows.push(band);
+      }
+      grouped.push(...rows.map(row=>({...row,c:(row.t+row.b)/2,h:row.b-row.t,source})));
+    }
+    return grouped;
+  }
+  function rebuildLines(){
+    if(!paper.isConnected)return;
+    gutter.replaceChildren();paper.querySelector('.hover-band')?.remove();
+    const band=document.createElement('div');band.className='hover-band';band.hidden=true;paper.prepend(band);
+    const ptop=paper.getBoundingClientRect().top,scale=zoom/100,walker=document.createTreeWalker(paper,NodeFilter.SHOW_TEXT);let node,fragments=[],spatialFragments=[];
+    while((node=walker.nextNode())){
+      if(!node.nodeValue||!node.nodeValue.trim()||!visible(node)||node.parentElement.closest('script,style,.line-gutter,.line-hint,.toolbar'))continue;
+      const ranges=ScratchLineGeometry.nonWhitespaceRanges(node.nodeValue),source=ownerFor(node);
+      for(const [start,end] of ranges){const range=document.createRange();range.setStart(node,start);range.setEnd(node,end);for(const rect of range.getClientRects()){if(rect.width<.1||rect.height<.1)continue;const fragment=ScratchLineGeometry.localFragment(rect,ptop,scale,source);(source.startsWith('spatial:')?spatialFragments:fragments).push(fragment);}}
+    }
+    lineRows=[...ScratchLineGeometry.groupFragments(fragments),...groupSpatialFragments(spatialFragments)].sort((a,b)=>a.c-b.c||a.source.localeCompare(b.source));const frag=document.createDocumentFragment();
+    lineRows.forEach((row,i)=>{const label=document.createElement('span');label.className='line-label';label.dataset.number=String(i+1);label.dataset.index=String(i);label.style.top=row.c+'px';label.title='Rendered line '+(i+1);frag.append(label);});gutter.append(frag);
+    gutter.style.height=paper.scrollHeight+'px';gutter.setAttribute('aria-hidden','true');
+    gutter.querySelectorAll('.line-label').forEach(label=>{label.addEventListener('pointerenter',()=>showLine(Number(label.dataset.index),label));label.addEventListener('pointerleave',clearLine);});
+  }
+  function showLine(index,label){const row=lineRows[index];if(!row)return;const band=paper.querySelector('.hover-band');band.hidden=false;band.style.top=row.t+'px';band.style.height=Math.max(row.h,13)+'px';hint.textContent='Rendered line '+(index+1);hint.classList.add('visible');clearTimeout(hideHintTimer);}
+  function clearLine(){const band=paper.querySelector('.hover-band');if(band)band.hidden=true;hideHintTimer=setTimeout(()=>hint.classList.remove('visible'),120);}
+  function scheduleLines(){clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{updateLogicalWidth();syncFrame();rebuildLines();},90);}
+  if('ResizeObserver'in window){new ResizeObserver(scheduleLines).observe(paper);}else window.addEventListener('resize',scheduleLines);
+  document.fonts?.ready.then(scheduleLines);paper.addEventListener('toggle',scheduleLines,true);window.addEventListener('resize',scheduleLines);viewer.addEventListener('scroll',clearLine,{passive:true});document.addEventListener('selectionchange',clearLine);
+  rebuildLines();
+
+  let pan=null;
+  viewer.addEventListener('pointerdown',e=>{if(!e.metaKey||e.ctrlKey||e.button!==0||e.target.closest('a,button,input,textarea,select,summary,[contenteditable="true"]'))return;pan={x:e.clientX,y:e.clientY,left:viewer.scrollLeft,top:viewer.scrollTop,moved:false,captured:false,id:e.pointerId};viewer.classList.add('drag-ready');});
+  viewer.addEventListener('pointermove',e=>{if(!pan||e.pointerId!==pan.id)return;const dx=e.clientX-pan.x,dy=e.clientY-pan.y;if(!pan.moved&&Math.hypot(dx,dy)<5)return;if(!pan.captured){pan.moved=true;pan.captured=true;try{viewer.setPointerCapture(e.pointerId);}catch(_){} }e.preventDefault();viewer.classList.remove('drag-ready');viewer.classList.add('dragging');viewer.scrollLeft=pan.left-dx;viewer.scrollTop=pan.top-dy;});
+  function endPan(e){if(!pan)return;const active=pan;pan=null;viewer.classList.remove('dragging','drag-ready');if(active.captured&&viewer.hasPointerCapture?.(active.id)){try{viewer.releasePointerCapture(active.id);}catch(_){}}}
+  viewer.addEventListener('pointerup',endPan);viewer.addEventListener('pointercancel',endPan);viewer.addEventListener('lostpointercapture',endPan);window.addEventListener('blur',endPan);
+  viewer.addEventListener('click',e=>{if(e.target.closest('a[href^="#"]')){const id=decodeURIComponent(e.target.closest('a').getAttribute('href').slice(1));setTimeout(()=>history.replaceState(null,'','#'+encodeURIComponent(id)),0);}});
+
+  const restore=()=>{if(location.hash){const id=decodeURIComponent(location.hash.slice(1));document.getElementById(id)?.scrollIntoView({block:'start'});return;}const id=saved.anchor;if(id){const el=document.getElementById(id);if(el){const desired=viewer.getBoundingClientRect().top+(Number(saved.offset)||0);viewer.scrollTop+=el.getBoundingClientRect().top-desired;}else if(Number.isFinite(saved.scrollTop))viewer.scrollTop=saved.scrollTop;}else if(Number.isFinite(saved.scrollTop))viewer.scrollTop=saved.scrollTop;};
+  requestAnimationFrame(()=>requestAnimationFrame(restore));
+  let saveTimer=0;viewer.addEventListener('scroll',()=>{clearTimeout(saveTimer);saveTimer=setTimeout(()=>{const top=viewer.getBoundingClientRect().top+30;const blocks=[...paper.querySelectorAll('.reading-block')];const active=blocks.findLast?blocks.findLast(el=>el.getBoundingClientRect().top<=top):blocks.slice().reverse().find(el=>el.getBoundingClientRect().top<=top);saved.anchor=active?.id||'';saved.offset=active?active.getBoundingClientRect().top-viewer.getBoundingClientRect().top:viewer.scrollTop;saved.scrollTop=viewer.scrollTop;persist();},170);},{passive:true});
+  window.addEventListener('hashchange',()=>{const el=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(el)el.scrollIntoView({block:'start'});});
+  window.addEventListener('beforeprint',()=>clearLine());
+})();
+</script>
+</body>
+</html>

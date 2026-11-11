@@ -1,0 +1,54 @@
+{
+  "checked_utc": "2026-11-08T17:37:41.843000+00:00",
+  "runs": [
+    {
+      "directory": "API testing/results/20261108T173522Z-fbc1f0d3",
+      "started_bangkok": "2026-11-09T00:35:22.440530+07:00",
+      "counts": {
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "created": 12,
+      "deleted": 12,
+      "remaining_run_matches": 0,
+      "source_hashes_match": true
+    },
+    {
+      "directory": "API testing/results/20261108T173605Z-0a164b81",
+      "started_bangkok": "2026-11-09T00:36:05.641139+07:00",
+      "counts": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "created": 1,
+      "deleted": 1,
+      "remaining_run_matches": 0,
+      "source_hashes_match": true
+    },
+    {
+      "directory": "API testing/results/20261108T173606Z-0e33c528",
+      "started_bangkok": "2026-11-09T00:36:06.998646+07:00",
+      "counts": {
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "created": 12,
+      "deleted": 12,
+      "remaining_run_matches": 0,
+      "source_hashes_match": true
+    }
+  ],
+  "temporary_products_created": 25,
+  "temporary_products_deleted": 25,
+  "remaining_run_matches": 0,
+  "source_documents_unchanged": 6,
+  "credential_matches_in_project": 0,
+  "files_scanned": 25,
+  "scope": "Only exact current-run G05 markers; read-only audit; no other groups data changed"
+}

@@ -1,0 +1,354 @@
+{
+  "suites": {
+    "S01": {
+      "code": "BCC",
+      "name": "Base Choice Coverage (BCC) + boundary probes",
+      "meaning": "เริ่มจาก request ปกติหนึ่งชุด แล้วเปลี่ยน characteristic ทีละตัว โดยคงอีกตัวไว้ที่ base เพื่อแยกดูผลของแต่ละเงื่อนไข",
+      "baseCase": "S01-01",
+      "base": "per_page=10 + search ตรงชื่อ published product ที่เราเตรียมไว้",
+      "baseChoices": {
+        "C1": {
+          "block": "B2",
+          "value": "per_page=10",
+          "reason": "10 อยู่ใน valid range 1–100 และตรง default ที่ตรวจไว้ จึงใช้เป็นค่าปกติที่ไม่อยู่ตรง boundary"
+        },
+        "C2": {
+          "block": "B2",
+          "value": "search=ชื่อ unique ของ published fixture",
+          "reason": "เรารู้ก่อนส่งว่าควรเจอสินค้า 1 รายการ จึงตรวจได้ทั้งการค้นหาและความถูกต้องของ ID/name/ราคา"
+        }
+      },
+      "fixedSetup": "ใช้ simple product ราคา 100.00 THB และสร้างชื่อใหม่แยกทุก case; ค่าคงที่เหล่านี้ไม่ใช่ characteristics ที่กำลัง vary ใน S01",
+      "selection": [
+        "S01-01 เป็น base case: ทั้งจำนวนที่ขอและคำค้นเป็นกรณีปกติ",
+        "S01-02–03 เปลี่ยนเฉพาะ C1 เป็น 0 และ 101 โดยยังใช้คำค้นที่ match",
+        "S01-04–05 เปลี่ยนเฉพาะ C2 เป็นไม่ส่งคำค้นและ no match โดยคง per_page=10",
+        "S01-06–07 เพิ่ม boundary probes ที่ 1 และ 100 ซึ่งยังอยู่ใน C1-B2 เดิม ไม่ได้เพิ่ม block ใหม่"
+      ],
+      "count": "BCC: 1 + (3−1) + (3−1) = 5; เพิ่ม boundary probes 2 = 7 cases",
+      "bccCases": 5,
+      "boundaryProbes": 2,
+      "characteristics": [
+        {
+          "id": "C1",
+          "name": "per_page range",
+          "type": "Interface-based",
+          "baseBlock": "B2",
+          "blocks": [
+            {
+              "id": "B1",
+              "label": "จำนวนเต็ม ≤0",
+              "representative": "0"
+            },
+            {
+              "id": "B2",
+              "label": "จำนวนเต็ม 1–100",
+              "representative": "base 10; boundary probes 1 และ 100"
+            },
+            {
+              "id": "B3",
+              "label": "จำนวนเต็ม ≥101",
+              "representative": "101"
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "search เทียบกับข้อมูลที่เตรียม",
+          "type": "Functionality-based",
+          "baseBlock": "B2",
+          "blocks": [
+            {
+              "id": "B1",
+              "label": "ไม่ส่ง search",
+              "representative": "ละ parameter นี้"
+            },
+            {
+              "id": "B2",
+              "label": "คำค้น match สินค้าที่ publish",
+              "representative": "ชื่อ unique ของ fixture"
+            },
+            {
+              "id": "B3",
+              "label": "คำค้นไม่ match สินค้า",
+              "representative": "nomatch + unique marker"
+            }
+          ]
+        }
+      ],
+      "scope": "ตรวจเฉพาะ per_page ที่เป็นจำนวนเต็มและ search ตาม model นี้ ไม่ได้ทดสอบทุก filter หรือทุก combination; per_page=100 ไม่ได้หมายความว่าต้องมีสินค้า 100 ชิ้น",
+      "readmeSection": [
+        "### S01 — list/search products",
+        "### S02 — read one product"
+      ]
+    },
+    "S02": {
+      "code": "BCC",
+      "name": "Base Choice Coverage (BCC)",
+      "meaning": "Suite นี้มี 2 characteristics: C1 สถานะของสินค้าที่ ID อ้างถึง (functionality-based) และ C2 query parameter `context` (interface-based) เริ่มจาก base = published + ไม่ส่ง context แล้วเปลี่ยนทีละ characteristic",
+      "baseCase": "S02-01",
+      "base": "ID ของสินค้าที่มีอยู่และ publish แล้ว + ไม่ส่ง context",
+      "baseChoices": {
+        "C1": {
+          "block": "B1",
+          "value": "existing + published product",
+          "reason": "เป็นเส้นทางปกติที่ลูกค้าควรอ่านได้ด้วย HTTP 200 ก่อนเปลี่ยนไปตรวจ draft และ absent ที่ไม่ควรคืนข้อมูลสินค้า"
+        },
+        "C2": {
+          "block": "B1",
+          "value": "ไม่ส่ง context (server ใช้ default view)",
+          "reason": "เป็นวิธีเรียกปกติที่สุดของ route นี้ จึงเปลี่ยนไปส่งค่าที่ถูกต้องและค่านอก enum ได้ทีละอย่าง"
+        }
+      },
+      "fixedSetup": "ใช้ positive integer ID ที่ server คืนจากการสร้าง fixture จริง; Base คือสถานะ published และไม่ส่ง context ไม่ใช่การ fix ตัวเลข ID เดิมทุกรอบ",
+      "selection": [
+        "S02-01 base: published + ไม่ส่ง context — ลูกค้าควรอ่านสินค้านี้ได้",
+        "S02-02 เปลี่ยน C1 เป็น draft (คง C2-B1): สินค้ามีอยู่จริง แต่ลูกค้าไม่ควรเห็น",
+        "S02-03 เปลี่ยน C1 เป็น absent (คง C2-B1): ลบสินค้าของเราและยืนยันก่อนว่า ID นี้ไม่มีแล้ว",
+        "S02-04 เปลี่ยน C2 เป็นส่ง context=view (คง C1-B1): ค่าที่ route ประกาศไว้ต้องถูกยอมรับ",
+        "S02-05 เปลี่ยน C2 เป็น context นอก enum (คง C1-B1): ต้องถูกปฏิเสธด้วย 400"
+      ],
+      "count": "BCC: 1 + (3−1) + (3−1) = 5 cases",
+      "bccCases": 5,
+      "boundaryProbes": 0,
+      "characteristics": [
+        {
+          "id": "C1",
+          "name": "resource existence / publication",
+          "type": "Functionality-based",
+          "baseBlock": "B1",
+          "blocks": [
+            {
+              "id": "B1",
+              "label": "มีอยู่และ published",
+              "representative": "Admin GET ยืนยัน publish"
+            },
+            {
+              "id": "B2",
+              "label": "มีอยู่แต่ unpublished",
+              "representative": "draft ที่ Admin GET ยังอ่านได้"
+            },
+            {
+              "id": "B3",
+              "label": "absent",
+              "representative": "ID ของสินค้าที่ลบแล้วและ Admin GET ได้ 404"
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "context query parameter",
+          "type": "Interface-based",
+          "baseBlock": "B1",
+          "blocks": [
+            {
+              "id": "B1",
+              "label": "ไม่ส่ง context",
+              "representative": "server ใช้ default view"
+            },
+            {
+              "id": "B2",
+              "label": "ส่งค่าใน enum ที่ประกาศไว้",
+              "representative": "context=view (ไม่ได้อ้างว่าทดสอบ embed/edit)"
+            },
+            {
+              "id": "B3",
+              "label": "ส่งค่านอก enum",
+              "representative": "context=not-a-context"
+            }
+          ]
+        }
+      ],
+      "scope": "ใช้ positive integer ID ของ simple product และ context ที่ route ประกาศไว้ (view/embed/edit, default view); ไม่ทดสอบ malformed/zero/negative ID, slug route หรือ password protection; draft เป็นตัวแทน unpublished และ view เป็นตัวแทนค่า context ที่ถูกต้อง",
+      "readmeSection": [
+        "### S02 — read one product",
+        "### S03 — create a product"
+      ]
+    },
+    "S03": {
+      "code": "BCC",
+      "name": "Base Choice Coverage (BCC)",
+      "meaning": "เริ่มจาก credentials ถูกต้อง + publish แล้วเปลี่ยนทีละ characteristic เพื่อแยกตรวจ authentication และสถานะการเผยแพร่ โดยคง JSON และราคาให้อยู่ในรูปแบบปกติ",
+      "baseCase": "S03-01",
+      "base": "valid Group 05 API credentials + status=publish",
+      "baseChoices": {
+        "C1": {
+          "block": "B1",
+          "value": "valid Group 05 API credentials",
+          "reason": "เริ่มจากผู้มีสิทธิ์สร้างสินค้าจริง เพื่อให้การตรวจ status ไม่ถูกบังด้วย authentication error"
+        },
+        "C2": {
+          "block": "B1",
+          "value": "status=publish แบบระบุชัด",
+          "reason": "เป็นกรณีสร้างแล้วเผยแพร่ตามปกติ ตรวจได้ทั้งข้อมูลที่บันทึกและการมองเห็นผ่าน Store API ก่อนเปลี่ยนเป็น draft หรือ invalid status"
+        }
+      },
+      "fixedSetup": "ทุก case ใช้ JSON ของสินค้า 1 รายการ: unique name/SKU, type=simple, regular_price=100.00, catalog_visibility=visible และ run marker; ไม่แสดงรหัสผ่านจริง",
+      "selection": [
+        "S03-01 เป็น base case: credentials ถูกต้องและขอ publish",
+        "S03-02–03 เปลี่ยนเฉพาะ C1 เป็นไม่ส่ง credentials และรหัสผ่านผิด โดยคง publish",
+        "S03-04–05 เปลี่ยนเฉพาะ C2 เป็น draft และ not-a-status โดยคง credentials ถูกต้อง"
+      ],
+      "count": "BCC: 1 + (3−1) + (3−1) = 5 cases",
+      "bccCases": 5,
+      "boundaryProbes": 0,
+      "characteristics": [
+        {
+          "id": "C1",
+          "name": "credentials supplied",
+          "type": "Interface-based",
+          "baseBlock": "B1",
+          "blocks": [
+            {
+              "id": "B1",
+              "label": "credentials ถูกต้อง",
+              "representative": "valid Group 05 API credentials"
+            },
+            {
+              "id": "B2",
+              "label": "ไม่ส่ง credentials",
+              "representative": "missing"
+            },
+            {
+              "id": "B3",
+              "label": "credentials ผิด",
+              "representative": "username เดิม + password ผิด"
+            }
+          ]
+        },
+        {
+          "id": "C2",
+          "name": "intended publication",
+          "type": "Functionality-based",
+          "baseBlock": "B1",
+          "blocks": [
+            {
+              "id": "B1",
+              "label": "publish หรือ default ที่ documented",
+              "representative": "explicit publish"
+            },
+            {
+              "id": "B2",
+              "label": "unpublished ที่ถูกต้อง: draft / pending / private",
+              "representative": "draft"
+            },
+            {
+              "id": "B3",
+              "label": "status string ที่ไม่รู้จัก",
+              "representative": "not-a-status"
+            }
+          ]
+        }
+      ],
+      "scope": "ใช้ simple product ราคา 100.00 THB และ JSON ปกติ ไม่ได้ทดสอบทุก product type/ราคา/role หรือ interaction เช่น wrong credentials + invalid status",
+      "readmeSection": [
+        "### S03 — create a product",
+        "### Data isolation and safe cleanup"
+      ]
+    }
+  },
+  "cases": {
+    "S01-01": {
+      "goal": "ตรวจว่าคำค้นที่ตรงกับ published product หาเจอสินค้าของเราจริง และคืน ID/name/ราคาที่ถูกต้อง",
+      "role": "Base case · C1-B2 + C2-B2: per_page=10 และ matching query",
+      "learnIfPass": "เส้นทาง list/search ปกติทำงานสำหรับ fixture นี้: HTTP 200 และพบสินค้าตรงชื่อเพียง 1 รายการ ไม่ใช่แค่ endpoint ตอบกลับได้",
+      "limit": "ยืนยัน exact-name search ของ fixture นี้ ไม่ได้ครอบคลุมทุกคำค้น ภาษา หรือ filter"
+    },
+    "S01-02": {
+      "goal": "ตรวจว่า API ปฏิเสธ per_page=0 ซึ่งต่ำกว่าค่าขั้นต่ำ 1 แม้คำค้นจะถูกต้อง",
+      "role": "BCC variation · เปลี่ยน C1 จาก B2 → B1; คง C2-B2 (match)",
+      "learnIfPass": "การตรวจ input ปฏิเสธค่า 0 ด้วย HTTP 400 พร้อม rest_invalid_param ที่ระบุ per_page; ไม่ปล่อยให้ request นี้ผ่านเป็นรายการสินค้าปกติ",
+      "limit": "ค่า 0 เป็นตัวแทน block ≤0 ไม่ได้หมายความว่าเราได้ทดสอบจำนวนลบทุกค่า"
+    },
+    "S01-03": {
+      "goal": "ตรวจว่า API ปฏิเสธ per_page=101 ซึ่งเกินค่าสูงสุด 100",
+      "role": "BCC variation · เปลี่ยน C1 จาก B2 → B3; คง C2-B2 (match)",
+      "learnIfPass": "request ที่ขอเกินขีดจำกัดถูกปฏิเสธด้วย HTTP 400 และ error ระบุ per_page แม้สินค้าที่ค้นจะมีอยู่จริง",
+      "limit": "ตรวจค่าที่ขอใน request ไม่ใช่จำนวนสินค้าที่ร้านมี; ไม่ต้องสร้างสินค้า 101 ชิ้น"
+    },
+    "S01-04": {
+      "goal": "ตรวจว่าเมื่อไม่ส่ง search API ยังอ่านรายการสินค้าปกติได้",
+      "role": "BCC variation · เปลี่ยน C2 จาก B2 → B1; คง C1-B2 (per_page=10)",
+      "learnIfPass": "HTTP 200 คืน list ที่ไม่ว่าง จำนวนไม่เกิน 10 และแต่ละรายการมี id/name ชนิดถูกต้อง จึงรองรับการอ่านรายการโดยไม่ต้องใส่คำค้น",
+      "limit": "ไม่ได้บังคับลำดับสินค้า จำนวนทั้งหมดของร้าน หรือว่า fixture ของเราต้องอยู่หน้าแรก"
+    },
+    "S01-05": {
+      "goal": "ตรวจว่าคำค้นที่ไม่ตรงสินค้าคืน empty result แทนการรายงานว่า endpoint หาย",
+      "role": "BCC variation · เปลี่ยน C2 จาก B2 → B3; คง C1-B2 (per_page=10)",
+      "learnIfPass": "การค้นหาทำสำเร็จแต่ไม่มีผลลัพธ์: HTTP 200 + [] ต่างจาก HTTP 404 ของการขอ product ID ที่อ่านไม่ได้",
+      "limit": "ใช้ run-unique no-match query ที่เตรียมไว้ ไม่ได้พิสูจน์พฤติกรรมทุกคำค้นที่ไม่มีผลลัพธ์"
+    },
+    "S01-06": {
+      "goal": "ตรวจว่าค่าขอบล่างที่อนุญาต per_page=1 ยังใช้ค้นหาสินค้าได้",
+      "role": "Boundary probe เพิ่มจาก BCC · ยังอยู่ C1-B2 + C2-B2 เดิม",
+      "learnIfPass": "ค่า 1 ไม่ถูกปฏิเสธเหมือนค่า 0: ได้ HTTP 200 พร้อมสินค้าที่ตรง fixture และจำนวนรายการไม่เกิน 1",
+      "limit": "เป็นการเลือกค่าเพิ่มใน valid block ไม่ใช่ characteristic หรือ block ใหม่"
+    },
+    "S01-07": {
+      "goal": "ตรวจว่าค่าขอบบนที่อนุญาต per_page=100 ยังได้รับการยอมรับ",
+      "role": "Boundary probe เพิ่มจาก BCC · ยังอยู่ C1-B2 + C2-B2 เดิม",
+      "learnIfPass": "ค่า 100 ใช้ได้ ต่างจาก 101 ที่คาดว่าได้ 400: request นี้ได้ 200 และสินค้าที่ตรง fixture โดยจำนวนรายการไม่เกิน 100",
+      "limit": "ไม่ใช่ test ที่คืนสินค้า 100 ชิ้นจริง และไม่ใช่ performance test; คำค้นนี้ match fixture เพียง 1 รายการ"
+    },
+    "S02-01": {
+      "goal": "ตรวจว่าลูกค้าอ่านข้อมูล published product ด้วย ID ที่ถูกต้องได้",
+      "role": "Base case ของ BCC · C1-B1 + C2-B1: existing + published, ไม่ส่ง context",
+      "learnIfPass": "หลัง Admin ยืนยันว่ามีสินค้าและ publish แล้ว Store GET คืน HTTP 200 พร้อม ID/name/ราคา 100.00 THB ตรงกับสินค้าที่ขอ",
+      "limit": "ยืนยันสินค้าที่เตรียมหนึ่งรายการ ไม่ได้ครอบคลุม ID หรือ product type ทุกแบบ"
+    },
+    "S02-02": {
+      "goal": "ตรวจว่า draft ที่ยังมีอยู่จริงไม่ถูกเปิดเผยผ่าน public Store API",
+      "role": "BCC variation · เปลี่ยน C1 จาก B1 → B2: existing + unpublished (draft); คง C2-B1",
+      "learnIfPass": "Admin อ่าน draft ได้ แต่ Store GET ได้ HTTP 404 พร้อม JSON error ตามที่คาด จึงไม่เผยข้อมูล draft นี้ให้ลูกค้าผ่าน endpoint นี้",
+      "limit": "404 นี้ไม่ได้แปลว่าไม่มีสินค้า: precondition ยืนยันว่ามี draft; ไม่ได้ตรวจ unpublished ทุกสถานะหรือทุก endpoint"
+    },
+    "S02-03": {
+      "goal": "ตรวจการขอ ID ที่ยืนยันแล้วว่าไม่มีสินค้า โดยไม่สุ่มเดา unused ID",
+      "role": "BCC variation · เปลี่ยน C1 จาก B1 → B3: absent หลังลบ fixture ของเรา; คง C2-B1",
+      "learnIfPass": "เมื่อ Admin GET ยืนยัน 404 หลังลบแล้ว Store GET ก็คืน HTTP 404 พร้อม JSON error; ไม่คืนข้อมูลสินค้าที่ถูกลบกลับมาใน request นี้",
+      "limit": "ต่างจาก draft case ที่สินค้ายังอยู่ แม้ expected status เป็น 404 เหมือนกัน; ไม่ใช่การทดสอบ ID ผิดรูปแบบ"
+    },
+    "S02-04": {
+      "goal": "ตรวจว่า route ยอมรับ context=view ที่ส่งมาตรง ๆ และคืนสินค้าเดียวกับตอนไม่ส่ง context",
+      "role": "BCC variation · เปลี่ยน C2 จาก B1 → B2: ส่งค่าใน enum; คง C1-B1 (published)",
+      "learnIfPass": "Store GET พร้อม context=view ได้ HTTP 200 และ ID/name/ราคา 100.00 THB ตรงกับ fixture จึงยอมรับค่าที่ประกาศไว้ใน schema",
+      "limit": "ใช้ view เป็นตัวแทนของ B2 ไม่ได้ทดสอบ embed หรือ edit"
+    },
+    "S02-05": {
+      "goal": "ตรวจว่า context ที่ไม่อยู่ใน enum ถูกปฏิเสธก่อนอ่านสินค้า",
+      "role": "BCC variation · เปลี่ยน C2 จาก B1 → B3: ส่งค่านอก enum; คง C1-B1 (published)",
+      "learnIfPass": "ได้ HTTP 400 rest_invalid_param และ error ระบุ context จึงตรวจ input ตาม schema แทนที่จะเพิกเฉยหรือคืนข้อมูลสินค้า",
+      "limit": "ตรวจค่านอก enum หนึ่งค่า ไม่ได้ลองทุกรูปแบบของค่าที่ผิด"
+    },
+    "S03-01": {
+      "goal": "ตรวจว่า credentials ถูกต้อง + publish สร้างสินค้าและเก็บข้อมูลได้จริง",
+      "role": "Base case · C1-B1 + C2-B1: valid auth + publish",
+      "learnIfPass": "ได้ HTTP 201 และ fields ถูกต้อง; Admin อ่านข้อมูลที่บันทึกกลับได้ และ Store GET เห็นสินค้านี้ด้วย HTTP 200 ไม่ใช่แค่ตอบว่า create สำเร็จ",
+      "limit": "ตรวจ simple product ราคา 100.00 THB ของกลุ่มเรา ไม่ใช่ทุก product type/ราคา/role หรือหน้า UI"
+    },
+    "S03-02": {
+      "goal": "ตรวจว่าผู้ที่ไม่ส่ง credentials สร้างสินค้าไม่ได้ และ request ที่ถูกปฏิเสธไม่ทิ้งสินค้าไว้",
+      "role": "BCC variation · เปลี่ยน C1 จาก B1 → B2; คง C2-B1 (publish)",
+      "learnIfPass": "POST แบบไม่มี auth ได้ HTTP 401 พร้อม JSON error และ Admin lookup ของ unique SKU ไม่พบสินค้าจาก request นี้",
+      "limit": "ยืนยันกรณี missing credentials นี้ ไม่ใช่การรับรอง security ของระบบทั้งหมด"
+    },
+    "S03-03": {
+      "goal": "ตรวจว่ารหัสผ่านผิดถูกปฏิเสธ แม้จะส่ง username ของกลุ่มมาแล้ว",
+      "role": "BCC variation · เปลี่ยน C1 จาก B1 → B3; คง C2-B1 (publish)",
+      "learnIfPass": "POST ที่ใช้ password ผิดได้ HTTP 401 พร้อม JSON error และไม่พบสินค้าของ unique SKU นี้ จึงไม่ยอมรับ credentials ชุดที่ผิดนี้",
+      "limit": "ต่างจากไม่ส่ง credentials; ไม่ได้ทดสอบ brute force, lockout หรือสิทธิ์ของผู้ใช้ทุก role"
+    },
+    "S03-04": {
+      "goal": "ตรวจว่าสร้าง draft ได้จริง แต่ไม่เผยสินค้านั้นต่อ public Store API",
+      "role": "BCC variation · เปลี่ยน C2 จาก B1 → B2 (draft); คง C1-B1 (valid auth)",
+      "learnIfPass": "POST ได้ HTTP 201 และบันทึก status=draft; Admin อ่านกลับได้ ขณะที่ Store GET ได้ HTTP 404 จึงแยกการสร้างสำเร็จออกจากการเผยแพร่ได้",
+      "limit": "ใช้ draft เป็นตัวแทน unpublished; ไม่ได้รัน pending/private หรือทดสอบหน้า UI"
+    },
+    "S03-05": {
+      "goal": "ตรวจว่า status=not-a-status ถูกปฏิเสธ แม้ credentials จะถูกต้อง",
+      "role": "BCC variation · เปลี่ยน C2 จาก B1 → B3; คง C1-B1 (valid auth)",
+      "learnIfPass": "HTTP 400 + rest_invalid_param ระบุ status และ exact SKU lookup ไม่พบสินค้า แสดงว่า request นี้ไม่สร้างข้อมูลด้วยสถานะที่ไม่อนุญาต",
+      "limit": "ตรวจ invalid status string หนึ่งค่า ไม่ได้ครอบคลุม malformed JSON หรือ wrong credentials + invalid status พร้อมกัน"
+    }
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "checked_utc": "2026-11-10T11:08:17+00:00",
+  "scope": "API testing map and HTML README review draft only",
+  "graphify": {
+    "version": "0.9.93",
+    "inputs": 18,
+    "semantic_inputs_fully_read": 11,
+    "nodes": 107,
+    "edges": 173,
+    "dangling_or_collapsed_edges_after_documented_normalization": 0,
+    "token_usage_available": false
+  },
+  "curated_map": {
+    "nodes": 42,
+    "cases": {
+      "S01": 7,
+      "S02": 3,
+      "S03": 5
+    },
+    "contract_tests": 9,
+    "wheel_tests_map": 12,
+    "wheel_tests_template": 12,
+    "PDF_pages": 1,
+    "browser_QA": {
+      "errors": [],
+      "requests": [
+        "PROJECT_ROOT/docs/api-testing-map.html",
+        "PROJECT_ROOT/docs/api-testing-map.html"
+      ],
+      "caseNodes": 15,
+      "normalSelection": 6,
+      "plainLeftDoesNotPan": true,
+      "commandDragPans": true,
+      "rightDragPans": true,
+      "annotationsReloadAndExport": true,
+      "printOverflow": [],
+      "physicalMouseTest": false,
+      "codexAnnotationRoundTrip": false
+    }
+  },
+  "README_draft": {
+    "approved": false,
+    "converted_to_markdown": false,
+    "baseline_markdown_unchanged": true,
+    "browser_QA": {
+      "errors": [],
+      "knownIssues": [
+        "Headless Chrome native drag on original hero paragraph collapses selection; actual Codex IAB native drag separately selected 45 characters. Root cause not isolated; do not claim universal browser selection support."
+      ],
+      "caseAnchors": 15,
+      "renderedLines": 187,
+      "labelCollisions": 0,
+      "mobileLabelCollisions": 0,
+      "themeZoomAndScrollPersist": true,
+      "ctrlWheelBurstStep10": true,
+      "toolbarWheelCaptured": true,
+      "selectionCharacters": 0,
+      "commandPan": true,
+      "printLightWhileDark": true,
+      "detailsVisibilityMapping": true,
+      "blockedStorageFallback": true,
+      "codexAnnotationRoundTrip": false
+    },
+    "actual_Codex_native_selection": 45
+  },
+  "canvas_layout_repair": {
+    "checked_utc": "2026-11-09T19:34:48+00:00",
+    "changes": [
+      "Reclaimed desktop viewport space with a narrower independent detail panel",
+      "Symmetric pan bounds preserve Fit centering even with wide blank margins",
+      "Command/right pan starts anywhere on blank viewport, not only stage",
+      "Fit tracks viewport resize; manual navigation preserves center anchor",
+      "Overview navigation restores Fit mode"
+    ],
+    "regression_script": "docs/diagram/test_canvas_layout.mjs",
+    "original_red": "docs/diagram/qa/canvas-layout-red.json",
+    "original_failures": 6,
+    "green_report": "docs/diagram/qa/canvas-layout-qa.json",
+    "green_checks": 8,
+    "static_contract_checks": 3,
+    "wheel_checks_map_and_skill_template": 24,
+    "browser_QA_rerun": true,
+    "print_overflow": 0,
+    "PDF_pages": 1,
+    "visual_review": ["map-wide-centered.png", "map-suite1.png", "map-100.png", "map-pdf.png"],
+    "actual_Codex_IAB": {
+      "viewport": {"x": 0, "y": 100, "width": 2056.015625, "height": 1135},
+      "stage": {"x": 364.6803283691406, "y": 128, "width": 1326.639404296875, "height": 1079},
+      "center_error_px": {"x": -0.007781982421875, "y": 0},
+      "view_mode": "fit",
+      "Command_hold_on_blank_canvas_recognized": true,
+      "reloaded_and_kept_open": true
+    },
+    "physical_modified_drag": "Not certified; browser-event movement checks passed and native Codex Command hold was recognized on blank canvas",
+    "README_preview_not_rebuilt_or_retested": true,
+    "API_SUT_requests": 0
+  },
+  "learning_details": {
+    "checked_utc": "2026-11-10T10:24:40+00:00",
+    "source": "docs/diagram/learning-content.json",
+    "suites": 3,
+    "cases": 15,
+    "criteria": {"S01": "BCC + 2 boundary probes", "S02": "BCC with one characteristic", "S03": "BCC"},
+    "per_case_fields": ["goal", "role", "learnIfPass", "limit", "recordedResult"],
+    "evidence_binding": "Exact parametrized method names in the existing JUnit XML; all 15 map to PASS; dated 2026-11-09 Bangkok",
+    "red_checks": "2 new static assertions and 19 browser-detail checks observed failing before implementation",
+    "green_checks": "5 static / 19 click-and-responsive checks / 8 canvas checks / 24 wheel checks",
+    "browser_report": "docs/diagram/qa/learning-details-qa.json",
+    "red_report": "docs/diagram/qa/learning-details-red.json",
+    "visual_review": ["learning-S01.png", "learning-S02.png", "learning-S03.png", "learning-S01-02.png", "learning-S02-02.png", "learning-S03-04.png", "map-pdf.png"],
+    "repair": "Wrapped the long S03 Graphify reference after browser checks detected 8px panel overflow",
+    "actual_Codex_preview": "S01-01 shows new goal/learning/criterion and dated PASS; preview server restored on 127.0.0.1:8767 after connection-refused report",
+    "preview_autostart_installed": false,
+    "README_HTML_and_MD_unchanged": true,
+    "API_test_source_unchanged": true,
+    "API_tests_rerun": false
+  },
+  "request_details_and_bases": {
+    "checked_utc": "2026-11-10T10:44:10+00:00",
+    "case_requests_mapped": 15,
+    "source": "API testing/results/20261108T173606Z-0e33c528/console.txt",
+    "counts_from_recorded_run": {"primary": 15, "case_supporting": 55, "shared_preflight": 1, "total": 71},
+    "S01_01": {"primary": 1, "per_page": 10, "returned_products": 1, "setup": 1, "verification": 0, "cleanup": 3, "case_total_excluding_shared_preflight": 5},
+    "display": "Exact recorded method/path/query/body/auth mode; supporting steps separated from the operation under test; absent GET body is not displayed as a literal null payload",
+    "base_choices_with_reasons": {"S01": 2, "S02": 1, "S03": 2},
+    "aggregate_node": "api-testing shows all three suite bases",
+    "red_report": "docs/diagram/qa/request-details-red.json",
+    "green_report": "docs/diagram/qa/request-details-qa.json",
+    "green_browser_checks": 20,
+    "API_requests_sent_this_task": 0
+  },
+  "view_persistence": {
+    "storage_key": "itcs386-api-map-view-v1",
+    "separate_saved_notes_key": "itcs386-api-map-notes-v1",
+    "fields": ["zoom", "pan", "fit_or_manual", "selected_node", "panel_scroll", "open_details"],
+    "boundary": "Same browser/origin; explicit different-node links take priority; corrupt or blocked storage falls back safely; no cross-device sync",
+    "test_source": "docs/diagram/test_view_persistence.mjs",
+    "initial_red_observation": "80/90/100 percent, Fit and resized-window restoration failed before implementation",
+    "retained_red_report": "docs/diagram/qa/view-persistence-red.json records the subsequent print-panel-scroll regression",
+    "green_report": "docs/diagram/qa/view-persistence-qa.json",
+    "green_checks": 11,
+    "actual_Codex_reload": {
+      "zoom": "120%",
+      "transform": "translate(-157.6px, -88.8px) scale(1.2)",
+      "panel_scroll": 494,
+      "selected": "S01-01",
+      "before_after_identical": true
+    },
+    "native_check_limit": "Verified the post-upgrade view before/after Refresh, not exact preservation of the earlier pre-upgrade pan position",
+    "saved_annotations_unchanged": true,
+    "print_does_not_replace_saved_view": true
+  },
+  "descriptive_case_labels": {
+    "checked_utc": "2026-11-10T10:55:43+00:00",
+    "changed_case_titles": 15,
+    "changed_suite_title": "S01 now explicitly mentions name search",
+    "source": "docs/diagram/build_diagram.py: titles",
+    "rule": "Action + distinguishing condition, not only an abstract block label",
+    "preserved": ["stable node IDs", "pytest parameter IDs", "API source", "requests", "assertions", "dated results", "saved-view implementation"],
+    "new_label_contract": "Observed failing before rename, then all 8 static contracts passed",
+    "browser_click_checks": 20,
+    "layout_repair": "S02 print overflow 15px observed with longer labels; increased its frame 32 logical px without shrinking type or changing the world size",
+    "final_print_overflow": 0,
+    "PDF_pages": 1,
+    "actual_Codex": "Reloaded current tab; S01-01 and S01-04 show action-based names at the retained 60 percent view"
+  },
+  "case_example_code": {
+    "checked_utc": "2026-11-10T11:08:17+00:00",
+    "cases": 15,
+    "generator": "docs/diagram/case_examples.py",
+    "method": "Bind original pytest parameters and fold known literal equality/inequality branches; preserve runtime assertions and helper calls; expose exact original row and function alongside derived reading examples",
+    "standalone_scripts": false,
+    "snippets_executed_against_SUT": false,
+    "syntax_compilation": "All15 examples compile; no exec or test-module imports during generation",
+    "offline_generator_checks": 5,
+    "static_model_checks": 9,
+    "browser_checks": 21,
+    "browser_report": "docs/diagram/qa/example-code-qa.json",
+    "red_report": "docs/diagram/qa/example-code-red.json",
+    "views_reviewed": ["code-S01-01.png", "code-S03-04.png", "map-pdf.png"],
+    "source_review": "User-designated partner reviewed source obligations read-only; Main integrated those findings and owns final snippet/UI acceptance",
+    "fixtures_notice": "api/products require the existing pytest fixture context; cleanup is in the products fixture finally, not inside the reading-only example function",
+    "native_Codex": "Selected S01-01 example opened successfully with bound per_page=10; retained scale0.6 and transform(19.0195,-441.833)",
+    "API_SUT_requests": 0
+  },
+  "local_links": {
+    "docs/api-testing-map.html": 2,
+    "docs/api-testing-readme-preview.html": 41
+  },
+  "all18_source_hashes_match": true,
+  "artifact_sha256": {
+    "docs/api-testing-map.html": "0c44df5f5d16223c6476019b55a554c386f39ba9b5c82cd10a83a68df08c47e9",
+    "docs/api-testing-map.pdf": "05dd2ca097bea455c693727063a7c26431ad7ebd8eb9554c30138806719194c1",
+    "docs/api-testing-readme-preview.html": "05b67f9a0a94d4998123fee50be5354bb87fae5175d71fdca22fb53bf5ae0a42",
+    "graphify-out/graph.json": "d82f425cf082fbc8c9a4e134458cec58e9792bfe7e297bd71ec29d6d65b32eef"
+  },
+  "API_SUT_requests_this_task": 0,
+  "API_tests_rerun_this_task": false,
+  "credentials_loaded_this_task": false,
+  "commit_or_push_this_task": false,
+  "limitations": [
+    "Headless Chrome hero native-drag check remains a recorded failing warning; actual Codex IAB native drag succeeds. No universal browser selection claim.",
+    "Actual user annotation round trip and physical mouse/trackpad remain unverified.",
+    "Raw Graphify HTML requires its vis-network CDN; the two review documents embed their own runtime.",
+    "API execution evidence is dated 9 November, not a fresh server check; WooCommerce internals are conceptual, not source-inspected."
+  ],
+  "phase2_inventory": {
+    "regular_files": 5564,
+    "file_symlinks": 4
+  },
+  "artifact_inventory": {
+    "graphify_files_including_cache": 44,
+    "diagram_authoring_data_QA_files": 57,
+    "review_HTML": 2,
+    "print_verification_PDF": 1
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "results": [
+    {
+      "id": "S01",
+      "pass": false,
+      "error": "S01 criterion must be shown on click\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-01",
+      "pass": false,
+      "error": "S01-01 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-02",
+      "pass": false,
+      "error": "S01-02 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-03",
+      "pass": false,
+      "error": "S01-03 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-04",
+      "pass": false,
+      "error": "S01-04 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-05",
+      "pass": false,
+      "error": "S01-05 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-06",
+      "pass": false,
+      "error": "S01-06 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-07",
+      "pass": false,
+      "error": "S01-07 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02",
+      "pass": false,
+      "error": "S02 criterion must be shown on click\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-01",
+      "pass": false,
+      "error": "S02-01 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-02",
+      "pass": false,
+      "error": "S02-02 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-03",
+      "pass": false,
+      "error": "S02-03 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03",
+      "pass": false,
+      "error": "S03 criterion must be shown on click\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-01",
+      "pass": false,
+      "error": "S03-01 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-02",
+      "pass": false,
+      "error": "S03-02 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-03",
+      "pass": false,
+      "error": "S03-03 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-04",
+      "pass": false,
+      "error": "S03-04 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-05",
+      "pass": false,
+      "error": "S03-05 needs a goal\n\n0 !== 1\n"
+    },
+    {
+      "id": "mobile-panel",
+      "pass": false,
+      "error": "Expected values to be strictly equal:\n\n0 !== 1\n"
+    }
+  ],
+  "errors": [],
+  "externalRequests": 0,
+  "actualClicks": 18,
+  "source": "local HTML only; no SUT execution"
+}

@@ -1,0 +1,99 @@
+{
+  "results": [
+    {
+      "id": "S01",
+      "pass": true
+    },
+    {
+      "id": "S01-01",
+      "pass": false,
+      "error": "S01-01 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-02",
+      "pass": false,
+      "error": "S01-02 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-03",
+      "pass": false,
+      "error": "S01-03 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-04",
+      "pass": false,
+      "error": "S01-04 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-05",
+      "pass": false,
+      "error": "S01-05 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-06",
+      "pass": false,
+      "error": "S01-06 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-07",
+      "pass": false,
+      "error": "S01-07 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02",
+      "pass": true
+    },
+    {
+      "id": "S02-01",
+      "pass": false,
+      "error": "S02-01 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-02",
+      "pass": false,
+      "error": "S02-02 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-03",
+      "pass": false,
+      "error": "S02-03 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03",
+      "pass": true
+    },
+    {
+      "id": "S03-01",
+      "pass": false,
+      "error": "S03-01 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-02",
+      "pass": false,
+      "error": "S03-02 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-03",
+      "pass": false,
+      "error": "S03-03 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-04",
+      "pass": false,
+      "error": "S03-04 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-05",
+      "pass": false,
+      "error": "S03-05 needs visible example code\n\n0 !== 1\n"
+    },
+    {
+      "id": "mobile-panel",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "externalRequests": 0,
+  "nodesVerifiedViaClicks": 18,
+  "source": "local HTML only; no SUT execution"
+}

@@ -1,0 +1,51 @@
+{
+  "results": [
+    {
+      "name": "90% pan / selected case / panel scroll and disclosures survive Refresh",
+      "pass": true
+    },
+    {
+      "name": "80% pan / selected case / panel scroll and disclosures survive Refresh",
+      "pass": true
+    },
+    {
+      "name": "100% pan / selected case / panel scroll and disclosures survive Refresh",
+      "pass": true
+    },
+    {
+      "name": "Fit remains Fit after Refresh",
+      "pass": true
+    },
+    {
+      "name": "PDF export does not replace the saved review position",
+      "pass": true
+    },
+    {
+      "name": "a new window size retains manual zoom and center anchor",
+      "pass": true
+    },
+    {
+      "name": "explicit different node deep link takes priority over saved selection",
+      "pass": true
+    },
+    {
+      "name": "corrupt saved state is ignored without breaking controls",
+      "pass": true
+    },
+    {
+      "name": "invalid numeric state cannot produce NaN transforms",
+      "pass": true
+    },
+    {
+      "name": "saving the view does not alter saved annotations",
+      "pass": true
+    },
+    {
+      "name": "storage-denied browser still loads and navigates",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "storageKey": "itcs386-api-map-view-v1",
+  "source": "isolated local browser; no API tests or classroom requests"
+}

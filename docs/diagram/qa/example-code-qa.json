@@ -1,0 +1,92 @@
+{
+  "results": [
+    {
+      "id": "S01",
+      "pass": true
+    },
+    {
+      "id": "S01-01",
+      "pass": true
+    },
+    {
+      "id": "S01-02",
+      "pass": true
+    },
+    {
+      "id": "S01-03",
+      "pass": true
+    },
+    {
+      "id": "S01-04",
+      "pass": true
+    },
+    {
+      "id": "S01-05",
+      "pass": true
+    },
+    {
+      "id": "S01-06",
+      "pass": true
+    },
+    {
+      "id": "S01-07",
+      "pass": true
+    },
+    {
+      "id": "S02",
+      "pass": true
+    },
+    {
+      "id": "S02-01",
+      "pass": true
+    },
+    {
+      "id": "S02-02",
+      "pass": true
+    },
+    {
+      "id": "S02-03",
+      "pass": true
+    },
+    {
+      "id": "S03",
+      "pass": true
+    },
+    {
+      "id": "S03-01",
+      "pass": true
+    },
+    {
+      "id": "S03-02",
+      "pass": true
+    },
+    {
+      "id": "S03-03",
+      "pass": true
+    },
+    {
+      "id": "S03-04",
+      "pass": true
+    },
+    {
+      "id": "S03-05",
+      "pass": true
+    },
+    {
+      "id": "base-overview",
+      "pass": true
+    },
+    {
+      "id": "mobile-panel",
+      "pass": true
+    },
+    {
+      "id": "mobile-code-viewer",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "externalRequests": 0,
+  "nodesVerifiedViaClicks": 19,
+  "source": "local HTML only; no SUT execution"
+}

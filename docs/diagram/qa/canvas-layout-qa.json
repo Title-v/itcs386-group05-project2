@@ -1,0 +1,58 @@
+{
+  "results": [
+    {
+      "name": "larger desktop canvas retains a separate detail panel",
+      "pass": true
+    },
+    {
+      "name": "Fit centers the complete stage even when horizontal spare space exceeds 280px",
+      "pass": true
+    },
+    {
+      "name": "Fit follows a small-to-large window resize",
+      "pass": true
+    },
+    {
+      "name": "Command drag works in both directions from blank viewport outside the stage",
+      "pass": true
+    },
+    {
+      "name": "Right drag starts in blank viewport and simple right click leaves view unchanged",
+      "pass": true
+    },
+    {
+      "name": "manual zoom preserves scale and viewport-center diagram point on resize",
+      "pass": true
+    },
+    {
+      "name": "unmodified drag, Ctrl click and excluded node buttons never begin pan",
+      "pass": true
+    },
+    {
+      "name": "mobile canvas stays above the panel and fits after resize",
+      "pass": true
+    }
+  ],
+  "geometry": {
+    "viewport": {
+      "x": 0,
+      "y": 100,
+      "width": 2056,
+      "height": 1160
+    },
+    "stage": {
+      "x": 349.31146240234375,
+      "y": 128,
+      "width": 1357.376953125,
+      "height": 1104
+    },
+    "zoom": 0.452459,
+    "x": 349.311,
+    "y": 28,
+    "anchorX": 1500.001105072504,
+    "anchorY": 1220.0000442029002
+  },
+  "errors": [],
+  "externalRequests": 0,
+  "physicalMouseTest": false
+}

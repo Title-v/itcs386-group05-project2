@@ -1,0 +1,16 @@
+{
+  "errors": [],
+  "requests": [
+    "PROJECT_ROOT/docs/api-testing-map.html",
+    "PROJECT_ROOT/docs/api-testing-map.html"
+  ],
+  "caseNodes": 15,
+  "normalSelection": 6,
+  "plainLeftDoesNotPan": true,
+  "commandDragPans": true,
+  "rightDragPans": true,
+  "annotationsReloadAndExport": true,
+  "printOverflow": [],
+  "physicalMouseTest": false,
+  "codexAnnotationRoundTrip": false
+}

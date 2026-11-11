@@ -1,0 +1,13 @@
+{
+  "artifact": "API testing nested map",
+  "graphSha256": "d82f425cf082fbc8c9a4e134458cec58e9792bfe7e297bd71ec29d6d65b32eef",
+  "exportedAt": "2026-11-10T11:06:17.474Z",
+  "notes": [
+    {
+      "id": "S01-02",
+      "title": "ค้นหาสินค้าโดยส่ง per_page=0",
+      "text": "QA annotation fixture",
+      "updatedAt": "2026-11-10T11:06:17.408Z"
+    }
+  ]
+}

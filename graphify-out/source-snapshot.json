@@ -1,0 +1,42 @@
+{
+  "built_utc": "2026-11-09T18:08:50.438596+00:00",
+  "files": {
+    "API testing/conftest.py": "a199f15c8197bc7c6cd27066f8a4681544c4784932f41a9081a57a634d4ee384",
+    "API testing/results/20261108T173522Z-fbc1f0d3/run.json": "b50035c9927177e0081c785dc65b6301188cd9d95f6f026079ddc802ecae3e71",
+    "API testing/results/20261108T173605Z-0a164b81/run.json": "fb28b5ee218892c82e8a3162a35ede272ad2989715c78f04ea54197954d291bf",
+    "API testing/results/20261108T173606Z-0e33c528/run.json": "253291f41c463556b2df54f39fc518e93db27e6ad54386ce444a49455e4461ac",
+    "API testing/results/20261108T173606Z-0e33c528/verification-audit.json": "0fb17b76cd5c57ad7028138661b951224a57563f55bf5a7f8c888375bf8ad2e8",
+    "API testing/results/latest-run.json": "253291f41c463556b2df54f39fc518e93db27e6ad54386ce444a49455e4461ac",
+    "API testing/shop_support.py": "03de0a37a26e3d873ec124230fa2d8180d76e69a05467257e9c29aa5e3a57e93",
+    "API testing/test_product_create.py": "3afafd1728c2220e5d8e9e70795c2b789b40b720a1668b1d34ecc1d94791c359",
+    "API testing/test_product_detail.py": "2dd8d83b8a9d440b6e611bccd6d0515d3b62341215e6fedcdb581cda2790b26f",
+    "API testing/test_product_list.py": "567a688e6861e4c6f69fbca7ff1ae2c9afa20dcc54d2021ef738854e46c539aa",
+    "pyproject.toml": "870ec01c6d7554d5f0f7674c8d11a0bb9ab5d07dd87f5d5705c84046b9addf8c",
+    "run_api_tests.py": "182dbfcf74b3591865e3d7a50f2d60b2dfc250ec8fd6c75cee167c3b065cbc2f",
+    "verification/test_api_support.py": "96af7ebf231ba087ed2cfa3c463ac2e4d3d07934a551f2db4295b664bbdbcb45",
+    "API testing/results/20261108T173522Z-fbc1f0d3/console.txt": "a6e4013b5e3213770fe20ed133dc50876ac0590e20437092a61acb4a75cf1a2f",
+    "API testing/results/20261108T173605Z-0a164b81/console.txt": "497e8d1a1a60c521065fea972674b2ddb9aec97e7e0895527040c64962730fca",
+    "API testing/results/20261108T173606Z-0e33c528/console.txt": "cd6ea53292984ae65d334f3b27aa67eca1db8e7d7dcb6cff5897c6c847d8d03e",
+    "README.md": "8a2e5e468b4e3ba67dfa04dc88e012ef699f744bc4d05c7b1fbe494c97314f94",
+    "requirements.txt": "50df10b939236d48e16f822f1cd487698cb9300ccd6d4f7c771d5d4a86bf9628"
+  },
+  "excludes": [
+    "docs/diagram/**",
+    "docs/api-testing-map.html",
+    "docs/api-testing-map.pdf",
+    "docs/api-testing-readme-preview.html"
+  ],
+  "semantic_coverage": {
+    "README.md": 209,
+    "requirements.txt": 3,
+    "API testing/results/20261108T173522Z-fbc1f0d3/console.txt": 126,
+    "API testing/results/20261108T173605Z-0a164b81/console.txt": 20,
+    "API testing/results/20261108T173606Z-0e33c528/console.txt": 126,
+    "pyproject.toml": 2,
+    "API testing/results/20261108T173522Z-fbc1f0d3/run.json": 36,
+    "API testing/results/20261108T173605Z-0a164b81/run.json": 34,
+    "API testing/results/20261108T173606Z-0e33c528/run.json": 36,
+    "API testing/results/20261108T173606Z-0e33c528/verification-audit.json": 54,
+    "API testing/results/latest-run.json": 36
+  }
+}

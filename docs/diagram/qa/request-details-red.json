@@ -1,0 +1,107 @@
+{
+  "results": [
+    {
+      "id": "S01",
+      "pass": false,
+      "error": "S01 needs reasons for its base\n\n0 !== 2\n"
+    },
+    {
+      "id": "S01-01",
+      "pass": false,
+      "error": "S01-01 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-02",
+      "pass": false,
+      "error": "S01-02 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-03",
+      "pass": false,
+      "error": "S01-03 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-04",
+      "pass": false,
+      "error": "S01-04 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-05",
+      "pass": false,
+      "error": "S01-05 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-06",
+      "pass": false,
+      "error": "S01-06 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S01-07",
+      "pass": false,
+      "error": "S01-07 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02",
+      "pass": false,
+      "error": "S02 needs reasons for its base\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-01",
+      "pass": false,
+      "error": "S02-01 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-02",
+      "pass": false,
+      "error": "S02-02 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S02-03",
+      "pass": false,
+      "error": "S02-03 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03",
+      "pass": false,
+      "error": "S03 needs reasons for its base\n\n0 !== 2\n"
+    },
+    {
+      "id": "S03-01",
+      "pass": false,
+      "error": "S03-01 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-02",
+      "pass": false,
+      "error": "S03-02 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-03",
+      "pass": false,
+      "error": "S03-03 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-04",
+      "pass": false,
+      "error": "S03-04 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "S03-05",
+      "pass": false,
+      "error": "S03-05 request must be visible\n\n0 !== 1\n"
+    },
+    {
+      "id": "base-overview",
+      "pass": false,
+      "error": "overview must explain all three bases\n\n0 !== 3\n"
+    },
+    {
+      "id": "mobile-panel",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "externalRequests": 0,
+  "nodesVerifiedViaClicks": 19,
+  "source": "local HTML only; no SUT execution"
+}

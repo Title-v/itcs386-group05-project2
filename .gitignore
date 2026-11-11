@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.env
+.env.*
+!.env.example
+.vscode/settings.json
+.DS_Store
+/graphify-out/cache/
+/graphify-out/.graphify_*
+/graphify-out/semantic-chunk.json

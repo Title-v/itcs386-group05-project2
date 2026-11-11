@@ -1,0 +1,48 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const {chromium}=await import(process.env.PLAYWRIGHT_MODULE ?? 'playwright');
+const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../..');
+const out=path.join(here,'qa');fs.mkdirSync(out,{recursive:true});
+const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
+const page=await browser.newPage({viewport:{width:1600,height:1000}}),errors=[],requests=[];
+page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()));
+try{
+ await page.goto(pathToFileURL(path.join(root,'docs/api-testing-map.html')).href);await page.evaluate(()=>document.fonts.ready);
+ await page.screenshot({path:path.join(out,'map-fit.png')});
+ assert.equal(await page.locator('.case-row').count(),15);
+ await page.locator('[data-focus="S01"]').first().click();await page.screenshot({path:path.join(out,'map-suite1.png')});
+ await page.evaluate(()=>window.apiMap.select('S01-02',true));await page.screenshot({path:path.join(out,'map-case-S01-02.png')});
+ assert.match(await page.locator('#node-details').textContent(),/HTTP 400/);
+ await page.locator('#node-note').fill('QA annotation fixture');await page.locator('#save-note').click();
+ await page.reload();await page.evaluate(()=>document.fonts.ready);assert.equal(await page.locator('#node-note').inputValue(),'QA annotation fixture');
+ const [download]=await Promise.all([page.waitForEvent('download'),page.locator('#export-notes').click()]);await download.saveAs(path.join(out,'annotation-export-test.json'));
+ const exported=JSON.parse(fs.readFileSync(path.join(out,'annotation-export-test.json'),'utf8'));assert.equal(exported.notes[0].id,'S01-02');
+ await page.locator('#reset-view').click();
+ const before=await page.locator('#diagram-stage').evaluate(e=>e.style.transform);
+ const point=await page.locator('#diagram-stage').evaluate(e=>{const r=e.getBoundingClientRect();return{x:r.left+80,y:r.top+160}});
+ await page.mouse.move(point.x,point.y);await page.mouse.down();await page.mouse.move(point.x+180,point.y+10,{steps:5});await page.mouse.up();
+ assert.equal(await page.locator('#diagram-stage').evaluate(e=>e.style.transform),before,'plain left drag must not pan');
+ const selectedText=await page.evaluate(()=>window.getSelection().toString());
+ assert(selectedText.length>0,'normal left drag should select real text');
+ await page.mouse.move(650,470);await page.keyboard.down('Meta');await page.mouse.down();await page.mouse.move(590,530,{steps:5});
+ assert(await page.locator('#diagram-stage').evaluate(e=>e.classList.contains('is-panning')));await page.mouse.up();await page.keyboard.up('Meta');
+ assert.notEqual(await page.locator('#diagram-stage').evaluate(e=>e.style.transform),before,'Command drag must pan');
+ await page.locator('#reset-view').click();await page.mouse.move(640,460);await page.mouse.down({button:'right'});await page.mouse.move(580,520,{steps:5});await page.mouse.up({button:'right'});
+ assert.notEqual(await page.locator('#diagram-stage').evaluate(e=>e.style.transform),before,'right drag must pan');
+ await page.locator('#fit-view').click();
+ // Check layout in detailed/print state without source changes.
+ await page.emulateMedia({media:'print'});
+ const overflow=await page.evaluate(()=>Array.from(document.querySelectorAll('.suite,.server-group,.local-group,.map-node')).map(e=>({id:e.id,scroll:e.scrollHeight,client:e.clientHeight})).filter(x=>x.scroll>x.client+2));
+ assert.deepEqual(overflow,[],'print must not clip suite or module content');
+ await page.pdf({path:path.join(root,'docs/api-testing-map.pdf'),printBackground:true,preferCSSPageSize:true});
+ await page.emulateMedia({media:'screen'});
+ await page.locator('#reset-view').click();await page.screenshot({path:path.join(out,'map-100.png')});
+ await page.evaluate(()=>window.apiMap.select('S03',true));await page.screenshot({path:path.join(out,'map-suite3.png')});
+ await page.locator('#fit-view').click();await page.evaluate(()=>window.apiMap.select('store-client',true));assert(await page.locator('#node-store-client').isVisible());assert.match(await page.locator('#connection-paths').textContent(),/public Store requests/);await page.screenshot({path:path.join(out,'map-client-detail.png')});
+ await page.locator('#fit-view').click();await page.evaluate(()=>window.apiMap.select('S01-07',true));const chosen=await page.locator('#node-S01-07').boundingBox(),view=await page.locator('#diagram-viewport').boundingBox();assert(chosen.y>=view.y-1&&chosen.y+chosen.height<=view.y+view.height+1,'hidden case must reveal and focus after overview search');
+ assert.deepEqual(errors,[]);assert(!requests.some(u=>/^https?:/.test(u)),'diagram must not send external HTTP requests');
+ fs.writeFileSync(path.join(out,'diagram-browser-qa.json'),JSON.stringify({errors,requests,caseNodes:15,normalSelection:selectedText.length,plainLeftDoesNotPan:true,commandDragPans:true,rightDragPans:true,annotationsReloadAndExport:true,printOverflow:overflow,physicalMouseTest:false,codexAnnotationRoundTrip:false},null,2));
+ console.log(JSON.stringify({errors,printOverflow:overflow,screenshots:5,selectionCharacters:selectedText.length}));
+}finally{await browser.close();}

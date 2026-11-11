@@ -1,0 +1,35 @@
+import assert from 'node:assert/strict';import fs from 'node:fs';import path from 'node:path';import{fileURLToPath,pathToFileURL}from'node:url';
+const{chromium}=await import(process.env.PLAYWRIGHT_MODULE ?? 'playwright');
+const here=path.dirname(fileURLToPath(import.meta.url)),root=path.resolve(here,'../..'),out=path.join(here,'qa');
+const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
+const page=await browser.newPage({viewport:{width:1440,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+const ready=async()=>{await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(250);};
+const zoom=async()=>parseInt(await page.locator('.zoom-readout').textContent());
+const lines=()=>page.locator('.line-label').count();
+const burst=async(delta=-120,target='.viewer')=>page.locator(target).evaluate((e,delta)=>Array.from({length:12},()=>!e.dispatchEvent(new WheelEvent('wheel',{bubbles:true,cancelable:true,ctrlKey:true,deltaY:delta}))),delta);
+try{
+ await page.goto(pathToFileURL(path.join(root,'docs/api-testing-readme-preview.html')).href);await ready();
+ const baseline=await lines();assert(baseline>100);assert.equal(await page.locator('tr[id^="S0"]').count(),15);
+ const setup=page.locator('details').filter({hasText:'ตั้งค่าครั้งแรก'});await setup.locator('summary').click();await ready();assert(await lines()>baseline,'expanded details must add rendered lines');await setup.locator('summary').click();await ready();assert.equal(await lines(),baseline);await page.evaluate(()=>document.querySelector('.viewer').scrollTop=0);await ready();
+ const collisions=await page.locator('.line-label').evaluateAll(es=>{const rs=es.map(e=>e.getBoundingClientRect()).sort((a,b)=>a.top-b.top);return rs.slice(1).filter((r,i)=>r.top<rs[i].bottom-.5).length;});
+ assert.equal(collisions,0,'rendered line number labels overlap');
+ await page.screenshot({path:path.join(out,'readme-light.png')});
+ await page.locator('.theme-button').click();await ready();assert.equal(await lines(),baseline);await page.screenshot({path:path.join(out,'readme-dark.png')});
+ await page.locator('[data-action="zoom-in"]').click();await page.locator('[data-action="zoom-in"]').click();await ready();assert.equal(await zoom(),120);assert.equal(await lines(),baseline,'transform zoom must not renumber lines');
+ await page.evaluate(()=>{history.replaceState(null,'',location.pathname);document.querySelector('.viewer').scrollTop=900;});await page.waitForTimeout(250);
+ const scrollBefore=await page.locator('.viewer').evaluate(e=>e.scrollTop);await page.reload();await ready();assert.equal(await zoom(),120);assert.equal(await page.locator('body').getAttribute('data-theme'),'dark');
+ const scrollAfter=await page.locator('.viewer').evaluate(e=>e.scrollTop);assert(Math.abs(scrollBefore-scrollAfter)<5,'reading position was not restored');
+ await page.locator('[data-action="zoom-reset"]').click();await ready();assert.equal(await zoom(),100);assert((await burst()).every(Boolean));assert.equal(await zoom(),110);await burst(120);assert.equal(await zoom(),100);
+ await page.waitForTimeout(210);assert((await burst(-120,'.toolbar')).every(Boolean));assert.equal(await zoom(),110);await page.locator('[data-action="zoom-reset"]').click();await ready();
+ await page.evaluate(()=>document.querySelector('.viewer').scrollTop=0);await ready();
+ const beforeHover=await page.locator('.dek').boundingBox();const label=page.locator('.line-label').nth(5);await label.hover();assert(await page.locator('.line-hint').evaluate(e=>e.classList.contains('visible')));assert(await page.locator('.hover-band').evaluate(e=>!e.hidden));assert(Math.abs((await page.locator('.dek').boundingBox()).y-beforeHover.y)<.1,'hover decorations must not move document text');
+ const r=await page.locator('.dek').boundingBox();await page.mouse.move(r.x+12,r.y+12);await page.mouse.down();await page.mouse.move(r.x+230,r.y+12,{steps:6});await page.mouse.up();const selection=await page.evaluate(()=>window.getSelection().toString());const knownIssues=selection.length>3?[]:['Headless Chrome native drag on original hero paragraph collapses selection; actual Codex IAB native drag separately selected 45 characters. Root cause not isolated; do not claim universal browser selection support.'];assert(!/Rendered line/.test(selection));
+ const beforePan=await page.locator('.viewer').evaluate(e=>e.scrollTop),paperBox=await page.locator('#paper').boundingBox(),panX=paperBox.x+paperBox.width-18;await page.mouse.move(panX,650);await page.keyboard.down('Meta');await page.mouse.down();await page.mouse.move(panX,480,{steps:8});await page.mouse.up();await page.keyboard.up('Meta');assert(await page.locator('.viewer').evaluate(e=>e.scrollTop)>beforePan,'Command drag must pan scroll container');
+ await page.emulateMedia({media:'print'});assert.equal(await page.locator('#paper').evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(255, 255, 255)');assert.equal(await page.locator('.line-gutter').evaluate(e=>getComputedStyle(e).display),'none');await page.emulateMedia({media:'screen'});
+ await page.setViewportSize({width:390,height:844});await ready();await page.evaluate(()=>document.querySelector('.viewer').scrollTop=0);await ready();await page.screenshot({path:path.join(out,'readme-mobile.png')});
+ const themeBox=await page.locator('.theme-button').boundingBox();assert(themeBox.x>=0&&themeBox.x+themeBox.width<=390,'mobile theme control must remain reachable');
+ const mobileCollisions=await page.locator('.line-label').evaluateAll(es=>{const rs=es.map(e=>e.getBoundingClientRect()).sort((a,b)=>a.top-b.top);return rs.slice(1).filter((r,i)=>r.top<rs[i].bottom-.5).length;});assert.equal(mobileCollisions,0);
+ const fallback=await browser.newPage({viewport:{width:1000,height:800}});await fallback.addInitScript(()=>Object.defineProperty(window,'localStorage',{get(){throw new DOMException('blocked for QA','SecurityError')}}));await fallback.goto(pathToFileURL(path.join(root,'docs/api-testing-readme-preview.html')).href);await fallback.evaluate(()=>document.fonts.ready);await fallback.locator('[data-action="zoom-in"]').click();assert.equal(await fallback.locator('.zoom-readout').textContent(),'110%');await fallback.close();
+ assert.deepEqual(errors,[]);fs.writeFileSync(path.join(out,'readme-browser-qa.json'),JSON.stringify({errors,knownIssues,caseAnchors:15,renderedLines:baseline,labelCollisions:collisions,mobileLabelCollisions:mobileCollisions,themeZoomAndScrollPersist:true,ctrlWheelBurstStep10:true,toolbarWheelCaptured:true,selectionCharacters:selection.length,commandPan:true,printLightWhileDark:true,detailsVisibilityMapping:true,blockedStorageFallback:true,codexAnnotationRoundTrip:false},null,2));
+ console.log(JSON.stringify({renderedLines:baseline,errors,knownIssues,collisions,mobileCollisions,scrollBefore,scrollAfter}));if(knownIssues.length)process.exitCode=1;
+}finally{await browser.close();}

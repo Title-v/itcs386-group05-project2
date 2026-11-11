@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-10",
+  "timezone": "Asia/Bangkok",
+  "surface": "Actual Codex in-app browser",
+  "method": "CUA native horizontal drag after final reload; read-only DOM selection measurement",
+  "map_case_nodes": 15,
+  "map_overview_observed": true,
+  "readme_selected_characters": 45,
+  "actual_user_annotation_round_trip": false,
+  "artifact_sha256": {
+    "docs/api-testing-map.html": "285c56923fd83d1d85f320acade4492a83722faea21b2453387d917ee1897495",
+    "docs/api-testing-readme-preview.html": "05b67f9a0a94d4998123fee50be5354bb87fae5175d71fdca22fb53bf5ae0a42"
+  },
+  "note": "Both tabs marked as deliverables. This is an observed UI result, not a claim that a user annotation was sent."
+}

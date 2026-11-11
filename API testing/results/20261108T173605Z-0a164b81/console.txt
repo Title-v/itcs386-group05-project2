@@ -1,0 +1,20 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.14.6, pytest-9.2.0, pluggy-1.7.0 -- PROJECT_ROOT/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: PROJECT_ROOT
+configfile: pyproject.toml
+collecting ... collected 1 item
+
+API testing/test_product_detail.py::test_product_detail[S02-02-existing-draft] {"time_utc": "2026-11-08T17:36:06.196229+00:00", "method": "GET", "path": "/wc/v3/products", "query": {"per_page": 1}, "input": null, "auth_mode": "valid", "status": 200, "response": {"count": 1, "ids": [34]}}
+PREPARE own product: sku=g05c85266c5333e420fb0902e7a5948cb06 name=G05-0a164b81f28e47d6-c85266c5333e420fb0902e7a5948cb06
+{"time_utc": "2026-11-08T17:36:06.388298+00:00", "method": "POST", "path": "/wc/v3/products", "query": null, "input": {"name": "G05-0a164b81f28e47d6-c85266c5333e420fb0902e7a5948cb06", "sku": "g05c85266c5333e420fb0902e7a5948cb06", "type": "simple", "status": "draft", "regular_price": "100.00", "catalog_visibility": "visible", "meta_data": [{"key": "itcs386_test_run", "value": "0a164b81f28e47d6"}]}, "auth_mode": "valid", "status": 201, "response": {"id": 74, "name": "G05-0a164b81f28e47d6-c85266c5333e420fb0902e7a5948cb06", "sku": "g05c85266c5333e420fb0902e7a5948cb06", "status": "draft", "regular_price": "100.00"}}
+{"time_utc": "2026-11-08T17:36:06.471734+00:00", "method": "GET", "path": "/wc/v3/products/74", "query": null, "input": null, "auth_mode": "valid", "status": 200, "response": {"id": 74, "name": "G05-0a164b81f28e47d6-c85266c5333e420fb0902e7a5948cb06", "sku": "g05c85266c5333e420fb0902e7a5948cb06", "status": "draft", "regular_price": "100.00"}}
+{"time_utc": "2026-11-08T17:36:06.550991+00:00", "method": "GET", "path": "/wc/store/v1/products/74", "query": null, "input": null, "auth_mode": "public/no-auth", "status": 404, "response": {"code": "woocommerce_rest_product_invalid_id", "message": "Invalid product ID."}}
+PASSED{"time_utc": "2026-11-08T17:36:06.630363+00:00", "method": "GET", "path": "/wc/v3/products/74", "query": null, "input": null, "auth_mode": "valid", "status": 200, "response": {"id": 74, "name": "G05-0a164b81f28e47d6-c85266c5333e420fb0902e7a5948cb06", "sku": "g05c85266c5333e420fb0902e7a5948cb06", "status": "draft", "regular_price": "100.00"}}
+{"time_utc": "2026-11-08T17:36:06.847348+00:00", "method": "DELETE", "path": "/wc/v3/products/74", "query": {"force": "true"}, "input": null, "auth_mode": "valid", "status": 200, "response": {"id": 74, "name": "G05-0a164b81f28e47d6-c85266c5333e420fb0902e7a5948cb06", "sku": "g05c85266c5333e420fb0902e7a5948cb06", "status": "draft", "regular_price": "100.00"}}
+{"time_utc": "2026-11-08T17:36:06.921609+00:00", "method": "GET", "path": "/wc/v3/products/74", "query": null, "input": null, "auth_mode": "valid", "status": 404, "response": {"code": "woocommerce_rest_product_invalid_id", "message": "Invalid ID."}}
+CLEANUP verified: no products from this test remain
+
+
+- generated xml file: PROJECT_ROOT/API testing/results/20261108T173605Z-0a164b81/junit.xml -
+============================== 1 passed in 1.16s ===============================

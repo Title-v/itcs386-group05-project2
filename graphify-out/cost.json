@@ -1,0 +1,7 @@
+{
+  "input_tokens": null,
+  "output_tokens": null,
+  "usage_available": false,
+  "provider": "running Codex session",
+  "note": "Host did not expose token usage. Local AST extraction did not call a provider."
+}

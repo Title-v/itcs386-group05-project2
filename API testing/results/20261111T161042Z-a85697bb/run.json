@@ -1,0 +1,36 @@
+{
+  "run_id": "a85697bb10ae4afb",
+  "started_utc": "2026-11-11T16:10:42.160084+00:00",
+  "started_bangkok": "2026-11-11T23:10:42.160084+07:00",
+  "finished_utc": "2026-11-11T16:10:52.722282+00:00",
+  "command": [
+    "python",
+    "-m",
+    "pytest",
+    "-vv",
+    "-s",
+    "--tb=short",
+    "--junitxml=API testing/results/20261111T161042Z-a85697bb/junit.xml",
+    "API testing/test_product_list.py",
+    "API testing/test_product_detail.py",
+    "API testing/test_product_create.py"
+  ],
+  "exit_code": 0,
+  "counts": {
+    "tests": 17,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "directory": "API testing/results/20261111T161042Z-a85697bb",
+  "source_sha256": {
+    "API testing/conftest.py": "a199f15c8197bc7c6cd27066f8a4681544c4784932f41a9081a57a634d4ee384",
+    "API testing/shop_support.py": "03de0a37a26e3d873ec124230fa2d8180d76e69a05467257e9c29aa5e3a57e93",
+    "API testing/test_product_create.py": "88d29673d61734cc12f493c4e219be5cdae18c430c41f129e15978bbdfe63bdc",
+    "API testing/test_product_detail.py": "65d050800035f6e64b214ae0a9513889a3dc12570e35e475b5903d0b86547d08",
+    "API testing/test_product_list.py": "16569a06cf9b089b48056b1ac68f4e5a3aa13a6aa98c90933e620041b7f216d6",
+    "run_api_tests.py": "182dbfcf74b3591865e3d7a50f2d60b2dfc250ec8fd6c75cee167c3b065cbc2f",
+    "requirements.txt": "50df10b939236d48e16f822f1cd487698cb9300ccd6d4f7c771d5d4a86bf9628"
+  },
+  "scope": "3 product API operations only; not System/UI/Performance completion"
+}

@@ -1,0 +1,19 @@
+{
+  "errors": [],
+  "knownIssues": [
+    "Headless Chrome native drag on original hero paragraph collapses selection; actual Codex IAB native drag separately selected 45 characters. Root cause not isolated; do not claim universal browser selection support."
+  ],
+  "caseAnchors": 15,
+  "renderedLines": 187,
+  "labelCollisions": 0,
+  "mobileLabelCollisions": 0,
+  "themeZoomAndScrollPersist": true,
+  "ctrlWheelBurstStep10": true,
+  "toolbarWheelCaptured": true,
+  "selectionCharacters": 0,
+  "commandPan": true,
+  "printLightWhileDark": true,
+  "detailsVisibilityMapping": true,
+  "blockedStorageFallback": true,
+  "codexAnnotationRoundTrip": false
+}
