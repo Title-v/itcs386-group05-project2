@@ -88,11 +88,14 @@ def request_details(sid, cid, values, recorded, log_path):
     return request, {"total": len(steps), "counts": counts, "steps": steps, "source": log_path}
 
 
-def readme_span(start, end):
-    """Line range from the README line starting with `start` up to the line before `end`."""
-    lines = (ROOT / "README.md").read_text().splitlines()
+API_README = "API testing/README.md"
+
+
+def readme_span(start, end=None, path=API_README):
+    """Line range from the line starting with `start` up to the line before `end` (or end of file)."""
+    lines = (ROOT / path).read_text().splitlines()
     first = next(i for i, l in enumerate(lines, 1) if l.startswith(start))
-    stop = next(i for i, l in enumerate(lines, 1) if i > first and l.startswith(end))
+    stop = next((i for i, l in enumerate(lines, 1) if end and i > first and l.startswith(end)), len(lines) + 1)
     while stop - 1 > first and not lines[stop - 2].strip():
         stop -= 1
     return first, stop - 1
@@ -128,9 +131,9 @@ def make_model():
     g_ids = {n["id"] for n in graph["nodes"]}
     add("scope-api", "API Testing ของกลุ่มเรา", None,
         "ตรวจการอ่านรายการ/ค้นหา อ่านสินค้าตาม ID และสร้างสินค้า บน WooCommerce ที่อาจารย์เตรียมไว้",
-        "มองจากภาพรวมก่อน แล้วเลือกกล่องเพื่อดูส่วนย่อย ไม่จำเป็นต้องเริ่มอ่านโค้ด", outputs=["3 suites / 17 distinct cases", "pytest + requests · automated API tests ไม่ใช่ UI tests"], sources=[source("README.md",*readme_span("Selected system:","One Python file is one operation suite."))])
-    add("local-run", "ฝั่งเครื่องเรา · Test harness", "scope-api", "ส่วนที่เราพัฒนาเพื่อเตรียมข้อมูล ส่ง HTTP requests ตรวจคำตอบ และบันทึกหลักฐาน", sources=[source("README.md",*readme_span("### Run all three suites","### How to read the ISP design"))])
-    add("api-testing", "3 operation suites", "scope-api", "แต่ละ suite ทดสอบหนึ่ง operation และมีหลาย inputs ที่มาจาก ISP", "ไม่มีลูกศรบังคับ Suite 1 → 2 → 3: แต่ละ case เตรียมข้อมูลของตัวเอง", outputs=["S01: 7 cases", "S02: 5 cases", "S03: 5 cases"], sources=[source("README.md",*readme_span("The tests call the existing","One Python file is one operation suite."))])
+        "มองจากภาพรวมก่อน แล้วเลือกกล่องเพื่อดูส่วนย่อย ไม่จำเป็นต้องเริ่มอ่านโค้ด", outputs=["3 suites / 17 distinct cases", "pytest + requests · automated API tests ไม่ใช่ UI tests"], sources=[source("README.md",*readme_span("## API testing","## System testing","README.md"))])
+    add("local-run", "ฝั่งเครื่องเรา · Test harness", "scope-api", "ส่วนที่เราพัฒนาเพื่อเตรียมข้อมูล ส่ง HTTP requests ตรวจคำตอบ และบันทึกหลักฐาน", sources=[source(API_README,*readme_span("## How to run","## ISP design"))])
+    add("api-testing", "3 operation suites", "scope-api", "แต่ละ suite ทดสอบหนึ่ง operation และมีหลาย inputs ที่มาจาก ISP", "ไม่มีลูกศรบังคับ Suite 1 → 2 → 3: แต่ละ case เตรียมข้อมูลของตัวเอง", outputs=["S01: 7 cases", "S02: 5 cases", "S03: 5 cases"], sources=[source(API_README,*readme_span("## Overview","## How to run"))])
     add("api-runner", "Runner · สั่งรันและเก็บผล", "local-run", "คำสั่ง python run_api_tests.py เริ่ม pytest แล้วเก็บผลหลังจบ subprocess",
         "ใช้คำสั่งเดียวและเก็บหลักฐานเป็นรอบ ไม่เขียนทับผลเก่า", inputs=["suite paths (optional)", "credentials จาก environment — ไม่ใส่ค่าในกราฟ"], outputs=["pytest subprocess", "console.txt / junit.xml / run.json", "latest-run.json"], sources=[source("run_api_tests.py",17,72)], refs=["run_api_tests_main"])
     add("pytest", "pytest · ผู้รัน test cases", "local-run", "ค้นหา parametrized tests เรียก fixtures และประเมิน assertions ของแต่ละ case",
@@ -150,13 +153,13 @@ def make_model():
     add("unknown-post", "Interrupted POST ≠ ไม่มีสินค้า", "cleanup-ownership", "ถ้า response ขาดหาย อาจสร้างสินค้าสำเร็จแล้ว จึงไม่ POST ซ้ำแบบ blind retry", "ค้นด้วย exact unique SKU เพื่อ reconcile; ถ้ายังไม่แน่ชัดจะเก็บ unknown outcome และรายงาน error", sources=[source("API testing/shop_support.py",139,155),source("API testing/shop_support.py",196,216)], refs=["api_testing_shop_support_productfactory_lookup"])
     add("offline-checks", "7 offline harness checks", "cleanup-ownership", "ตรวจ guard ว่าไม่รับสินค้า/marker/ID ที่ผิด และไม่อ้างว่า cleanup สำเร็จหลัง POST ที่ยังไม่รู้ผล", "เป็นการตรวจ test harness ไม่ใช่เพิ่มจำนวน assignment cases จาก 17 เป็น 24", sources=[source("verification/test_api_support.py",14,65)], refs=["verification_test_api_support_ownershipchecks"])
     add("assertions", "Assertions · กติกาตัดสินผล", "api-testing", "ตรวจ status code และ fields ที่สำคัญ ไม่ใช่เพียง server ตอบกลับ", inputs=["expected result จาก contract และ fixture input", "actual response จาก server"], outputs=["PASS เมื่อได้ผลที่คาดไว้ รวม HTTP 400/401/404 ที่เป็น negative cases"], sources=[source("API testing/shop_support.py",28,47)], refs=["api_testing_shop_support_assert_error","api_testing_shop_support_assert_store_product"])
-    add("sut", "WooCommerce · ระบบที่ถูกทดสอบ", "scope-api", "ระบบของอาจารย์ที่รับ requests จาก test code ของเรา ไม่ใช่โค้ดที่เรากำลัง implement", "ไม่มีการเปิด browser/คลิกหน้าเว็บใน API suites เหล่านี้", sources=[source("README.md",*readme_span("## API testing: start here","One Python file is one operation suite."))])
+    add("sut", "WooCommerce · ระบบที่ถูกทดสอบ", "scope-api", "ระบบของอาจารย์ที่รับ requests จาก test code ของเรา ไม่ใช่โค้ดที่เรากำลัง implement", "ไม่มีการเปิด browser/คลิกหน้าเว็บใน API suites เหล่านี้", sources=[source(API_README,*readme_span("## Overview","## How to run"))])
     add("store-api", "Store API · มุมลูกค้า", "sut", "API สาธารณะสำหรับอ่านข้อมูลสินค้าที่เปิดเผยให้ลูกค้าเห็น", outputs=["GET products", "GET products/{id}"], sources=[source("API testing/test_product_list.py",23,46),source("API testing/test_product_detail.py",17,31)])
     add("admin-api", "Admin REST API · มุมพนักงาน", "sut", "API สำหรับ Shop manager: POST สร้างสินค้าเป็น subject ของ S03; GET/DELETE ยังใช้เตรียม/ตรวจ/ลบ fixtures", outputs=["POST /products — operation under test", "GET product(s) — preflight/setup/read-back", "DELETE owned product — cleanup"], sources=[source("API testing/test_product_create.py",21,47),source("API testing/shop_support.py",139,192)])
     add("product-state", "สถานะข้อมูลสินค้า (conceptual)", "sut", "การสร้าง อ่านกลับ และลบมองเห็นผ่าน API ว่าข้อมูลถูกเก็บ/เปลี่ยนสถานะแล้ว", "ไม่ได้ clone หรือ inspect implementation/database schema ภายใน WooCommerce จึงไม่อ้างโครงสร้าง DB จริง", kind="concept", confidence="INFERRED", sources=[source("API testing/test_product_create.py",36,47)])
     run_counts = latest["counts"]; run_date = latest["started_bangkok"][:16].replace("T", " ")
     run_passed = run_counts["tests"] - run_counts["failures"] - run_counts["errors"] - run_counts["skipped"]
-    add("evidence", "Execution evidence · ผลที่บันทึก", "scope-api", f"ผลจริงที่บันทึกล่าสุด {run_date} Bangkok ไม่ใช่สถานะสดหรือการรันใหม่ในหน้ากราฟนี้", outputs=[f"latest full run {run_passed}/{run_counts['tests']} ผ่าน", "รอบ 15 cases วันที่ 9 พ.ย. เก็บไว้เป็นประวัติ"], sources=[source("README.md",*readme_span("### Execution results and limitations","### Sources for the design"))], runSummary={"passed": run_passed, "tests": run_counts["tests"], "date": run_date})
+    add("evidence", "Execution evidence · ผลที่บันทึก", "scope-api", f"ผลจริงที่บันทึกล่าสุด {run_date} Bangkok ไม่ใช่สถานะสดหรือการรันใหม่ในหน้ากราฟนี้", outputs=[f"latest full run {run_passed}/{run_counts['tests']} ผ่าน", "รอบ 15 cases วันที่ 9 พ.ย. เก็บไว้เป็นประวัติ"], sources=[source(API_README,*readme_span("## Results"))], runSummary={"passed": run_passed, "tests": run_counts["tests"], "date": run_date})
     add("evidence-console", "console.txt · requests + outcomes", "evidence", "เก็บ output เต็ม พร้อม query/payload และ selected response fields โดยไม่เก็บ Authorization/password", sources=[source(latest["directory"]+"/console.txt",1,10)])
     add("evidence-junit", "junit.xml · per-case result", "evidence", "ผล structured ของแต่ละ parametrized test ใช้ตรวจจำนวน pass/failure/error/skip", sources=[source("run_api_tests.py",49,58)])
     add("evidence-manifest", "run.json + source hashes", "evidence", "ผูกผลแต่ละรอบกับคำสั่ง เวลา และ SHA-256 ของ test source; latest pointer เป็นรอบ S03→S02→S01", sources=[source("run_api_tests.py",59,71),source("API testing/results/latest-run.json",1,35)])
@@ -179,7 +182,7 @@ def make_model():
         suite=add(sid,title,"api-testing",f"{sid} ทดสอบ operation นี้ด้วย inputs ตาม ISP ไม่ต้องพึ่ง suite ก่อนหน้า", criterion,
                   inputs=partitions, outputs=[criterion],sources=[source(path,fn.lineno,fn.end_lineno)],refs=[ref],kind="suite",partitions=partitions,criterion=criterion)
         suite["isp"] = learning["suites"][sid]
-        suite["sources"].append(source("README.md", *readme_span(*suite["isp"]["readmeSection"])))
+        suite["sources"].append(source(API_README, *readme_span(*suite["isp"]["readmeSection"])))
         for param in dec.args[1].elts:
             values=[ast.literal_eval(a) for a in param.args]
             label=next(ast.literal_eval(k.value) for k in param.keywords if k.arg=="id")

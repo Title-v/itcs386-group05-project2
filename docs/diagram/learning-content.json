@@ -243,7 +243,7 @@
       "scope": "ใช้ simple product ราคา 100.00 THB และ JSON ปกติ ไม่ได้ทดสอบทุก product type/ราคา/role หรือ interaction เช่น wrong credentials + invalid status",
       "readmeSection": [
         "### S03 — create a product",
-        "### Data isolation and safe cleanup"
+        "## Test independence and cleanup"
       ]
     }
   },
