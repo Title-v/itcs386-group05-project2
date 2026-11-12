@@ -10,7 +10,7 @@ System under test: the classroom WooCommerce shop at http://157.85.102.236/shop/
 | API testing | [`API testing/`](API%20testing/) | Rattee Watperatam | 17/17 passed (11 Nov 2026) |
 | System testing | [`system test/`](system%20test/) | | |
 | UI testing | | | |
-| Performance testing | | | |
+| Performance testing | [`Performance testing/`](Performance%20testing/) | | Scripts ready; full runs pending |
 
 Each owner fills in their row and their section below, and keeps the details in their own folder's README.
 
@@ -42,4 +42,17 @@ See [`system test/`](system%20test/).
 
 ## Performance testing
 
-<!-- Owner: the K6 average-load, stress, soak and spike scripts, thresholds, run summaries, and answers to the analysis questions in the description. -->
+Four k6 tests of a shopper journey through the public Store API (home page, browse a category, search, product page, add/update/remove cart item). No orders are placed, and only demo products are used:
+
+- Average load: 10 VUs for 6 min (p95 < 1 s, errors < 1%)
+- Stress: 10 → 50 VUs in steps of 10 (p95 < 2 s, errors < 5%)
+- Soak: 10 VUs for 60 min (p95 < 1 s, errors < 1%)
+- Spike: 5 → 50 → 5 VUs with a 5 min recovery window (p95 < 3 s, errors < 10%)
+
+Run one test from the repository root (k6 must be installed; no credentials needed):
+
+```bash
+python "Performance testing/run_perf_test.py" average-load    # or stress / soak / spike; add --quick for a 1-minute demo
+```
+
+Each run saves its k6 summary, time series and timeline analysis in `Performance testing/results/<UTC time>-<test>/`. Thresholds, their reasons, the run log and the answers to the analysis questions are in [Performance testing/README.md](Performance%20testing/README.md).
