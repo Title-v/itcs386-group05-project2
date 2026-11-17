@@ -1,0 +1,19 @@
+{
+  "test": "average-load",
+  "quick_mode": true,
+  "started_utc": "2026-11-17T09:05:25+00:00",
+  "ended_utc": "2026-11-17T09:06:31+00:00",
+  "started_bangkok": "2026-11-17 16:05:25 +07:00",
+  "ended_bangkok": "2026-11-17 16:06:31 +07:00",
+  "k6_version": "k6.exe v2.4.0 (commit/dd9395906d, go1.26.11, windows/amd64)",
+  "command": "run --out csv=results/20261117T090525Z-average-load-quick/timeseries.csv.gz -e OUT_DIR=results/20261117T090525Z-average-load-quick -e QUICK=1 average-load.js",
+  "k6_exit_code": 0,
+  "outcome": "passed: all thresholds met",
+  "files": [
+    "analysis.md",
+    "console.txt",
+    "summary.json",
+    "summary.txt",
+    "timeseries.csv.gz"
+  ]
+}

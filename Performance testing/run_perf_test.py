@@ -36,6 +36,8 @@ def main():
     parser.add_argument("--k6", default=os.environ.get("K6", "k6"), help="path to the k6 executable")
     parser.add_argument("-e", "--env", action="append", default=[], metavar="KEY=VALUE", help="extra k6 -e variable")
     args = parser.parse_args()
+    # k6 prints ✓/✗ and box characters; a Windows console (cp1252) cannot encode them and would crash the runner.
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
     k6 = shutil.which(args.k6) or args.k6
     if not Path(k6).exists() and not shutil.which(k6):

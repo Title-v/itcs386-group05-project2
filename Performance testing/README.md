@@ -68,7 +68,7 @@ Every test also sets the same p95 limit on each endpoint (`http_req_duration{end
 
 ### Why these numbers
 
-**Normal load is 10 VUs.** This is a small classroom shop on one server. Ten shoppers at once, each with 1–4 s think time, send roughly 5 requests per second (estimated from the visit: about 8 requests per ~17 s). That is a realistic busy hour for a shop of 14 products, and it leaves room on the server for the other groups.
+**Normal load is 10 VUs.** This is a small classroom shop on one server. Ten shoppers at once, each with 1–4 s think time, send roughly 4–5 requests per second. The average-load run measured 6.6 requests per visit and 14.7 s per visit, which is 4.4 requests per second at a steady 10 VUs. That is a realistic busy hour for a shop of 14 products, and it leaves room on the server for the other groups.
 
 **p95 < 1 s for average load and soak.** About 1 s is the limit before a shopper notices the site is slow. It is also the limit the brief's first question uses. A single unloaded request to the home page took about 0.55 s on 12 Nov 2026, so 1 s gives a realistic margin. p99 < 2 s keeps the slowest 1% in check. We use p95 rather than the average, because the average hides the slow requests that users actually feel.
 
@@ -86,37 +86,67 @@ All groups share one server, so every run is recorded with its date and time (Ba
 
 | Date and time (Bangkok) | Test | Result folder | Outcome | p95 | Errors | Notes (other activity, changes) |
 | --- | --- | --- | --- | ---: | ---: | --- |
-| _to fill_ | average-load | | | | | |
-| _to fill_ | stress | | | | | |
-| _to fill_ | soak | | | | | |
-| _to fill_ | spike | | | | | |
+| 17 Nov 2026 16:05–16:06 | average-load `--quick` | [20261117T090525Z-average-load-quick](results/20261117T090525Z-average-load-quick/) | ✓ passed | 323 ms | 0.00% | Smoke run for the demo. Not used for the answers. |
+| 17 Nov 2026 16:06–16:15 | average-load | [20261117T090645Z-average-load](results/20261117T090645Z-average-load/) | ✓ passed | 304 ms | 0.00% | |
+| 17 Nov 2026 16:15–16:33 | stress | [20261117T091557Z-stress](results/20261117T091557Z-stress/) | ✗ p95 < 2 s crossed (overall and `home`) | 2.87 s | 0.00% | Expected for a stress test. No abort: errors stayed at 0. |
+| 17 Nov 2026 16:33–16:42 | spike | [20261117T093314Z-spike](results/20261117T093314Z-spike/) | ✗ p95 < 3 s crossed (overall and `home`) | 3.81 s | 0.00% | Expected during a 10× spike. No abort. |
+| 17 Nov 2026 16:42–17:47 | soak | [20261117T094257Z-soak](results/20261117T094257Z-soak/) | ✓ passed | 317 ms | 0.00% | One short bump at 41:30–43:30 (≈17:24–17:27): window p95 up to 875 ms, then straight back to ~300 ms. Our load was flat, so it was most likely another group using the server. |
 
-If a repeated run gives different numbers, write down the likely cause. Typical causes on this server: other groups running load or UI tests at the same time (check their timestamps), WordPress caches being cold on the first run, or time of day.
+The four full runs ran one after another, so they never overlapped each other. The normal-load response time was the same in every run that had a normal-load phase: p95 304 ms (average load), 317 ms (soak), 303–355 ms per window in the 10-VU step of the stress test, and a 314 ms baseline in the spike test. So the runs are consistent with each other. Apart from the soak bump above, nothing suggests other groups were loading the server during our runs. If a repeated run gives different numbers, write down the likely cause. Typical causes on this server: other groups running load or UI tests at the same time (check their timestamps), WordPress caches being cold on the first run, or time of day.
+
+The request counts in `analysis.md` are a few lower than in `summary.txt`, because the analysis leaves out the catalogue requests made once in `setup()`.
 
 ## Results and answers
 
-_To be filled from the full runs: each answer quotes the numbers in that run's `summary.txt` and `analysis.md`._
+All numbers come from the full runs above. The overall figures are from each run's `summary.txt`, and the per-window figures are from its `analysis.md`.
 
 **1. How many virtual users can the system serve before the response time goes above 1 second?**
-Source: the stress run's `analysis.md`, "Load vs response time". It gives the highest VU count whose 30 s windows still had p95 ≤ 1 s.
+
+**About 30 VUs.** In the stress run, every 30 s window up to and including the 30-VU step had p95 ≤ 1 s (the 30-VU hold: 628–778 ms). p95 first went above 1 s at **34 VUs**, while ramping from 30 to 40 (window 09:00, p95 1.31 s). At the 40-VU step it was 2.3–4.1 s. The spike test agrees: the window with 25 VUs had p95 371 ms, and the next one, at 48 VUs, had 3.4 s. At the normal load of 10 VUs the shop is fast: p95 304 ms.
 
 **2. In the stress test, at how many virtual users does the system start to show problems?**
-Source: the stress run's `analysis.md`, "First sign of problems" (the first window with p95 > 1 s or errors > 1%). Compare it with the failed checks and thresholds in `summary.txt`.
+
+**Between 30 and 40 VUs: the first problem window was at 34 VUs** (p95 > 1 s). The problem is **slowness, not errors**. All 10,075 requests succeeded (`http_req_failed` 0.00%) and all 23,985 checks passed. The cause is visible in the timeline:
+
+| Stress step | Requests/s | p95 per window |
+| --- | ---: | ---: |
+| 10 VUs | 4.3–4.4 | 0.30–0.36 s |
+| 20 VUs | 8.5–9.1 | 0.42–0.62 s |
+| 30 VUs | 12.3–12.9 | 0.63–0.78 s |
+| 40 VUs | 12.3–14.6 | 2.3–4.1 s |
+| 50 VUs | 11.6–13.1 | 5.8–6.9 s |
+
+Throughput grows with the VUs up to 30, then **stays at about 13 requests/s** however many VUs are added. That is the server's capacity for this traffic mix. Beyond it, extra requests wait in a queue (probably for a free PHP worker), so response time climbs while nothing fails. The full-HTML **home page is the bottleneck**. Its p95 reached 6.61 s and crossed the per-endpoint limit, while every JSON Store API call stayed under 2 s (p95 1.3–1.9 s). The test crossed its p95 < 2 s threshold (overall 2.87 s), but not the error or check thresholds.
 
 **3. In the soak test, do the response time or the error rate get worse as the test goes on?**
-Source: the soak run's `analysis.md`, "Soak trend". It compares the first and last third of the hour, with the p95 trend in ms per minute.
+
+**No.** Over the hour at 10 VUs (steady part 01:30–63:00):
+
+| Part of the hour | p95 | Average | Errors |
+| --- | ---: | ---: | ---: |
+| First third | 318 ms | 128 ms | 0.00% |
+| Last third | 323 ms | 130 ms | 0.00% |
+
+That is a +2% change, and the trend of the window p95 is +0.2 ms per minute, which is within normal variation. There were no failed requests in 16,602 (`http_req_failed` 0.00%), and all thresholds passed. The only bump (≈17:24–17:27, see the run log) recovered by itself. So within one hour there is no sign of a memory leak, of growing sessions or of a gradual slowdown.
 
 **4. In the spike test, how long does the system take to return to normal service after the spike?**
-Source: the spike run's `analysis.md`, "Spike recovery". It gives the seconds from the end of the spike until p95 and errors are back near the baseline for two 10 s windows in a row.
+
+**About 10 seconds after the load starts to fall.**
+- **Baseline at 5 VUs:** p95 314 ms.
+- **During the spike to 50 VUs (02:40–04:00):** the worst 10 s window had p95 7.3 s, but there were no errors.
+- **Load starts to fall:** 04:00. The 04:00–04:10 window was still slow (p95 2.8 s) while the queue cleared.
+- **Back to normal:** from the 04:10 window on, p95 was 151 ms, then about 280 ms, which is within "normal" (p95 ≤ 514 ms, that is, 1.5× the baseline, for two windows in a row).
+
+A 5 s breakdown shows the same thing: p95 was 4.4 s at 04:00–04:05 and 337 ms at 04:05–04:10. After that, p95 stayed at its baseline level (250–460 ms) for the rest of the 5-minute recovery window. So the shop recovers almost at once and there is no lasting harm. It slows down a lot during a spike, but it does not fail.
 
 **5. What do `http_req_failed`, `http_req_duration` and `vus_max` tell you about the system in each test?**
 
 | Test | `http_req_failed` | `http_req_duration` (avg / p95 / max) | `vus_max` | What it means |
 | --- | --- | --- | --- | --- |
-| Average load | | | | |
-| Stress | | | | |
-| Soak | | | | |
-| Spike | | | | |
+| Average load | 0.00% (0 of 2,056) | 122 ms / 304 ms / 506 ms | 10 | At normal load the shop is fully available and fast. Even the slowest request was about 0.5 s. |
+| Stress | 0.00% (0 of 10,075) | 776 ms / 2.87 s / 9.8 s | 50 | It stays available up to 5× normal load, but it gets slow. The high p95 and max come from the 40–50 VU steps, beyond the ~30 VU capacity. |
+| Soak | 0.00% (0 of 16,602) | 128 ms / 317 ms / 1.55 s | 10 | Same speed as average load, for a whole hour. One slow request (1.55 s, home page) during the bump. No wear-out over time. |
+| Spike | 0.00% (0 of 2,417) | 796 ms / 3.81 s / 8.4 s | 50 | A sudden 10× jump makes the shop slow for about 1.5 minutes but causes no errors. Speed returns about 10 s after the load drops. |
 
 - `http_req_failed` is the share of requests with an error status (4xx/5xx) or no response. It shows whether the shop stayed **available**.
 - `http_req_duration` is the time to complete a request. It shows how **fast** the shop felt; p95 is the experience of the slowest 5% of requests.

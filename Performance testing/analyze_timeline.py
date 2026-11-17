@@ -157,7 +157,11 @@ def spike_findings(buckets):
     spike = [b for b in buckets if b.vus > 0.5 * peak]
     if not spike:
         return ["- No spike found in the VU series."]
-    spike_start, spike_end = spike[0].start, spike[-1].start + BUCKET
+    spike_start = spike[0].start
+    # "After the spike" starts when the load begins to fall from its peak (end of the last window at full peak),
+    # not when the ramp-down has finished: by then the server has often recovered already.
+    spike_end = [b for b in buckets if b.vus >= peak][-1].start + BUCKET
+    ramp_done = spike[-1].start + BUCKET
     pre = [b for b in judged(buckets) if b.start + BUCKET <= spike_start]
     baseline = pre[1:] if len(pre) > 2 else pre  # skip the warm-up window
     if not baseline:
@@ -175,7 +179,8 @@ def spike_findings(buckets):
     lines = [
         f"- Baseline before the spike: p95 {ms(base_p95)} ms, errors {base_err:.2%}. "
         f"\"Normal\" means p95 <= {ms(limit)} ms and errors <= {base_err + ERROR_LIMIT:.2%} for two windows in a row.",
-        f"- Spike: {clock(spike_start)} to {clock(spike_end)}, up to {peak} VUs. Worst window p95 "
+        f"- Spike: {clock(spike_start)} to {clock(spike_end)} at up to {peak} VUs (load back under half the peak by "
+        f"{clock(ramp_done)}). Worst window p95 "
         f"{ms(max((b.p95 for b in during), default=None))} ms, worst errors "
         f"{max((b.error_rate for b in during), default=0):.1%}.",
     ]
@@ -184,7 +189,8 @@ def spike_findings(buckets):
     else:
         lines.append(
             f"- Back to normal at {clock(recovered.start)}: about **{max(0, recovered.start - spike_end):.0f} s** "
-            f"after the spike ended (window size {BUCKET} s, so the answer is accurate to about {BUCKET} s)."
+            f"after the load started to fall from its peak (window size {BUCKET} s, so the answer is accurate to "
+            f"about {BUCKET} s)."
         )
     return lines
 
