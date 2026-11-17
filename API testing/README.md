@@ -27,6 +27,38 @@ python run_api_tests.py
 
 The runner runs all 17 cases with pytest and saves `console.txt`, `junit.xml` and `run.json` in `results/<UTC time>-<run>/`. Credentials stay in environment variables and are redacted from saved output.
 
+### Run one suite
+
+Run these in the same terminal after the setup above. Each command runs one test file and saves evidence like the full run.
+
+S01 — list/search products (7 cases):
+
+```zsh
+python run_api_tests.py "API testing/test_product_list.py"
+```
+
+S02 — read one product (5 cases):
+
+```zsh
+python run_api_tests.py "API testing/test_product_detail.py"
+```
+
+S03 — create a product (5 cases):
+
+```zsh
+python run_api_tests.py "API testing/test_product_create.py"
+```
+
+To run without saving evidence, call pytest directly. Add `-k` and a case ID to run one case only:
+
+```zsh
+python -m pytest -v "API testing/test_product_list.py"
+```
+
+```zsh
+python -m pytest -v "API testing/test_product_list.py" -k S01-02
+```
+
 ## ISP design
 
 - **Characteristic**: a property used to split the inputs (interface-based = one parameter on its own; functionality-based = what the input means for the operation).
