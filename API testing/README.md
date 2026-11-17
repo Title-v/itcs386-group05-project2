@@ -12,6 +12,8 @@ Paths are relative to `http://157.85.102.236/shop/wp-json`.
 | S02 | `GET /wc/store/v1/products/{id}` — read one product | 5 | [test_product_detail.py](test_product_detail.py) |
 | S03 | `POST /wc/v3/products` — create a product | 5 | [test_product_create.py](test_product_create.py) |
 
+Suite IDs here are local to the automated API tests. In the [system API inventory](../system%20test/api-inventory.md), this document's product-creation suite **S03** corresponds to inventory **A02**; inventory S03 means category listing.
+
 Each `pytest.param` row is one test case and has a `# Goal:` comment above it. Every test checks the HTTP status and the important response fields.
 
 ## How to run
@@ -133,6 +135,6 @@ Each case creates the products it needs, with a unique `G05-<run>-<random>` name
 | 9 Nov 2026 00:35 | 15 (before S02-04/05 were added) | 15 passed | [console](results/20261108T173522Z-fbc1f0d3/console.txt) |
 | 9 Nov 2026 00:36 | 15, reverse suite order | 15 passed | [console](results/20261108T173606Z-0e33c528/console.txt) |
 
-No test failed, so there are no defects to report yet. If a test fails, record whether it is a system defect or a test mistake; for a defect, give the request, expected result and actual result.
+No API test failed in the recorded runs, so those API runs produced no failing-case defect report. System-test mail-delivery observations and the Test 3 input-operation incident are documented separately in the [system-test reports](../system%20test/README.md). If a test fails, record whether it is a system defect or a test mistake; for a defect, give the request, expected result and actual result.
 
-The review map [`docs/api-testing-map.html`](../docs/api-testing-map.html) shows how the suites, fixtures and requests connect.
+The review map [`docs/api-testing-map.html`](../docs/api-testing-map.html) shows the 17-case suite structure using an older evidence snapshot (11 November 2026). It is not the latest execution report; use the Results table above. The [supporting-document status](../docs/README.md) also identifies the older 15-case exports.

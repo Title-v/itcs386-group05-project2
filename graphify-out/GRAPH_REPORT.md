@@ -1,5 +1,7 @@
 # Graph Report - project phase 2  (2026-11-10)
 
+> Historical source snapshot (9–10 November 2026), not the current repository status. This report describes the earlier 15-case API suite. Current evidence has 17 API cases and three executed system scenarios; see the [current overview](../README.md), [API README](../API%20testing/README.md) and [supporting-document status](../docs/README.md). The historical findings below have not been regenerated.
+
 ## Corpus Check
 - Corpus is ~9,746 words - fits in a single context window. You may not need a graph.
 

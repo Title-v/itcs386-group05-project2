@@ -1,10 +1,10 @@
 # System Test Traceability Matrix — ITCS386 Group 5
 
-**Revision 3.2 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 R01 passed 9/9 steps; ST-G05-03 revised guest case passed 7 checks after an input-error retest.**
+**Revision 3.3 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 R01 passed 9/9 steps; ST-G05-03 revised guest case passed 7 checks after an input-error retest.**
 
 This matrix follows slide 40 of `W11-Integration, System and UI Testing_v3.pdf`: **Requirement | Test cases**. It maps observable behavior to the [three revised system scenarios](system-test-cases.md), with nine steps each for Tests 1–2 and seven revised steps for Test 3.
 
-The group-defined R1–R22 identifiers are retained for continuity; R23 records storefront list-based product discovery. Features deliberately removed from this revision remain visible as **No test case — outside selected scope**. Partial mappings are stated explicitly. A mapped requirement is planned, not passed; there is no claim of complete guide or API coverage.
+The group-defined R1–R22 identifiers are retained for continuity; R23 records storefront list-based product discovery. Features deliberately removed from this revision remain visible as **No test case — outside selected scope**. Partial mappings are stated explicitly. A requirement-to-case link identifies scope. The reports record observed outcomes; a link alone is not proof of complete requirement or API coverage.
 
 ## Requirement-to-test-case matrix
 
@@ -58,11 +58,23 @@ The group-defined R1–R22 identifiers are retained for continuity; R23 records 
 - This is the group's reduced scope; it is not a claim that every guide feature or grading expectation is satisfied. The assignment asks for coverage of the main staff/customer features and a matrix that exposes omissions.
 - No additional system steps are required merely to map every documented endpoint. The separate API Testing deliverable still requires at least three operations, including one that creates or changes data.
 
-Product discovery now uses the visible Shop list and Next page as needed, followed by clicking the product name. This does not test search, category browsing, sorting, filters or pagination correctness. S01 remains a planned behavioral mapping for listing products, not a search assertion.
+Product discovery now uses the visible Shop list and Next page as needed, followed by clicking the product name. This does not test search, category browsing, sorting, filters or pagination correctness. Inventory S01 remains a behavioral mapping for listing products, not a storefront-search assertion.
 
 ## Appendix — API behavioral mapping
 
-This is a supporting mapping to the [API inventory](api-inventory.md). **Planned** means related UI behavior is explicitly checked; **Indirect** means only a related page/flow is exercised. Neither proves that the endpoint is called. WordPress Admin may use other mechanisms; direct API tests or network evidence with response assertions are required for verified API coverage.
+This is a supporting mapping to the [API inventory](api-inventory.md). **Observed UI behavior** means an explicit related check was executed in the listed system steps; **Indirect** means only a related page/flow was exercised. Neither proves that the endpoint is called. WordPress Admin may use other mechanisms; direct API tests or network evidence with response assertions are required for verified API coverage.
+
+### Separate automated API suite IDs
+
+Inventory IDs below belong to this document. They differ from suite IDs in [API testing](../API%20testing/README.md).
+
+| Automated API suite | Operation | Inventory ID |
+|---|---|---|
+| S01 | GET /wc/store/v1/products | S01 |
+| S02 | GET /wc/store/v1/products/{id} | S02 |
+| S03 | POST /wc/v3/products | A02 |
+
+Inventory **S03** means GET /products/categories; it is not the automated product-creation suite. The separate API suites have their own direct execution evidence. Do not infer that the system screenshots exercised all 24 inventory operations.
 
 ### Store API
 
@@ -70,17 +82,17 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/store/v1`
 
 | API ID | Method / Endpoint | System test steps | Scope |
 |---|---|---|---|
-| S01 | `GET /products` | ST-G05-01 (steps 3); ST-G05-02 (steps 2); ST-G05-03 (steps 2) | Planned |
-| S02 | `GET /products/{id}` | ST-G05-01 (steps 3); ST-G05-02 (steps 2, 9); ST-G05-03 (steps 2) | Planned |
+| S01 | `GET /products` | ST-G05-01 (steps 3); ST-G05-02 (steps 2); ST-G05-03 (steps 2) | Observed UI behavior |
+| S02 | `GET /products/{id}` | ST-G05-01 (steps 3); ST-G05-02 (steps 2, 9); ST-G05-03 (steps 2) | Observed UI behavior |
 | S03 | `GET /products/categories` | No test case — outside selected scope | Outside scope |
-| S04 | `GET /cart` | ST-G05-01 (steps 4, 6); ST-G05-02 (steps 2, 3, 4, 5, 6); ST-G05-03 (steps 3) | Planned |
-| S05 | `POST /cart/add-item` | ST-G05-01 (steps 4); ST-G05-02 (steps 2, 6, 9); ST-G05-03 (steps 3) | Planned |
-| S06 | `POST /cart/update-item` | ST-G05-02 (steps 3, 4) | Planned |
-| S07 | `POST /cart/remove-item` | ST-G05-02 (steps 5) | Planned |
-| S08 | `POST /cart/apply-coupon` | ST-G05-01 (steps 5) | Planned |
+| S04 | `GET /cart` | ST-G05-01 (steps 4, 6); ST-G05-02 (steps 2, 3, 4, 5, 6); ST-G05-03 (steps 3) | Observed UI behavior |
+| S05 | `POST /cart/add-item` | ST-G05-01 (steps 4); ST-G05-02 (steps 2, 6, 9); ST-G05-03 (steps 3) | Observed UI behavior |
+| S06 | `POST /cart/update-item` | ST-G05-02 (steps 3, 4) | Observed UI behavior |
+| S07 | `POST /cart/remove-item` | ST-G05-02 (steps 5) | Observed UI behavior |
+| S08 | `POST /cart/apply-coupon` | ST-G05-01 (steps 5) | Observed UI behavior |
 | S09 | `POST /cart/remove-coupon` | No test case — outside selected scope | Outside scope |
 | S10 | `GET /checkout` | ST-G05-01 (steps 6, 7); ST-G05-02 (steps 7); ST-G05-03 (steps 3) | Indirect |
-| S11 | `POST /checkout` | ST-G05-01 (steps 7); ST-G05-02 (steps 7); ST-G05-03 (steps 4, 5) | Planned |
+| S11 | `POST /checkout` | ST-G05-01 (steps 7); ST-G05-02 (steps 7); ST-G05-03 (steps 4, 5) | Observed UI behavior |
 
 ### Admin REST API
 
@@ -89,22 +101,22 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/v3`
 | API ID | Method / Endpoint | System test steps | Scope |
 |---|---|---|---|
 | A01 | `GET /products` | No test case — outside selected scope | Outside scope |
-| A02 | `POST /products` | ST-G05-01 (steps 1); ST-G05-02 (steps 1); ST-G05-03 (steps 1) | Planned |
-| A03 | `GET /products/{id}` | ST-G05-01 (steps 1); ST-G05-02 (steps 1, 8); ST-G05-03 (steps 1) | Planned |
-| A04 | `PUT /products/{id}` | ST-G05-03 (steps 1) | Planned |
+| A02 | `POST /products` | ST-G05-01 (steps 1); ST-G05-02 (steps 1); ST-G05-03 (steps 1) | Observed UI behavior |
+| A03 | `GET /products/{id}` | ST-G05-01 (steps 1); ST-G05-02 (steps 1, 8); ST-G05-03 (steps 1) | Observed UI behavior |
+| A04 | `PUT /products/{id}` | ST-G05-03 (steps 1) | Observed UI behavior |
 | A05 | `DELETE /products/{id}?force=true` | No test case — outside selected scope | Outside scope |
 | A06 | `GET /products/categories` | No test case — outside selected scope | Outside scope |
 | A07 | `POST /products/categories` | No test case — outside selected scope | Outside scope |
-| A08 | `GET /orders` | ST-G05-01 (steps 8) | Planned |
-| A09 | `GET /orders/{id}` | ST-G05-01 (steps 8); ST-G05-02 (steps 8); ST-G05-03 (steps 6) | Planned |
-| A10 | `PUT /orders/{id}` | ST-G05-01 (steps 9); ST-G05-03 (steps 7) | Planned |
+| A08 | `GET /orders` | ST-G05-01 (step 8); ST-G05-02 (step 8); ST-G05-03 (step 6) | Observed UI behavior |
+| A09 | `GET /orders/{id}` | ST-G05-01 (steps 8); ST-G05-02 (steps 8); ST-G05-03 (steps 6) | Observed UI behavior |
+| A10 | `PUT /orders/{id}` | ST-G05-01 (steps 9); ST-G05-03 (steps 7) | Observed UI behavior |
 | A11 | `GET /coupons` | No test case — outside selected scope | Outside scope |
-| A12 | `POST /coupons` | ST-G05-01 (steps 2) | Planned |
+| A12 | `POST /coupons` | ST-G05-01 (steps 2) | Observed UI behavior |
 | A13 | `GET /customers` | No test case — outside selected scope | Outside scope |
 
 ### API scope notes
 
-- 15 operations have explicit related behavioral steps, 1 is indirect and 8 are outside scope. These are design mappings, not executed coverage.
+- 15 operations have explicit related UI checks, 1 is indirect and 8 are outside the system-test scope. These are behavioral relationships, not a count of verified API calls.
 - S10 is indirect because opening checkout does not inspect the draft-order API response.
 - A01 and A11 have no explicit list assertions; navigating through a list is not counted as testing it.
 - Inspecting the customer attached to an order does not test A13, the registered-customer list.
@@ -118,4 +130,4 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/v3`
 
 - `W11-Integration, System and UI Testing_v3.pdf`, slides 33 and 40.
 - WooCommerce API Guide, sections 3–5.
-- [System test cases — Revision 3.2](system-test-cases.md), the authoritative step definitions.
+- [System test cases — Revision 3.3](system-test-cases.md), the authoritative step definitions.

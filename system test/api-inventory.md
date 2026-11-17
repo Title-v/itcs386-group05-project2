@@ -2,7 +2,7 @@
 
 API operations documented in WooCommerce_API_Guide.md, used as the basis for system testing and the API traceability matrix.
 
-**Status:** Documented / Not verified against the live server. This inventory has not been validated through live API calls and is not an exhaustive list of every endpoint WooCommerce may support.
+**Status:** Reference inventory from the guide; not an exhaustive API verification report. Separate pytest suites have live execution evidence for product listing, product detail and product creation; the full 24-operation inventory has not been tested directly. See the [API testing README](../API%20testing/README.md) for dated results.
 
 ## Environment
 
@@ -16,6 +16,18 @@ API operations documented in WooCommerce_API_Guide.md, used as the basis for sys
 | Test data prefix | `G05` followed by a unique RUN_ID |
 
 Several guide examples use the ITDS362 server (`157.85.104.96`). Replace it with the ITCS386 server above.
+
+## Separate automated API suite IDs
+
+Inventory IDs below belong to this document. They differ from suite IDs in [API testing](../API%20testing/README.md).
+
+| Automated API suite | Operation | Inventory ID |
+|---|---|---|
+| S01 | GET /wc/store/v1/products | S01 |
+| S02 | GET /wc/store/v1/products/{id} | S02 |
+| S03 | POST /wc/v3/products | A02 |
+
+Inventory **S03** means GET /products/categories; it is not the automated product-creation suite. The separate API suites have their own direct execution evidence. Do not infer that the system screenshots exercised all 24 inventory operations.
 
 ## 1. Store API — 11 operations
 
