@@ -1,20 +1,19 @@
 # System Test Cases — ITCS386 Group 5
 
-**Revision 3.2 — locate products through the Shop list. Status: ST-G05-01 R02 passed all nine revised steps; ST-G05-02 R01 passed all nine steps; ST-G05-03 Not Run.** These three manual scenarios use the Project 2 template and cover staff → customer → staff outcomes. Step numbers restart at 1 in each case and match the [traceability matrix](api-traceability-matrix.md). ST-G05-01 contains recorded inputs/results; ST-G05-02 also contains recorded inputs/results; only ST-G05-03 execution fields remain blank.
+**Revision 3.2 — locate products through the Shop list. Status: ST-G05-01 R02 passed all nine revised steps; ST-G05-02 R01 passed all nine steps; ST-G05-03 revised guest case passed after input-error retest.** These three manual scenarios use the Project 2 template and cover staff → customer → staff outcomes. Step numbers restart at 1 in each case and match the [traceability matrix](api-traceability-matrix.md). All three cases contain execution records; Tests 1–2 have nine steps each and Test 3 has seven revised steps.
 
 ## Shared execution setup
 
 - Storefront: http://157.85.102.236/shop/
 - Staff interface: http://157.85.102.236/shop/wp-admin/
 - Staff account: `itcs386-g05`, verified against Group 5 in `ITCS386_Group_Accounts.xlsx`, sheet `ITCS386`, row 15. Use the browser login password in cell D15; never commit its value.
-- Use separate staff/customer sessions. The dataset uses R02 for the recorded ST-G05-01 run and R01 for ST-G05-02 (executed) and ST-G05-03 (planned). Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R03` (continue to R04, R05, etc.; do not reuse a suffix from an earlier run). ST-G05-01 and ST-G05-02 values are recorded inputs; ST-G05-03 remains planned. Prefix names/codes with G05.
+- Use separate staff/customer sessions. The dataset uses R02 for the recorded ST-G05-01 run and R01 for the executed ST-G05-02 and revised ST-G05-03 cases. Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R03` (continue to R04, R05, etc.; do not reuse a suffix from an earlier run). ST-G05-01 and ST-G05-02 values are recorded inputs; ST-G05-03 is a recorded guest run. Prefix names/codes with G05.
 - Use only group-owned records; do not change demo data or other groups' records.
 - Fictional checkout details: G05 Test, 1 Test Road, Bangkok, Bangkok province, 10200, Thailand, phone 0800000000. Use the case email; use the same fictional shipping address.
 - Verify merchandise arithmetic separately from shipping/tax. Record the site's price/tax display basis and shipping charges before execution, then check the grand total against that breakdown. The 10% coupon calculation assumes the stated merchandise price is the discount basis.
 - Save screenshots for every step under `screenshots/<case-ID>/<RUN_ID>/`; reference their paths and observed values in Actual result.
 - Enter Pass or Fail only after running a step. Use Blocked if prerequisites prevent execution. Failed steps need a defect report with reproduction steps, expected/actual results and evidence.
-- ST-G05-03 uses the designated fictional customer `g05.tee.r01@example.com`. Confirm this account exists and can log in before execution, or prepare it through the supported setup flow. Its password must be obtained from the tester's private credential store, not this document. No working account or password is claimed to have been created. If email verification blocks setup, record Blocked and obtain an instructor-approved test account; record any substituted test email consistently. Registration remains outside the tested scope.
-- Latest ST-G05-01 run: R02, 17 November 2026, product 687, coupon 688, order 692 (Completed). All nine revised steps passed. ST-G05-02 R01 also passed on 17 November 2026 (product 773, order 774, 300 THB); ST-G05-03 remains Not Run.
+- Latest ST-G05-01 run: R02, 17 November 2026, product 687, coupon 688, order 692 (Completed). All nine revised steps passed. ST-G05-02 R01 also passed on 17 November 2026 (product 773, order 774, 300 THB); ST-G05-03 was revised to guest checkout and executed; see its report for the corrected attempt.
 
 ## Group 5 account values
 
@@ -30,7 +29,7 @@ Verified source: `ITCS386_Group_Accounts.xlsx`, sheet `ITCS386`, row 15.
 
 The sheet supplies the Group 5 **staff** account, not a separate shopper account. All staff actions below use that Group 5 account. The `G05` product/coupon prefixes and `g05.mug...`, `g05.cap...`, `g05.tee...` emails are fictional **Group 5 test data**, not credentials taken from the sheet. Keep the separate customer session so the tests exercise the shopper role.
 
-For ST-G05-03, prepare or use a group-owned fictional customer account before execution; do not substitute the hotel email or Shop manager account for that customer. No working customer password is supplied by this document.
+ST-G05-03 now uses guest checkout. Its email is fictional contact data, not a login credential; no customer account is required.
 
 ## Runtime values and expected amounts
 
@@ -50,7 +49,7 @@ For all three cases, open `http://157.85.102.236/shop/`, look for the exact prod
 
 The scenarios retain unusual inputs and actions: an invalid coupon and returning from checkout, an above-stock quantity and removing/re-adding an item, and a missing required address field followed by correction.
 
-Category creation/browsing, permanent deletion, coupon removal, customer-list checks, catalog pagination/sorting/price filters and registration testing are outside this revision. No extra fixtures are required to exercise every API.
+Category creation/browsing, permanent deletion, coupon removal, customer-list checks, catalog pagination/sorting/price filters and registration, customer login and My account history testing are outside this revision. No extra fixtures are required to exercise every API.
 
 ## ST-G05-01
 
@@ -343,26 +342,103 @@ With one unit remaining, the product page exposed only Add to cart, not a quanti
 
 ## ST-G05-03
 
+**Revised scope: guest price-update and checkout validation.** Customer login and My account order-history checks were removed at the user's request because no usable test customer account was available and the storefront exposed no Register control. They are not reported as tested or passed.
+
+**Result: seven revised checks passed, with step 4 retested after an input-operation error.** See [full execution report](ST-G05-03-R01-results.md).
+
 | Field | Details |
 |---|---|
 | Test case ID | ST-G05-03 |
-| Title | Verify updated pricing and customer order history |
-| Objective | Verify that a staff price update is used for a logged-in purchase and that the completed order appears correctly in customer history. |
-| Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. A group-owned fictional customer account already exists and can log in. Account creation is setup, not a tested requirement. Customer cart is empty; COD is available. |
-| Test data | Product: `G05 Tee R01`, simple, initial price 250 THB, new price 225 THB, stock 10, backorders disabled. Quantity 1. Login email: `g05.tee.r01@example.com`; obtain the actual password from the private test credential store. Invalid input: leave Address line 1 empty. |
-| Tested by and date | |
+| Title | Verify updated pricing and required-address validation for a guest purchase |
+| Objective | Verify the saved price update reaches the storefront, empty Street address prevents checkout, a corrected guest purchase uses the new price, and staff can complete the matching order. |
+| Preconditions | Staff is logged in as itcs386-g05; separate guest browser session with an empty cart; COD available. No customer account is required. |
+| Test data | G05 Tee R01 (product 775), Simple product; initial Regular price (฿) 250, updated to 225; Sale price blank; Stock management checked; Quantity 10; backorders Do not allow. Purchase quantity 1; email g05.tee.r01@example.com. Valid order 777; accidental order 776 cancelled. |
+| Tested by and date | Codex through Computer Use/browser UI, 17 November 2026, approximately 21:12–21:19 Asia/Bangkok |
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
-| 1 | Staff creates a new group-owned product, changes its price and saves it. | Name = G05 Tee R01; type = Simple product; initial regular price = 250.00 THB; updated regular price = 225.00 THB; sale price = empty; manage stock = enabled; stock = 10; backorders = Do not allow; status = Published | Published product retains the updated regular price of 225 THB after reopening. | | |
-| 2 | Customer logs in, opens Shop, locates G05 Tee R01 in the product list (using Next page if needed), then clicks its name. | Login email = g05.tee.r01@example.com; password = actual password from private test credential store; start page = http://157.85.102.236/shop/; target product = G05 Tee R01; Next page until found, then click its name | Correct account is active and the product displays the new price 225 THB. | | |
-| 3 | Customer adds one unit and opens checkout. | Product = G05 Tee R01; quantity = 1 | Cart/checkout shows one unit at 225 THB and retains the authenticated session. | | |
-| 4 | Customer fills other required fields but leaves Address line 1 blank and attempts to order. | First name = G05; last name = Test; address line 1 = empty (clear any saved/autofilled value); address line 2 = empty; city = Bangkok; province = Bangkok; postcode = 10200; country = Thailand; phone = 0800000000; email = g05.tee.r01@example.com; shipping address = same as billing; payment = Cash on delivery (cod) | Required-field validation is visible; no successful order confirmation appears and the form can be corrected. | | |
-| 5 | Customer corrects the address and places one COD order. | First name = G05; last name = Test; address line 1 = 1 Test Road; address line 2 = empty; city = Bangkok; province = Bangkok; postcode = 10200; country = Thailand; phone = 0800000000; email = g05.tee.r01@example.com; shipping address = same as billing; payment = Cash on delivery (cod) | Confirmation shows an order number and merchandise price 225 THB, not 250 THB; grand total matches displayed shipping/tax. | | |
-| 6 | Customer opens My account → Orders and views the order. | Open My account > Orders; select ORDER_ST03 captured in step 5 | The customer's order appears with the correct product, quantity and totals. | | |
-| 7 | Staff opens the same order and verifies the customer and purchase details. | Order = ORDER_ST03; customer email = g05.tee.r01@example.com; product = G05 Tee R01; quantity = 1 | Order is associated with the logged-in test customer and agrees with the customer confirmation. | | |
-| 8 | Staff changes the order to Completed and saves it. | Order = ORDER_ST03; new status = Completed | Completed is saved successfully. | | |
-| 9 | Customer refreshes order history and reopens the order. | Account = g05.tee.r01@example.com; order = ORDER_ST03; refresh My account > Orders and reopen the order | Order status is Completed; product details and totals remain unchanged. | | |
+| 1 | Staff publishes the product at the original regular price, then changes Regular price (฿), saves and reloads. | Product name = G05 Tee R01; Product data = Simple product; Regular price (฿) initially 250, then 225; Sale price (฿) blank; Stock management checked; Quantity 10; Allow backorders? = Do not allow; click Publish, then Update. | Published product retains the updated regular price of 225 THB after reopening. | Product 775 was published at 250 THB. After updating and reloading, Regular price (฿) showed 225; no sale price was used. | Pass |
+| 2 | Guest opens Shop, locates the tee through the product list and clicks its name. | Shop page 1; target G05 Tee R01; use Next Page as needed; found on page 13 in this run. | Correct product appears at the updated price of 225 THB and is available to buy. | Found G05 Tee R01 through the Shop list on page 13. Product details displayed 225 THB and 10 in stock; no login or direct product URL used. | Pass |
+| 3 | Guest adds one tee, opens View cart and then Proceed to Checkout. | Product quantity = 1; Add to cart; View cart; Proceed to Checkout. | Cart and checkout show one unit at 225 THB. | Cart and guest checkout showed one tee, quantity 1 and total 225 THB. No coupon was applied. | Pass |
+| 4 | Guest fills the other required details, clears Street address, verifies it is empty, then clicks Place Order. | Email address = g05.tee.r01@example.com; First name G05; Last name Test; Country / Region Thailand; Street address empty; Town / City Bangkok; State / County Bangkok; Postcode / ZIP 10200; Phone (optional) 0800000000; Cash on delivery selected; order note unchecked. | Required-field validation is visible; no successful order confirmation appears and the form can be corrected. | On the corrected attempt, Street address was verified empty before submission. The page displayed Please enter a valid street address and remained at checkout. The first attempt had a test-operation error, documented below; it is not validation evidence. | Pass on corrected attempt |
+| 5 | Guest corrects the required address and places the valid COD order. | Street address = 1 Test Road; remaining values unchanged; apartment/unit empty; no separate shipping form/method selector; click Place Order once after verifying all fields. | Confirmation shows an order number and merchandise price 225 THB, not 250 THB; grand total matches displayed shipping/tax. | Order 777 was confirmed for g05.tee.r01@example.com: G05 Tee R01 × 1, COD, total 225 THB. No additional shipping/tax line was shown. | Pass |
+| 6 | Staff searches for the valid order and compares it with the guest confirmation. | Search orders: = 777; open #777 G05 Test; product G05 Tee R01 (ID 775); email g05.tee.r01@example.com. | Staff order product, quantity, price, email and total match the guest confirmation. | Order 777 was associated with Guest, not a registered account. Product 775, quantity 1, unit price/total 225 THB and email matched. Order notes recorded stock 10→9. | Pass |
+| 7 | Staff changes the valid order to Completed, saves and reloads. | Order 777; Status = Completed; Update; reload the order. | Completed persists after reopening; product details and totals remain unchanged. | Order 777 remained Completed after reload; item and total stayed 225 THB. | Pass |
+
+### Execution incident and cleanup
+
+The first attempt to clear Street address removed only the final character, leaving `1 Test Roa`. The agent submitted before verifying the field and accidentally created order **776**. This was a **test-operation error**, not evidence that an empty address was accepted by the system.
+
+Order 776 was changed to **Cancelled**. The saved order notes confirmed stock restoration from 9 to 10. The guest rebuilt the one-item cart through the Shop list and repeated the affected checkout steps. In the valid attempt, the empty field was explicitly verified before clicking Place Order; the required-field error appeared. Correcting it then produced order **777**, which is the order used for the final results.
+
+![Initial test-operation error](screenshots/ST-G05-03/R01/attempt-input-error.png)
+
+![Accidental order 776 cancelled and stock restored](screenshots/ST-G05-03/R01/attempt-cancelled-order.jpg)
+
+This report does not claim an error-free first attempt. The seven revised behavioral checks passed after correcting the input-clear operation. Both orders remain in the lab: 776 Cancelled, 777 Completed. No records belonging to other groups were changed.
+
+### Observed checkout inputs
+
+| UI label / control | Recorded value |
+|---|---|
+| Checkout mode | Guest; no customer account |
+| Email address | g05.tee.r01@example.com |
+| First name / Last name | G05 / Test |
+| Country / Region | Thailand |
+| Street address | Empty for validation; corrected to 1 Test Road |
+| + Add apartment, suite, unit, etc. | Left closed; no second address line |
+| Town / City | Bangkok |
+| State / County | Bangkok |
+| Postcode / ZIP | 10200 |
+| Phone (optional) | 0800000000 |
+| Cash on delivery | Selected |
+| Add a note to your order | Unchecked |
+| Separate shipping form / method | Not displayed; no same-as-billing checkbox was used |
+| Company field | Not displayed |
+| Total | 225 THB, quantity 1, no coupon |
+| Billing values | Retained by the guest session and verified; email changed and Street address explicitly cleared/corrected |
+
+New order, Processing order and Completed order email notifications reported “Could not instantiate mail function”. Email delivery was outside the revised case assertions. The staff view showed shipping details matching billing; this was a saved result, not a shipping-form input. Captures are unaltered and may include browser chrome or requester IP information.
+
+### Test 3 — screenshots by step
+
+#### Step 1
+
+![ST-G05-03 step 1: S01-original-price.jpg](screenshots/ST-G05-03/R01/S01-original-price.jpg)
+
+![ST-G05-03 step 1: S01-updated-price.jpg](screenshots/ST-G05-03/R01/S01-updated-price.jpg)
+
+#### Step 2
+
+![ST-G05-03 step 2: S02-found-in-list.png](screenshots/ST-G05-03/R01/S02-found-in-list.png)
+
+![ST-G05-03 step 2: S02-product-new-price.png](screenshots/ST-G05-03/R01/S02-product-new-price.png)
+
+#### Step 3
+
+![ST-G05-03 step 3: S03-cart.png](screenshots/ST-G05-03/R01/S03-cart.png)
+
+![ST-G05-03 step 3: S03-guest-checkout.png](screenshots/ST-G05-03/R01/S03-guest-checkout.png)
+
+#### Step 4
+
+![ST-G05-03 step 4: S04-empty-address-before-submit.png](screenshots/ST-G05-03/R01/S04-empty-address-before-submit.png)
+
+![ST-G05-03 step 4: S04-validation-error.png](screenshots/ST-G05-03/R01/S04-validation-error.png)
+
+#### Step 5
+
+![ST-G05-03 step 5: S05-corrected-inputs.png](screenshots/ST-G05-03/R01/S05-corrected-inputs.png)
+
+![ST-G05-03 step 5: S05-confirmation.png](screenshots/ST-G05-03/R01/S05-confirmation.png)
+
+#### Step 6
+
+![ST-G05-03 step 6: S06-staff-order.jpg](screenshots/ST-G05-03/R01/S06-staff-order.jpg)
+
+#### Step 7
+
+![ST-G05-03 step 7: S07-completed-order.jpg](screenshots/ST-G05-03/R01/S07-completed-order.jpg)
 
 ## Related documents
 

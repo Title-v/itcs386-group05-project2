@@ -1,8 +1,8 @@
 # System Test Traceability Matrix — ITCS386 Group 5
 
-**Revision 3.2 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 R01 passed 9/9 steps; ST-G05-03 Not Run.**
+**Revision 3.2 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 R01 passed 9/9 steps; ST-G05-03 revised guest case passed 7 checks after an input-error retest.**
 
-This matrix follows slide 40 of `W11-Integration, System and UI Testing_v3.pdf`: **Requirement | Test cases**. It maps observable behavior to the [three revised system scenarios](system-test-cases.md), each with nine steps.
+This matrix follows slide 40 of `W11-Integration, System and UI Testing_v3.pdf`: **Requirement | Test cases**. It maps observable behavior to the [three revised system scenarios](system-test-cases.md), with nine steps each for Tests 1–2 and seven revised steps for Test 3.
 
 The group-defined R1–R22 identifiers are retained for continuity; R23 records storefront list-based product discovery. Features deliberately removed from this revision remain visible as **No test case — outside selected scope**. Partial mappings are stated explicitly. A mapped requirement is planned, not passed; there is no claim of complete guide or API coverage.
 
@@ -22,14 +22,14 @@ The group-defined R1–R22 identifiers are retained for continuity; R23 records 
 | **R9 Preserve cart contents when returning from checkout** | ST-G05-01 (steps 6) |
 | **R10 Reject checkout when required address data is missing** | ST-G05-03 (steps 4) |
 | **R11 Place a COD order and display the correct confirmation** | ST-G05-01 (steps 7); ST-G05-02 (steps 7); ST-G05-03 (steps 5) |
-| **R12 Register a customer account and log out/log in** | Partial: ST-G05-03 (step 2) checks login using an existing account. Registration and logout are outside selected scope. |
-| **R13 View the customer's own order history and updated status** | ST-G05-03 (steps 6, 9) |
+| **R12 Register a customer account and log out/log in** | No test case — removed from selected scope; no usable test customer account was available |
+| **R13 View the customer's own order history and updated status** | No test case — account-history checks removed from selected scope |
 | **R14 Create and publish a product with price, category and stock settings** | Partial: ST-G05-01 (step 1), ST-G05-02 (step 1), ST-G05-03 (step 1) check product creation, price and stock settings. Category assignment is outside selected scope. |
 | **R15 Update a product price and show the new price to customers** | ST-G05-03 (steps 1, 2, 3, 5) |
 | **R16 Reduce stock correctly after a successful purchase** | ST-G05-02 (steps 8) |
 | **R17 Permanently delete a group-owned product** | No test case — outside selected scope |
 | **R18 Create a product category** | No test case — outside selected scope |
-| **R19 Inspect order details and change the status to Completed** | ST-G05-01 (steps 8, 9); ST-G05-03 (steps 7, 8, 9) |
+| **R19 Inspect order details and change the status to Completed** | ST-G05-01 (steps 8, 9); ST-G05-03 (steps 6, 7) |
 | **R20 Create a product-restricted percentage coupon** | ST-G05-01 (steps 2) |
 | **R21 List registered customers and locate a specific customer** | No test case — outside selected scope |
 | **R22 Browse catalog pages using sorting and price filters** | No test case — outside selected scope |
@@ -38,19 +38,23 @@ The group-defined R1–R22 identifiers are retained for continuity; R23 records 
 
 [ST-G05-02 R01](ST-G05-02-R01-results.md) passed 9/9 steps on 17 November 2026. Product 773, order 774, total 300 THB; stock decreased from 3 to 1. Step 3 caps the attempted cart quantity 4 at 3. Step 9 uses two Add to cart clicks because the product page exposes no quantity input at stock 1; the second click is rejected. Input labels and methods are recorded from the actual UI. API relationships below still do not establish direct API execution coverage.
 
+## Test 3 revised execution
+
+[ST-G05-03 R01](ST-G05-03-R01-results.md) now tests guest checkout rather than login/account history. Product 775 changed from 250 to 225 THB; the verified empty Street address produced validation. Valid order 777 was completed at 225 THB. An earlier input-operation error created order 776, which was cancelled with stock restored; the report preserves this incident and the corrected attempt. The seven revised checks passed, not an error-free original nine-step account scenario.
+
 ## Scenario summary
 
 | Test case | End-to-end scenario | Unusual input/action |
 |---|---|---|
 | ST-G05-01 | Staff creates product/coupon → customer purchases with discount → staff verifies and completes order | Invalid coupon; return from checkout before ordering |
 | ST-G05-02 | Staff sets stock → customer changes/removes/re-adds cart items and purchases → staff checks remaining stock → customer checks availability | Quantity above stock; removal and re-addition |
-| ST-G05-03 | Staff updates price → existing customer logs in and purchases → staff completes order → customer checks history/status | Missing required address field, then correction |
+| ST-G05-03 | Staff updates price → guest checks the price, corrects missing address and purchases → staff verifies and completes the order | Empty Street address, then correction |
 
 ## Scope summary
 
-- **14 requirements have full planned mappings within their stated behavior; 2 have partial mappings; 7 have no test case in the selected scope.**
-- Outside scope: R1, R2, R8, R17, R18, R21 and R22, plus registration/logout under R12 and category assignment under R14.
-- ST-G05-01 step 3 passed in R02: the customer found G05 Mug R02 through the Shop list on page 12. See the [R02 report and screenshots](ST-G05-01-R02-results.md#r02-screenshot-evidence). ST-G05-02 R01 also passed all nine steps; ST-G05-03 remains Not Run.
+- **13 requirements have full behavioral mappings; 1 has a partial mapping; 9 have no test case in the selected scope.** Execution evidence is recorded separately from mapping scope.
+- Outside scope: R1, R2, R8, R12, R13, R17, R18, R21 and R22, plus category assignment under R14.
+- ST-G05-01 step 3 passed in R02: the customer found G05 Mug R02 through the Shop list on page 12. See the [R02 report and screenshots](ST-G05-01-R02-results.md#r02-screenshot-evidence). ST-G05-02 R01 also passed all nine steps; ST-G05-03 now records the revised seven-step guest run; see its execution incident and retest.
 - This is the group's reduced scope; it is not a claim that every guide feature or grading expectation is satisfied. The assignment asks for coverage of the main staff/customer features and a matrix that exposes omissions.
 - No additional system steps are required merely to map every documented endpoint. The separate API Testing deliverable still requires at least three operations, including one that creates or changes data.
 
@@ -92,8 +96,8 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/v3`
 | A06 | `GET /products/categories` | No test case — outside selected scope | Outside scope |
 | A07 | `POST /products/categories` | No test case — outside selected scope | Outside scope |
 | A08 | `GET /orders` | ST-G05-01 (steps 8) | Planned |
-| A09 | `GET /orders/{id}` | ST-G05-01 (steps 8); ST-G05-02 (steps 8); ST-G05-03 (steps 7) | Planned |
-| A10 | `PUT /orders/{id}` | ST-G05-01 (steps 9); ST-G05-03 (steps 8) | Planned |
+| A09 | `GET /orders/{id}` | ST-G05-01 (steps 8); ST-G05-02 (steps 8); ST-G05-03 (steps 6) | Planned |
+| A10 | `PUT /orders/{id}` | ST-G05-01 (steps 9); ST-G05-03 (steps 7) | Planned |
 | A11 | `GET /coupons` | No test case — outside selected scope | Outside scope |
 | A12 | `POST /coupons` | ST-G05-01 (steps 2) | Planned |
 | A13 | `GET /customers` | No test case — outside selected scope | Outside scope |
