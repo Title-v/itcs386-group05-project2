@@ -6,7 +6,7 @@
 
 - Storefront: http://157.85.102.236/shop/
 - Staff interface: http://157.85.102.236/shop/wp-admin/
-- Staff account: `itcs386-g05`. Obtain the browser password from the accounts sheet; never commit credentials.
+- Staff account: `itcs386-g05`, verified against Group 5 in `ITCS386_Group_Accounts.xlsx`, sheet `ITCS386`, row 15. Use the browser login password in cell D15; never commit its value.
 - Use separate staff/customer sessions. The concrete dataset below uses `RUN_ID = 20261117-01`. Before a repeat run, replace this suffix consistently in every product name, coupon and case email with a fresh value such as `20261117-02`. These are planned inputs, not records confirmed to exist. Prefix names/codes with G05.
 - Use only group-owned records; do not change demo data or other groups' records.
 - Fictional checkout details: G05 Test, 1 Test Road, Bangkok, Bangkok province, 10200, Thailand, phone 0800000000. Use the case email; use the same fictional shipping address.
@@ -15,6 +15,22 @@
 - Enter Pass or Fail only after running a step. Use Blocked if prerequisites prevent execution. Failed steps need a defect report with reproduction steps, expected/actual results and evidence.
 - ST-G05-03 uses the designated fictional customer `g05.st03.20261117-01@example.com`. Confirm this account exists and can log in before execution, or prepare it through the supported setup flow. Its password must be obtained from the tester's private credential store, not this document. No working account or password is claimed to have been created. If email verification blocks setup, record Blocked and obtain an instructor-approved test account; record any substituted test email consistently. Registration remains outside the tested scope.
 - No live tests or server-side changes were performed while preparing this revision.
+
+## Group 5 account values
+
+Verified source: `ITCS386_Group_Accounts.xlsx`, sheet `ITCS386`, row 15.
+
+| Purpose | Group 5 value / source | Use in these tests |
+|---|---|---|
+| Shop staff username | `itcs386-g05` — B15 | Staff signs in to `http://157.85.102.236/shop/wp-admin/` before each case |
+| Shop browser login password | Private value in D15, column Password (shop + hotel) | Enter locally for staff browser login; do not copy it into GitHub or evidence |
+| Shop API password | Private value in F15, column Shop API password | Only for separate Admin REST API tests; not used for these manual browser logins |
+| Hotel email | `itcs386-g05@itcs386.com` — C15 | Hotel login only; this is not a WooCommerce customer account supplied by the sheet |
+| Hotel API key | Private value in E15 | Not used in the selected WooCommerce scenarios |
+
+The sheet supplies the Group 5 **staff** account, not a separate shopper account. All staff actions below use that Group 5 account. The `G05` product/coupon prefixes and `g05.st01...`, `g05.st02...`, `g05.st03...` emails are fictional **Group 5 test data**, not credentials taken from the sheet. Keep the separate customer session so the tests exercise the shopper role.
+
+For ST-G05-03, prepare or use a group-owned fictional customer account before execution; do not substitute the hotel email or Shop manager account for that customer. No working customer password is supplied by this document.
 
 ## Runtime values and expected amounts
 
@@ -39,7 +55,7 @@ Category creation/browsing, permanent deletion, coupon removal, customer-list ch
 | Test case ID | ST-G05-01 |
 | Title | Purchase with a coupon and complete the order |
 | Objective | Verify product/coupon setup, invalid coupon rejection, discounted purchase and staff order completion. |
-| Preconditions | Staff is logged in. Customer uses a separate session with an empty cart. COD is available. |
+| Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. Customer uses a separate session with an empty cart. COD is available. |
 | Test data | Product: `G05 Mug 20261117-01`, simple, 200 THB, stock 20, backorders disabled. Coupon: `G05SAVE1020261117-01`, 10% discount restricted to this product. Invalid code: `G05INVALID20261117-01`. Quantity 2. Email: `g05.st01.20261117-01@example.com`. |
 | Tested by and date | |
 
@@ -62,7 +78,7 @@ Category creation/browsing, permanent deletion, coupon removal, customer-list ch
 | Test case ID | ST-G05-02 |
 | Title | Validate quantity limits and remaining stock |
 | Objective | Verify stock-limit validation, cart quantity changes/removal and stock reduction after a successful purchase. |
-| Preconditions | Staff is logged in. Customer uses a separate session with an empty cart. COD is available. |
+| Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. Customer uses a separate session with an empty cart. COD is available. |
 | Test data | Product: `G05 Stock Item 20261117-01`, simple, 150 THB, stock 3. Enable stock management; disable backorders and Sold individually. Quantities 1, 4 and 2. Email: `g05.st02.20261117-01@example.com`. |
 | Tested by and date | |
 
@@ -85,7 +101,7 @@ Category creation/browsing, permanent deletion, coupon removal, customer-list ch
 | Test case ID | ST-G05-03 |
 | Title | Verify updated pricing and customer order history |
 | Objective | Verify that a staff price update is used for a logged-in purchase and that the completed order appears correctly in customer history. |
-| Preconditions | Staff is logged in. A group-owned fictional customer account already exists and can log in. Account creation is setup, not a tested requirement. Customer cart is empty; COD is available. |
+| Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. A group-owned fictional customer account already exists and can log in. Account creation is setup, not a tested requirement. Customer cart is empty; COD is available. |
 | Test data | Product: `G05 Account Item 20261117-01`, simple, initial price 250 THB, new price 225 THB, stock 10, backorders disabled. Quantity 1. Login email: `g05.st03.20261117-01@example.com`; obtain the actual password from the private test credential store. Invalid input: leave Address line 1 empty. |
 | Tested by and date | |
 
