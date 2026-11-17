@@ -128,6 +128,7 @@ Each case creates the products it needs, with a unique `G05-<run>-<random>` name
 
 | Run (Bangkok) | Cases | Result | Evidence |
 | --- | --- | --- | --- |
+| 18 Nov 2026 00:54 | all 17 | 17 passed | [console](results/20261117T175415Z-8f6731af/console.txt), [JUnit](results/20261117T175415Z-8f6731af/junit.xml), [run.json](results/20261117T175415Z-8f6731af/run.json) |
 | 11 Nov 2026 23:10 | all 17 | 17 passed | [console](results/20261111T161042Z-a85697bb/console.txt), [JUnit](results/20261111T161042Z-a85697bb/junit.xml), [run.json](results/20261111T161042Z-a85697bb/run.json) |
 | 9 Nov 2026 00:35 | 15 (before S02-04/05 were added) | 15 passed | [console](results/20261108T173522Z-fbc1f0d3/console.txt) |
 | 9 Nov 2026 00:36 | 15, reverse suite order | 15 passed | [console](results/20261108T173606Z-0e33c528/console.txt) |
