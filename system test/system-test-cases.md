@@ -69,9 +69,50 @@ Category creation/browsing, permanent deletion, coupon removal, customer-list ch
 | 4 | Customer adds two units and opens the cart. | Product = G05 Mug R01 (#675); quantity = 2 | Cart contains two units with merchandise subtotal 400 THB. | Guest cart contained product 675, quantity 2, unit price 200.00 THB and subtotal 400.00 THB. | Pass |
 | 5 | Customer tries the nonexistent coupon, then applies the valid coupon. | First code = G05BAD-R01; second code = G05SAVE10-R01 | Invalid code produces a visible error without changing the total. Valid code applies one 40 THB discount; discounted merchandise total is 360 THB. | G05BAD-R01 was rejected as nonexistent; total stayed 400.00 THB. G05SAVE10-R01 applied a 40.00 THB discount; total became 360.00 THB. | Pass |
 | 6 | Customer opens checkout and returns to the cart before ordering. | Open http://157.85.102.236/shop/checkout/; click Cart to return to http://157.85.102.236/shop/cart/; do not click Place Order | Product, quantity and coupon remain correct; no successful order confirmation appears. | Opened checkout, then clicked Cart without placing an order. Quantity 2, coupon and total 360.00 THB persisted. | Pass |
-| 7 | Customer reopens checkout, enters fictional details and places one COD order. | First name = G05; last name = Test; address line 1 = 1 Test Road; address line 2 = empty; city = Bangkok; province = Bangkok; postcode = 10200; country = Thailand; phone = 0800000000; email = g05.mug.r01@example.com; shipping address = same as billing; payment = Cash on delivery (cod) | Confirmation shows an order number, two units, the 40 THB discount and the correct grand total. | Placed order 680 once as a guest using COD. Confirmation showed subtotal 400.00 THB, discount 40.00 THB and total 360.00 THB. No separate shipping/tax charge was displayed. | Pass |
+| 7 | Customer reopens checkout, enters fictional details and places one COD order. | Use every value/control in the Step 7 — Complete checkout inputs table below. Guest email = g05.mug.r01@example.com; billing = G05 Test, 1 Test Road, Bangkok, Bangkok, 10200, Thailand; phone = 0800000000; apartment = empty; COD selected; order note unchecked; no separate shipping form/method displayed; click Place Order once. | Confirmation shows an order number, two units, the 40 THB discount and the correct grand total. | Placed order 680 once as a guest using COD. Confirmation showed subtotal 400.00 THB, discount 40.00 THB and total 360.00 THB. No separate shipping/tax charge was displayed. | Pass |
 | 8 | Staff locates and opens the order. | Staff order search = 680; product = G05 Mug R01 (#675); email = g05.mug.r01@example.com | Order details, coupon and total agree with the customer confirmation. | Staff search for 680 located the matching guest order. Product, quantity, coupon, email and totals matched the confirmation. Order notes recorded stock 20 to 18. | Pass |
 | 9 | Staff changes the order to Completed, saves and reopens it. | Order ID = 680; original status = Processing; new status = Completed; click Update, then reload | Completed persists; order contents and totals are unchanged. | Changed order 680 from Processing to Completed, saved and reloaded. Completed persisted; total remained 360.00 THB. | Pass |
+
+### Step 7 — Complete checkout inputs
+
+Use the labels shown on the checkout page. These are the values used for the recorded R01 run, not real personal information.
+
+| Section | Field / control shown in the UI | Value / action used |
+|---|---|---|
+| Contact information | Checkout mode | Guest; no customer login or account creation |
+| Contact information | Email address | `g05.mug.r01@example.com` |
+| Billing address | First name | `G05` |
+| Billing address | Last name | `Test` |
+| Billing address | Country / Region | `Thailand` |
+| Billing address | Street address | `1 Test Road` |
+| Billing address | + Add apartment, suite, unit, etc. | Left closed; no apartment/unit or second address line entered |
+| Billing address | Town / City | `Bangkok` |
+| Billing address | State / County | Select `Bangkok` from the dropdown; verify it is selected before submitting |
+| Billing address | Postcode / ZIP | `10200` |
+| Billing address | Phone (optional) | `0800000000` |
+| Shipping | Separate shipping-address form / same-as-billing control | Neither was displayed in this run; no separate shipping values were entered. The saved staff order showed shipping details matching billing. |
+| Shipping | Shipping method | No shipping-method selector was displayed; no method was manually selected |
+| Payment options | Cash on delivery | Selected; API payment-method identifier is `cod` |
+| Order note | Add a note to your order | Unchecked; note left empty |
+| Checkout notice | Terms and Conditions / Privacy Policy notice | Informational text was displayed above Place Order; no separate acceptance checkbox was displayed or checked |
+| Submission | Place Order | Click once after verifying the address, province, payment and order summary |
+
+The recorded form exposed no Company field. Do not invent a value or add a field that is not displayed.
+
+**Order summary to verify before submission**
+
+| Displayed item | Recorded value |
+|---|---|
+| Product | `G05 Mug R01` |
+| Unit price | 200.00 THB |
+| Quantity | 2 |
+| Subtotal | 400.00 THB |
+| Applied coupon | `g05save10-r01` (displayed in lowercase by the site) |
+| Discount | −40.00 THB |
+| Total | 360.00 THB |
+| Separate shipping/tax lines | Not displayed; no additional shipping/tax amount added to the displayed total |
+
+**Confirmation after submission:** order `680`, email `g05.mug.r01@example.com`, payment `Cash on delivery`, product quantity `2`, total `360.00 THB`. Order 680 is an observed output, not an input to a new checkout.
 
 ## ST-G05-02
 
