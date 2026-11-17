@@ -1,20 +1,20 @@
 # System Test Cases — ITCS386 Group 5
 
-**Revision 3.2 — locate products through the Shop list. Status: ST-G05-01 executed with a search limitation; ST-G05-02 and ST-G05-03 Not Run.** These three manual scenarios use the Project 2 template and cover staff → customer → staff outcomes. Step numbers restart at 1 in each case and match the [traceability matrix](api-traceability-matrix.md). ST-G05-01 contains recorded inputs/results; execution fields for ST-G05-02 and ST-G05-03 remain blank.
+**Revision 3.2 — locate products through the Shop list. Status: ST-G05-01 R02 passed all nine revised steps; ST-G05-02 and ST-G05-03 Not Run.** These three manual scenarios use the Project 2 template and cover staff → customer → staff outcomes. Step numbers restart at 1 in each case and match the [traceability matrix](api-traceability-matrix.md). ST-G05-01 contains recorded inputs/results; execution fields for ST-G05-02 and ST-G05-03 remain blank.
 
 ## Shared execution setup
 
 - Storefront: http://157.85.102.236/shop/
 - Staff interface: http://157.85.102.236/shop/wp-admin/
 - Staff account: `itcs386-g05`, verified against Group 5 in `ITCS386_Group_Accounts.xlsx`, sheet `ITCS386`, row 15. Use the browser login password in cell D15; never commit its value.
-- Use separate staff/customer sessions. The concrete dataset below uses `RUN_ID = R01`. Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R02` (continue to R03, R04, etc.; do not reuse a suffix from an earlier run). These are planned inputs, not records confirmed to exist. Prefix names/codes with G05.
+- Use separate staff/customer sessions. The dataset uses R02 for the recorded ST-G05-01 run and R01 for the unexecuted ST-G05-02/ST-G05-03 cases. Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R02` (continue to R03, R04, etc.; do not reuse a suffix from an earlier run). ST-G05-01 values are recorded inputs; the other cases remain planned. Prefix names/codes with G05.
 - Use only group-owned records; do not change demo data or other groups' records.
 - Fictional checkout details: G05 Test, 1 Test Road, Bangkok, Bangkok province, 10200, Thailand, phone 0800000000. Use the case email; use the same fictional shipping address.
 - Verify merchandise arithmetic separately from shipping/tax. Record the site's price/tax display basis and shipping charges before execution, then check the grand total against that breakdown. The 10% coupon calculation assumes the stated merchandise price is the discount basis.
 - Save screenshots for every step under `screenshots/<case-ID>/<RUN_ID>/`; reference their paths and observed values in Actual result.
 - Enter Pass or Fail only after running a step. Use Blocked if prerequisites prevent execution. Failed steps need a defect report with reproduction steps, expected/actual results and evidence.
 - ST-G05-03 uses the designated fictional customer `g05.tee.r01@example.com`. Confirm this account exists and can log in before execution, or prepare it through the supported setup flow. Its password must be obtained from the tester's private credential store, not this document. No working account or password is claimed to have been created. If email verification blocks setup, record Blocked and obtain an instructor-approved test account; record any substituted test email consistently. Registration remains outside the tested scope.
-- ST-G05-01 was executed on 17 November 2026: product 675, coupon 676 and order 680 were created; order 680 was marked Completed. ST-G05-02 and ST-G05-03 have not been executed.
+- Latest ST-G05-01 run: R02, 17 November 2026, product 687, coupon 688, order 692 (Completed). All nine revised steps passed. Historical R01 used product 675, coupon 676 and order 680, with a search-step limitation. ST-G05-02 and ST-G05-03 remain Not Run.
 
 ## Group 5 account values
 
@@ -54,7 +54,7 @@ Category creation/browsing, permanent deletion, coupon removal, customer-list ch
 
 ## ST-G05-01
 
-**Recorded run: R01.** Actual input values and results below come from the 17 November execution. Eight steps passed; step 3 is blocked for search, with direct-link detail verification. Do not reuse IDs 675/676/680 for a new creation run. Staff used the in-app browser; the guest used a separate Safari session. Order notes also showed New order and Processing order email failures; mail delivery was not an assertion of this case.
+**Recorded run: R02.** Actual input values and results below come from the 17 November execution. All nine revised steps passed, including locating the product in the Shop list on page 12. Do not reuse IDs 687/688/692 for a new creation run. Staff used the in-app browser; the guest used a separate Safari session. Order notes also showed New order, Processing order and Completed order email failures; mail delivery was not an assertion of this case.
 
 | Field | Details |
 |---|---|
@@ -62,29 +62,31 @@ Category creation/browsing, permanent deletion, coupon removal, customer-list ch
 | Title | Purchase with a coupon and complete the order |
 | Objective | Verify product/coupon setup, invalid coupon rejection, discounted purchase and staff order completion. |
 | Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. Customer uses a separate session with an empty cart. COD is available. |
-| Test data | Product: `G05 Mug R01` (ID `675`), simple, 200 THB, stock 20, backorders disabled. Coupon: `G05SAVE10-R01` (ID `676`), 10% discount restricted to this product. Invalid code: `G05BAD-R01`. Quantity 2. Email: `g05.mug.r01@example.com`. Captured order: `680` (COD, 360.00 THB). Product/order IDs are runtime outputs, not values to enter when creating records. |
-| Tested by and date | Codex (browser-driven execution), 17 November 2026, approximately 16:49–16:57 Asia/Bangkok |
+| Test data | Product: `G05 Mug R02` (ID `687`), simple, 200 THB, stock 20, backorders disabled. Coupon: `G05SAVE10-R02` (ID `688`), 10% discount restricted to this product. Invalid code: `G05BAD-R02`. Quantity 2. Email: `g05.mug.r02@example.com`. Captured order: `692` (COD, 360.00 THB). Product/order IDs are runtime outputs, not values to enter when creating records. |
+| Tested by and date | Codex (browser-driven execution), 17 November 2026, approximately 17:19–17:25 Asia/Bangkok |
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
-| 1 | Staff creates and publishes the product and verifies its saved settings. | Name = G05 Mug R01; type = Simple product; regular price = 200.00 THB; sale price = empty; manage stock = enabled; stock = 20; backorders = Do not allow; status = Published | Product is published with the specified price and stock. | Published product 675 at 200.00 THB; stock 20, stock tracking enabled and backorders disabled. | Pass |
-| 2 | Staff creates the product-restricted coupon. | Code = G05SAVE10-R01; discount type = Percentage discount; amount = 10; product restriction = G05 Mug R01 (#675); expiry = unset; minimum spend = 0; maximum spend = unset; usage limits = unset | Coupon is saved with the correct product restriction and discount. | Published coupon 676 with 10% discount, minimum spend 0 and saved restriction to product 675. Product selection was explicitly selected and saved before verification. | Pass |
-| 3 | Customer opens Shop, locates G05 Mug R01 in the product list (using Next page if needed), then clicks its name. | Start page = http://157.85.102.236/shop/; target product name = G05 Mug R01; navigation = Next page until found, then click G05 Mug R01 | Correct product appears at 200 THB and is available to buy. | Revised list-navigation step has not been run. Historical R01: the old search step was blocked; product details were verified through a direct-link workaround at 200.00 THB and stock 20. This does not verify the revised list-navigation action. | Not Run (revised step) |
-| 4 | Customer adds two units and opens the cart. | Product = G05 Mug R01 (#675); quantity = 2 | Cart contains two units with merchandise subtotal 400 THB. | Guest cart contained product 675, quantity 2, unit price 200.00 THB and subtotal 400.00 THB. | Pass |
-| 5 | Customer tries the nonexistent coupon, then applies the valid coupon. | First code = G05BAD-R01; second code = G05SAVE10-R01 | Invalid code produces a visible error without changing the total. Valid code applies one 40 THB discount; discounted merchandise total is 360 THB. | G05BAD-R01 was rejected as nonexistent; total stayed 400.00 THB. G05SAVE10-R01 applied a 40.00 THB discount; total became 360.00 THB. | Pass |
-| 6 | Customer opens checkout and returns to the cart before ordering. | Open http://157.85.102.236/shop/checkout/; click Cart to return to http://157.85.102.236/shop/cart/; do not click Place Order | Product, quantity and coupon remain correct; no successful order confirmation appears. | Opened checkout, then clicked Cart without placing an order. Quantity 2, coupon and total 360.00 THB persisted. | Pass |
-| 7 | Customer reopens checkout, enters fictional details and places one COD order. | Use every value/control in the Step 7 — Complete checkout inputs table below. Guest email = g05.mug.r01@example.com; billing = G05 Test, 1 Test Road, Bangkok, Bangkok, 10200, Thailand; phone = 0800000000; apartment = empty; COD selected; order note unchecked; no separate shipping form/method displayed; click Place Order once. | Confirmation shows an order number, two units, the 40 THB discount and the correct grand total. | Placed order 680 once as a guest using COD. Confirmation showed subtotal 400.00 THB, discount 40.00 THB and total 360.00 THB. No separate shipping/tax charge was displayed. | Pass |
-| 8 | Staff locates and opens the order. | Staff order search = 680; product = G05 Mug R01 (#675); email = g05.mug.r01@example.com | Order details, coupon and total agree with the customer confirmation. | Staff search for 680 located the matching guest order. Product, quantity, coupon, email and totals matched the confirmation. Order notes recorded stock 20 to 18. | Pass |
-| 9 | Staff changes the order to Completed, saves and reopens it. | Order ID = 680; original status = Processing; new status = Completed; click Update, then reload | Completed persists; order contents and totals are unchanged. | Changed order 680 from Processing to Completed, saved and reloaded. Completed persisted; total remained 360.00 THB. | Pass |
+| 1 | Staff creates and publishes the product and verifies its saved settings. | Name = G05 Mug R02; type = Simple product; regular price = 200.00 THB; sale price = empty; manage stock = enabled; stock = 20; backorders = Do not allow; status = Published | Product is published with the specified price and stock. | Published product 687 (G05 Mug R02), simple product, regular price 200.00 THB, stock 20, stock tracking enabled and backorders disabled. Saved settings verified. | Pass |
+| 2 | Staff creates the product-restricted coupon. | Code = G05SAVE10-R02; discount type = Percentage discount; amount = 10; product restriction = G05 Mug R02 (#687); expiry = unset; minimum spend = 0; maximum spend = unset; usage limits = unset | Coupon is saved with the correct product restriction and discount. | Published coupon 688 (G05SAVE10-R02), percentage 10, minimum spend 0, restricted to product 687. Saved restriction verified. | Pass |
+| 3 | Customer opens Shop, locates G05 Mug R02 in the product list (using Next page if needed), then clicks its name. | Start page = http://157.85.102.236/shop/; target product name = G05 Mug R02; navigation = Next page until found, then click G05 Mug R02 | Correct product appears at 200 THB and is available to buy. | Opened Shop page 1, followed Next Page through page 12, located G05 Mug R02 in the list and clicked its name. Product details showed 200.00 THB and stock 20. No storefront search or direct product URL was used. | Pass |
+| 4 | Customer adds two units and opens the cart. | Product = G05 Mug R02 (#687); quantity = 2 | Cart contains two units with merchandise subtotal 400 THB. | Guest cart contained product 687, quantity 2, unit price 200.00 THB and subtotal 400.00 THB. | Pass |
+| 5 | Customer tries the nonexistent coupon, then applies the valid coupon. | First code = G05BAD-R02; second code = G05SAVE10-R02 | Invalid code produces a visible error without changing the total. Valid code applies one 40 THB discount; discounted merchandise total is 360 THB. | G05BAD-R02 was rejected as nonexistent; total remained 400.00 THB. G05SAVE10-R02 applied one 40.00 THB discount; total became 360.00 THB. | Pass |
+| 6 | Customer opens checkout and returns to the cart before ordering. | Open http://157.85.102.236/shop/checkout/; click Cart to return to http://157.85.102.236/shop/cart/; do not click Place Order | Product, quantity and coupon remain correct; no successful order confirmation appears. | Opened checkout and returned through Cart without ordering. Quantity 2, coupon and total 360.00 THB persisted. | Pass |
+| 7 | Customer reopens checkout, enters fictional details and places one COD order. | Use every value/control in the Step 7 — Complete checkout inputs table below. Guest email = g05.mug.r02@example.com; billing = G05 Test, 1 Test Road, Bangkok, Bangkok, 10200, Thailand; phone = 0800000000; apartment = empty; COD selected; order note unchecked; no separate shipping form/method displayed; click Place Order once. | Confirmation shows an order number, two units, the 40 THB discount and the correct grand total. | Updated guest email to g05.mug.r02@example.com and expanded the retained billing address to verify all values. Placed one COD order, 692. Confirmation showed subtotal 400.00 THB, discount 40.00 THB and total 360.00 THB, without separate shipping/tax charges. | Pass |
+| 8 | Staff locates and opens the order. | Staff order search = 692; product = G05 Mug R02 (#687); email = g05.mug.r02@example.com | Order details, coupon and total agree with the customer confirmation. | Staff search for 692 located the matching guest order. Product, quantity, coupon, email and totals matched the confirmation. Order notes recorded stock reduction from 20 to 18. | Pass |
+| 9 | Staff changes the order to Completed, saves and reopens it. | Order ID = 692; original status = Processing; new status = Completed; click Update, then reload | Completed persists; order contents and totals are unchanged. | Changed order 692 from Processing to Completed, saved and reloaded. Completed persisted and total remained 360.00 THB. | Pass |
 
 ### Step 7 — Complete checkout inputs
 
-Use the labels shown on the checkout page. These are the values used for the recorded R01 run, not real personal information.
+See the [R02 execution report](ST-G05-01-R02-results.md) for the evidence filenames and complete results. Billing values were retained from the prior guest session, expanded and verified; the email was changed to R02.
+
+Use the labels shown on the checkout page. These are the values used for the recorded R02 run, not real personal information.
 
 | Section | Field / control shown in the UI | Value / action used |
 |---|---|---|
 | Contact information | Checkout mode | Guest; no customer login or account creation |
-| Contact information | Email address | `g05.mug.r01@example.com` |
+| Contact information | Email address | `g05.mug.r02@example.com` |
 | Billing address | First name | `G05` |
 | Billing address | Last name | `Test` |
 | Billing address | Country / Region | `Thailand` |
@@ -107,16 +109,16 @@ The recorded form exposed no Company field. Do not invent a value or add a field
 
 | Displayed item | Recorded value |
 |---|---|
-| Product | `G05 Mug R01` |
+| Product | `G05 Mug R02` |
 | Unit price | 200.00 THB |
 | Quantity | 2 |
 | Subtotal | 400.00 THB |
-| Applied coupon | `g05save10-r01` (displayed in lowercase by the site) |
+| Applied coupon | `g05save10-r02` (displayed in lowercase by the site) |
 | Discount | −40.00 THB |
 | Total | 360.00 THB |
 | Separate shipping/tax lines | Not displayed; no additional shipping/tax amount added to the displayed total |
 
-**Confirmation after submission:** order `680`, email `g05.mug.r01@example.com`, payment `Cash on delivery`, product quantity `2`, total `360.00 THB`. Order 680 is an observed output, not an input to a new checkout.
+**Confirmation after submission:** order `692`, email `g05.mug.r02@example.com`, payment `Cash on delivery`, product quantity `2`, total `360.00 THB`. Order 692 is an observed output, not an input to a new checkout.
 
 ## ST-G05-02
 
