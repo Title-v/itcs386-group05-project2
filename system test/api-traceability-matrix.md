@@ -1,6 +1,6 @@
 # System Test Traceability Matrix — ITCS386 Group 5
 
-**Revision 3.2 — focused scope with storefront list navigation. Status: Designed / Not Run.**
+**Revision 3.2 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 and ST-G05-03 Not Run.**
 
 This matrix follows slide 40 of `W11-Integration, System and UI Testing_v3.pdf`: **Requirement | Test cases**. It maps observable behavior to the [three revised system scenarios](system-test-cases.md), each with nine steps.
 
@@ -46,7 +46,7 @@ The group-defined R1–R22 identifiers are retained for continuity; R23 records 
 
 - **14 requirements have full planned mappings within their stated behavior; 2 have partial mappings; 7 have no test case in the selected scope.**
 - Outside scope: R1, R2, R8, R17, R18, R21 and R22, plus registration/logout under R12 and category assignment under R14.
-- The revised discovery steps are **Not Run**. Keep the historical ST-G05-01 results distinct from the new list-navigation action; do not reuse its direct-link screenshot as proof of list discovery.
+- ST-G05-01 step 3 passed in R02: the customer found G05 Mug R02 through the Shop list on page 12. See the [R02 report and screenshots](ST-G05-01-R02-results.md#r02-screenshot-evidence). ST-G05-02 and ST-G05-03 remain Not Run.
 - This is the group's reduced scope; it is not a claim that every guide feature or grading expectation is satisfied. The assignment asks for coverage of the main staff/customer features and a matrix that exposes omissions.
 - No additional system steps are required merely to map every documented endpoint. The separate API Testing deliverable still requires at least three operations, including one that creates or changes data.
 
@@ -104,7 +104,7 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/v3`
 - UI validation can block an invalid input before an API request is sent.
 - Registration, login and customer order history are Web UI features in the guide; no undocumented endpoints are invented.
 - Price filters, pagination, sorting, deletion, category creation, coupon removal and customer-list checks are intentionally excluded from this revision.
-- No new live system tests were run for this revision. The historical ST-G05-01 run used a direct-link workaround and does not verify the new list-navigation step.
+- R02 records actual UI execution of ST-G05-01, including list-based discovery. API mappings remain behavioral relationships; screenshots do not establish direct API test coverage.
 
 ## Sources
 

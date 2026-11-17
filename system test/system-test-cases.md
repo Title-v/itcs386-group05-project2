@@ -7,14 +7,14 @@
 - Storefront: http://157.85.102.236/shop/
 - Staff interface: http://157.85.102.236/shop/wp-admin/
 - Staff account: `itcs386-g05`, verified against Group 5 in `ITCS386_Group_Accounts.xlsx`, sheet `ITCS386`, row 15. Use the browser login password in cell D15; never commit its value.
-- Use separate staff/customer sessions. The dataset uses R02 for the recorded ST-G05-01 run and R01 for the unexecuted ST-G05-02/ST-G05-03 cases. Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R02` (continue to R03, R04, etc.; do not reuse a suffix from an earlier run). ST-G05-01 values are recorded inputs; the other cases remain planned. Prefix names/codes with G05.
+- Use separate staff/customer sessions. The dataset uses R02 for the recorded ST-G05-01 run and R01 for the unexecuted ST-G05-02/ST-G05-03 cases. Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R03` (continue to R04, R05, etc.; do not reuse a suffix from an earlier run). ST-G05-01 values are recorded inputs; the other cases remain planned. Prefix names/codes with G05.
 - Use only group-owned records; do not change demo data or other groups' records.
 - Fictional checkout details: G05 Test, 1 Test Road, Bangkok, Bangkok province, 10200, Thailand, phone 0800000000. Use the case email; use the same fictional shipping address.
 - Verify merchandise arithmetic separately from shipping/tax. Record the site's price/tax display basis and shipping charges before execution, then check the grand total against that breakdown. The 10% coupon calculation assumes the stated merchandise price is the discount basis.
 - Save screenshots for every step under `screenshots/<case-ID>/<RUN_ID>/`; reference their paths and observed values in Actual result.
 - Enter Pass or Fail only after running a step. Use Blocked if prerequisites prevent execution. Failed steps need a defect report with reproduction steps, expected/actual results and evidence.
 - ST-G05-03 uses the designated fictional customer `g05.tee.r01@example.com`. Confirm this account exists and can log in before execution, or prepare it through the supported setup flow. Its password must be obtained from the tester's private credential store, not this document. No working account or password is claimed to have been created. If email verification blocks setup, record Blocked and obtain an instructor-approved test account; record any substituted test email consistently. Registration remains outside the tested scope.
-- Latest ST-G05-01 run: R02, 17 November 2026, product 687, coupon 688, order 692 (Completed). All nine revised steps passed. Historical R01 used product 675, coupon 676 and order 680, with a search-step limitation. ST-G05-02 and ST-G05-03 remain Not Run.
+- Latest ST-G05-01 run: R02, 17 November 2026, product 687, coupon 688, order 692 (Completed). All nine revised steps passed. ST-G05-02 and ST-G05-03 remain Not Run.
 
 ## Group 5 account values
 
@@ -40,7 +40,7 @@ For ST-G05-03, prepare or use a group-owned fictional customer account before ex
 - ST-G05-02: 150.00 × 1 = 150.00 THB; 150.00 × 2 = 300.00 THB; stock after purchase = 3 − 2 = 1.
 - ST-G05-03: 225.00 × 1 = 225.00 THB; the old 250.00 THB price must not be charged.
 - Grand totals use the actual displayed shipping and tax configuration. Do not assume these charges are zero or double-count tax already included in prices.
-- Before execution, confirm that `G05BAD-R01` does not exist and that the run's product/coupon names are unused.
+- Before execution, confirm that the run-specific invalid coupon (R02: `G05BAD-R02`) does not exist and that the run's product/coupon names are unused.
 
 ## Product discovery through the storefront
 
@@ -119,6 +119,90 @@ The recorded form exposed no Company field. Do not invent a value or add a field
 | Separate shipping/tax lines | Not displayed; no additional shipping/tax amount added to the displayed total |
 
 **Confirmation after submission:** order `692`, email `g05.mug.r02@example.com`, payment `Cash on delivery`, product quantity `2`, total `360.00 THB`. Order 692 is an observed output, not an input to a new checkout.
+
+## R02 screenshot evidence
+
+### Step 1 — Pass
+
+**Published mug and regular price**
+
+![Step 1: Published mug and regular price](screenshots/ST-G05-01/R02/S01-price.jpg)
+
+**Saved stock quantity and backorder settings**
+
+![Step 1: Saved stock quantity and backorder settings](screenshots/ST-G05-01/R02/S01-stock.jpg)
+
+### Step 2 — Pass
+
+**Published 10% coupon**
+
+![Step 2: Published 10% coupon](screenshots/ST-G05-01/R02/S02-discount.jpg)
+
+**Coupon restricted to G05 Mug R02**
+
+![Step 2: Coupon restricted to G05 Mug R02](screenshots/ST-G05-01/R02/S02-restriction.jpg)
+
+### Step 3 — Pass
+
+**Shop list at the start of product discovery**
+
+![Step 3: Shop list at the start of product discovery](screenshots/ST-G05-01/R02/S03-shop-start.png)
+
+**G05 Mug R02 found in the Shop list on page 12**
+
+![Step 3: G05 Mug R02 found in the Shop list on page 12](screenshots/ST-G05-01/R02/S03-found-in-list.png)
+
+**Product details opened from the list**
+
+![Step 3: Product details opened from the list](screenshots/ST-G05-01/R02/S03-product.png)
+
+### Step 4 — Pass
+
+**Two mugs and 400 THB subtotal**
+
+![Step 4: Two mugs and 400 THB subtotal](screenshots/ST-G05-01/R02/S04-cart.png)
+
+### Step 5 — Pass
+
+**Nonexistent coupon rejected**
+
+![Step 5: Nonexistent coupon rejected](screenshots/ST-G05-01/R02/S05-invalid.png)
+
+**Valid coupon applied; total 360 THB**
+
+![Step 5: Valid coupon applied; total 360 THB](screenshots/ST-G05-01/R02/S05-valid.png)
+
+### Step 6 — Pass
+
+**Checkout opened before returning**
+
+![Step 6: Checkout opened before returning](screenshots/ST-G05-01/R02/S06-checkout.png)
+
+**Returned cart retains quantity and discount**
+
+![Step 6: Returned cart retains quantity and discount](screenshots/ST-G05-01/R02/S06-returned-cart.png)
+
+### Step 7 — Pass
+
+**Guest checkout inputs**
+
+![Step 7: Guest checkout inputs](screenshots/ST-G05-01/R02/S07-checkout-input.png)
+
+**Order 692 confirmation**
+
+![Step 7: Order 692 confirmation](screenshots/ST-G05-01/R02/S07-confirmation.png)
+
+### Step 8 — Pass
+
+**Staff order details match the customer confirmation**
+
+![Step 8: Staff order details match the customer confirmation](screenshots/ST-G05-01/R02/S08-staff-order.jpg)
+
+### Step 9 — Pass
+
+**Completed status persists after reloading**
+
+![Step 9: Completed status persists after reloading](screenshots/ST-G05-01/R02/S09-completed.jpg)
 
 ## ST-G05-02
 
