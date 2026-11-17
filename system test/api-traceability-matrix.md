@@ -1,6 +1,6 @@
 # System Test Traceability Matrix — ITCS386 Group 5
 
-**Revision 3.2 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 and ST-G05-03 Not Run.**
+**Revision 3.2 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 R01 passed 9/9 steps; ST-G05-03 Not Run.**
 
 This matrix follows slide 40 of `W11-Integration, System and UI Testing_v3.pdf`: **Requirement | Test cases**. It maps observable behavior to the [three revised system scenarios](system-test-cases.md), each with nine steps.
 
@@ -34,6 +34,10 @@ The group-defined R1–R22 identifiers are retained for continuity; R23 records 
 | **R21 List registered customers and locate a specific customer** | No test case — outside selected scope |
 | **R22 Browse catalog pages using sorting and price filters** | No test case — outside selected scope |
 
+## Test 2 execution evidence
+
+[ST-G05-02 R01](ST-G05-02-R01-results.md) passed 9/9 steps on 17 November 2026. Product 773, order 774, total 300 THB; stock decreased from 3 to 1. Step 3 caps the attempted cart quantity 4 at 3. Step 9 uses two Add to cart clicks because the product page exposes no quantity input at stock 1; the second click is rejected. Input labels and methods are recorded from the actual UI. API relationships below still do not establish direct API execution coverage.
+
 ## Scenario summary
 
 | Test case | End-to-end scenario | Unusual input/action |
@@ -46,7 +50,7 @@ The group-defined R1–R22 identifiers are retained for continuity; R23 records 
 
 - **14 requirements have full planned mappings within their stated behavior; 2 have partial mappings; 7 have no test case in the selected scope.**
 - Outside scope: R1, R2, R8, R17, R18, R21 and R22, plus registration/logout under R12 and category assignment under R14.
-- ST-G05-01 step 3 passed in R02: the customer found G05 Mug R02 through the Shop list on page 12. See the [R02 report and screenshots](ST-G05-01-R02-results.md#r02-screenshot-evidence). ST-G05-02 and ST-G05-03 remain Not Run.
+- ST-G05-01 step 3 passed in R02: the customer found G05 Mug R02 through the Shop list on page 12. See the [R02 report and screenshots](ST-G05-01-R02-results.md#r02-screenshot-evidence). ST-G05-02 R01 also passed all nine steps; ST-G05-03 remains Not Run.
 - This is the group's reduced scope; it is not a claim that every guide feature or grading expectation is satisfied. The assignment asks for coverage of the main staff/customer features and a matrix that exposes omissions.
 - No additional system steps are required merely to map every documented endpoint. The separate API Testing deliverable still requires at least three operations, including one that creates or changes data.
 

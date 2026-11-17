@@ -1,20 +1,20 @@
 # System Test Cases — ITCS386 Group 5
 
-**Revision 3.2 — locate products through the Shop list. Status: ST-G05-01 R02 passed all nine revised steps; ST-G05-02 and ST-G05-03 Not Run.** These three manual scenarios use the Project 2 template and cover staff → customer → staff outcomes. Step numbers restart at 1 in each case and match the [traceability matrix](api-traceability-matrix.md). ST-G05-01 contains recorded inputs/results; execution fields for ST-G05-02 and ST-G05-03 remain blank.
+**Revision 3.2 — locate products through the Shop list. Status: ST-G05-01 R02 passed all nine revised steps; ST-G05-02 R01 passed all nine steps; ST-G05-03 Not Run.** These three manual scenarios use the Project 2 template and cover staff → customer → staff outcomes. Step numbers restart at 1 in each case and match the [traceability matrix](api-traceability-matrix.md). ST-G05-01 contains recorded inputs/results; ST-G05-02 also contains recorded inputs/results; only ST-G05-03 execution fields remain blank.
 
 ## Shared execution setup
 
 - Storefront: http://157.85.102.236/shop/
 - Staff interface: http://157.85.102.236/shop/wp-admin/
 - Staff account: `itcs386-g05`, verified against Group 5 in `ITCS386_Group_Accounts.xlsx`, sheet `ITCS386`, row 15. Use the browser login password in cell D15; never commit its value.
-- Use separate staff/customer sessions. The dataset uses R02 for the recorded ST-G05-01 run and R01 for the unexecuted ST-G05-02/ST-G05-03 cases. Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R03` (continue to R04, R05, etc.; do not reuse a suffix from an earlier run). ST-G05-01 values are recorded inputs; the other cases remain planned. Prefix names/codes with G05.
+- Use separate staff/customer sessions. The dataset uses R02 for the recorded ST-G05-01 run and R01 for ST-G05-02 (executed) and ST-G05-03 (planned). Before a repeat run, replace this suffix consistently in every product name, coupon and case email with an unused value such as `R03` (continue to R04, R05, etc.; do not reuse a suffix from an earlier run). ST-G05-01 and ST-G05-02 values are recorded inputs; ST-G05-03 remains planned. Prefix names/codes with G05.
 - Use only group-owned records; do not change demo data or other groups' records.
 - Fictional checkout details: G05 Test, 1 Test Road, Bangkok, Bangkok province, 10200, Thailand, phone 0800000000. Use the case email; use the same fictional shipping address.
 - Verify merchandise arithmetic separately from shipping/tax. Record the site's price/tax display basis and shipping charges before execution, then check the grand total against that breakdown. The 10% coupon calculation assumes the stated merchandise price is the discount basis.
 - Save screenshots for every step under `screenshots/<case-ID>/<RUN_ID>/`; reference their paths and observed values in Actual result.
 - Enter Pass or Fail only after running a step. Use Blocked if prerequisites prevent execution. Failed steps need a defect report with reproduction steps, expected/actual results and evidence.
 - ST-G05-03 uses the designated fictional customer `g05.tee.r01@example.com`. Confirm this account exists and can log in before execution, or prepare it through the supported setup flow. Its password must be obtained from the tester's private credential store, not this document. No working account or password is claimed to have been created. If email verification blocks setup, record Blocked and obtain an instructor-approved test account; record any substituted test email consistently. Registration remains outside the tested scope.
-- Latest ST-G05-01 run: R02, 17 November 2026, product 687, coupon 688, order 692 (Completed). All nine revised steps passed. ST-G05-02 and ST-G05-03 remain Not Run.
+- Latest ST-G05-01 run: R02, 17 November 2026, product 687, coupon 688, order 692 (Completed). All nine revised steps passed. ST-G05-02 R01 also passed on 17 November 2026 (product 773, order 774, 300 THB); ST-G05-03 remains Not Run.
 
 ## Group 5 account values
 
@@ -206,26 +206,140 @@ The recorded form exposed no Company field. Do not invent a value or add a field
 
 ## ST-G05-02
 
+**Recorded run: R01 — 9/9 Pass.** Executed by Codex through Computer Use/browser UI on 17 November 2026, 20:56–21:04 Asia/Bangkok. Staff used the in-app browser as `itcs386-g05`; the guest used a separate Safari session. Product ID: `773`; order ID: `774`, total `300.00 THB`, status `Processing`. See the [execution report](ST-G05-02-R01-results.md).
+
+Input data below uses observed UI labels and the actual interaction performed. The original expected results are retained. Step 9 uses two Add to cart clicks because the product page hides quantity entry when only one unit remains; this preserves the original attempt-to-add-two objective without inventing an unavailable field.
+
 | Field | Details |
 |---|---|
 | Test case ID | ST-G05-02 |
 | Title | Validate quantity limits and remaining stock |
 | Objective | Verify stock-limit validation, cart quantity changes/removal and stock reduction after a successful purchase. |
 | Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. Customer uses a separate session with an empty cart. COD is available. |
-| Test data | Product: `G05 Cap R01`, simple, 150 THB, stock 3. Enable stock management; disable backorders and Sold individually. Quantities 1, 4 and 2. Email: `g05.cap.r01@example.com`. |
-| Tested by and date | |
+| Test data | Product: `G05 Cap R01` (created ID `773`), simple, 150 THB, stock 3. Enable stock management; disable backorders and Sold individually. Quantities 1, 4 and 2. Email: `g05.cap.r01@example.com`. |
+| Tested by and date | Codex, 17 November 2026, 20:56–21:04 Asia/Bangkok |
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
-| 1 | Staff creates and publishes the product, then verifies the saved stock settings. | Name = G05 Cap R01; type = Simple product; regular price = 150.00 THB; sale price = empty; manage stock = enabled; stock = 3; backorders = Do not allow; Sold individually = disabled; status = Published | Product is published at 150 THB with stock 3 and no backorders. | | |
-| 2 | Customer opens Shop, locates G05 Cap R01 in the product list (using Next page if needed), clicks its name and adds one unit. | Start page = http://157.85.102.236/shop/; target product = G05 Cap R01; Next page until found; click its name; quantity = 1 | Correct product appears at 150 THB; cart contains one unit with merchandise subtotal 150 THB. | | |
-| 3 | Customer attempts to change the cart quantity to four. | Product = G05 Cap R01; attempted quantity = 4; available stock = 3 | The excessive quantity is prevented or rejected with visible feedback; cart does not retain more than stock 3. | | |
-| 4 | Customer changes the cart quantity to two. | Product = G05 Cap R01; quantity = 2 | Cart updates to two units and merchandise subtotal 300 THB. | | |
-| 5 | Customer removes the product from the cart. | Click Remove for G05 Cap R01 | Cart becomes empty with no remaining merchandise charge for the product. | | |
-| 6 | Customer returns to the product and adds two units again. | Product = G05 Cap R01; quantity = 2 | Cart contains exactly two units with merchandise subtotal 300 THB and no duplicate line. | | |
-| 7 | Customer completes checkout with fictional details and COD. | First name = G05; last name = Test; address line 1 = 1 Test Road; address line 2 = empty; city = Bangkok; province = Bangkok; postcode = 10200; country = Thailand; phone = 0800000000; email = g05.cap.r01@example.com; shipping address = same as billing; payment = Cash on delivery (cod) | Confirmation shows an order number, two units and merchandise total 300 THB; grand total matches displayed shipping/tax. | | |
-| 8 | Staff opens the order and the product's stock settings. | Order = ORDER_ST02 captured in step 7; product = G05 Cap R01; expected purchased quantity = 2; expected remaining stock = 1 | Order quantity is two and remaining stock is one. Earlier cart changes did not cause extra permanent stock deductions. | | |
-| 9 | Customer opens the product in a fresh cart and tries to add two units. | Fresh empty cart; product = G05 Cap R01; attempted quantity = 2; remaining stock = 1 | The system prevents adding more than the one unit remaining. | | |
+| 1 | Staff creates and publishes the product, then reopens General and Inventory to verify the saved values. | Product name = G05 Cap R01; Product data = Simple product; Regular price (฿) = 150; Sale price (฿) = blank; Stock management = checked; Quantity = 3; Allow backorders? = Do not allow; Sold individually = unchecked; click Publish. Virtual and Downloadable remain unchecked. | Product is published at 150 THB with stock 3 and no backorders. | Created product 773. Saved simple-product price is 150 THB; Stock management checked, Quantity 3, Do not allow selected and Sold individually unchecked. | Pass |
+| 2 | Customer opens Shop, follows Next Page until G05 Cap R01 is visible, clicks its name, leaves Product quantity at 1 and clicks Add to cart, then View cart. | Start = http://157.85.102.236/shop/; product-list target = G05 Cap R01; Next Page through page 13 in this run; Product quantity = 1; Add to cart; View cart. No search field or direct product URL. | Correct product appears at 150 THB; cart contains one unit with merchandise subtotal 150 THB. | Found G05 Cap R01 in the Shop list on page 13 (249 catalog results), opened it and observed 150 THB / 3 in stock. Added one unit; cart subtotal was 150 THB. | Pass |
+| 3 | Customer selects the cart quantity value, enters 4 and presses Tab to leave the field. | Field accessibility label = Quantity of G05 Cap R01 in your cart.; replace 1 with attempted value 4; press Tab. Available stock before this attempt = 3. | The excessive quantity is prevented or rejected with visible feedback; cart does not retain more than stock 3. | After attempted input 4 and Tab, the quantity was capped at 3, Increase quantity was disabled and the total became 450 THB. No error banner appeared; the control/value change was the visible feedback. | Pass |
+| 4 | Customer selects the cart quantity value, enters 2 and presses Tab. | Field = Quantity of G05 Cap R01 in your cart.; enter 2; press Tab. No separate Update cart button was used. | Cart updates to two units and merchandise subtotal 300 THB. | Quantity updated to 2 and the cart total became 300 THB. | Pass |
+| 5 | Customer clicks the trash/remove control for G05 Cap R01. | Trash icon; accessibility label = Remove G05 Cap R01 from cart. | Cart becomes empty with no remaining merchandise charge for the product. | The page displayed Your cart is currently empty! and the test product was removed. | Pass |
+| 6 | Customer uses browser Back to return to the product, sets Product quantity to 2, clicks Add to cart and then View cart. | Product quantity = 2 on G05 Cap R01; click Add to cart, then View cart. | Cart contains exactly two units with merchandise subtotal 300 THB and no duplicate line. | Re-added exactly two units; one cart line showed quantity 2 and total 300 THB, with no duplicate line or retained coupon. | Pass |
+| 7 | Customer clicks Proceed to Checkout, changes the Email address, expands Edit billing address to verify the retained fields, and clicks Place Order once. | Email address = g05.cap.r01@example.com; click Edit billing address; First name = G05; Last name = Test; Country / Region = Thailand; Street address = 1 Test Road; Town / City = Bangkok; State / County = Bangkok; Postcode / ZIP = 10200; Phone (optional) = 0800000000. Verify retained billing values; leave + Add apartment, suite, unit, etc. closed; Cash on delivery selected; Add a note to your order unchecked; click Place Order once. No separate shipping-address checkbox or shipping-method selector was displayed. | Confirmation shows an order number, two units and merchandise total 300 THB; grand total matches displayed shipping/tax. | Created order 774 as a guest using Cash on delivery. Confirmation showed G05 Cap R01 × 2, email g05.cap.r01@example.com and total 300 THB. No separate shipping/tax charge appeared. | Pass |
+| 8 | Staff searches Orders for the captured order number, opens the order, then opens the product and its Inventory tab. | Search orders: = 774; open #774 G05 Test; product = G05 Cap R01 (ID 773); open Inventory and read Quantity. Order/product IDs were captured during execution, not supplied when creating records. | Order quantity is two and remaining stock is one. Earlier cart changes did not cause extra permanent stock deductions. | Order 774 matched the customer confirmation and had status Processing. Order notes recorded stock 3→1; the saved product Inventory Quantity was 1. Earlier cart changes caused no extra permanent stock deduction. | Pass |
+| 9 | Customer confirms the post-purchase cart is empty, reopens the product through the Shop list and attempts a total of two units by clicking Add to cart twice. Open View cart after the rejection. | Start with empty cart; product page shows 1 in stock and no Product quantity field. Click Add to cart once to add 1, then click it again to attempt a total of 2; click View cart. Do not enter 2 into a nonexistent field. | The system prevents adding more than the one unit remaining. | With one unit remaining, the product page exposed only Add to cart, not a quantity field. First click added one. Second click was rejected: You cannot add that amount to the cart — we have 1 in stock and you already have 1 in your cart. Cart retained quantity 1, total 150 THB and a disabled Increase quantity control. | Pass |
+
+### Test 2 checkout — observed fields and values
+
+| UI label / control | Value or action in this run |
+|---|---|
+| Checkout mode | Guest |
+| Email address | Replaced the retained email with `g05.cap.r01@example.com` |
+| Edit billing address | Expanded to inspect the retained address |
+| First name | `G05` |
+| Last name | `Test` |
+| Country / Region | `Thailand` |
+| Street address | `1 Test Road` |
+| + Add apartment, suite, unit, etc. | Left closed; second address line empty |
+| Town / City | `Bangkok` |
+| State / County | `Bangkok` |
+| Postcode / ZIP | `10200` |
+| Phone (optional) | `0800000000` |
+| Cash on delivery | Selected |
+| Add a note to your order | Unchecked; note empty |
+| Separate shipping form / same-as-billing checkbox | Not displayed; no such checkbox was clicked |
+| Shipping method | No selector displayed; no manual shipping-method input |
+| Place Order | Clicked once |
+| Product / quantity | `G05 Cap R01` / `2` |
+| Subtotal / total | `300.00 THB` / `300.00 THB`; no coupon or separate shipping/tax charge displayed |
+
+The billing values were retained by the guest session and verified after expanding the form; they were not all typed again. The staff order displayed shipping details matching billing. This is an observed result, not evidence of a same-as-billing input control.
+
+### Test 2 observations and cleanup
+
+- Step 3 passed through visible quantity limiting (4 was capped at 3), not an error message.
+- Step 9 passed through rejection of the second Add to cart request; the quantity field was absent at stock 1.
+- New order and Processing order email notifications failed with “Could not instantiate mail function”. Email delivery was not an assertion of this case.
+- After step 9 evidence was captured, the one unpurchased cap was removed and the cart was verified empty. No second order was placed.
+- Product 773 remains with stock 1. Order 774 remains Processing; changing it to Completed is not part of Test 2.
+- All screenshots are unaltered. Browser chrome and staff requester IP may be visible. No password is included.
+
+
+### Test 2 — screenshots by step
+
+#### Step 1 — Pass
+
+Created product 773. Saved simple-product price is 150 THB; Stock management checked, Quantity 3, Do not allow selected and Sold individually unchecked.
+
+![ST-G05-02 step 1: S01-price](screenshots/ST-G05-02/R01/S01-price.jpg)
+
+![ST-G05-02 step 1: S01-stock](screenshots/ST-G05-02/R01/S01-stock.jpg)
+
+#### Step 2 — Pass
+
+Found G05 Cap R01 in the Shop list on page 13 (249 catalog results), opened it and observed 150 THB / 3 in stock. Added one unit; cart subtotal was 150 THB.
+
+![ST-G05-02 step 2: S02-shop-start](screenshots/ST-G05-02/R01/S02-shop-start.png)
+
+![ST-G05-02 step 2: S02-found-in-list](screenshots/ST-G05-02/R01/S02-found-in-list.png)
+
+![ST-G05-02 step 2: S02-product](screenshots/ST-G05-02/R01/S02-product.png)
+
+![ST-G05-02 step 2: S02-cart-one](screenshots/ST-G05-02/R01/S02-cart-one.png)
+
+#### Step 3 — Pass
+
+After attempted input 4 and Tab, the quantity was capped at 3, Increase quantity was disabled and the total became 450 THB. No error banner appeared; the control/value change was the visible feedback.
+
+![ST-G05-02 step 3: S03-stock-limit](screenshots/ST-G05-02/R01/S03-stock-limit.png)
+
+#### Step 4 — Pass
+
+Quantity updated to 2 and the cart total became 300 THB.
+
+![ST-G05-02 step 4: S04-quantity-two](screenshots/ST-G05-02/R01/S04-quantity-two.png)
+
+#### Step 5 — Pass
+
+The page displayed Your cart is currently empty! and the test product was removed.
+
+![ST-G05-02 step 5: S05-empty-cart](screenshots/ST-G05-02/R01/S05-empty-cart.png)
+
+#### Step 6 — Pass
+
+Re-added exactly two units; one cart line showed quantity 2 and total 300 THB, with no duplicate line or retained coupon.
+
+![ST-G05-02 step 6: S06-readded-cart](screenshots/ST-G05-02/R01/S06-readded-cart.png)
+
+#### Step 7 — Pass
+
+Created order 774 as a guest using Cash on delivery. Confirmation showed G05 Cap R01 × 2, email g05.cap.r01@example.com and total 300 THB. No separate shipping/tax charge appeared.
+
+![ST-G05-02 step 7: S07-checkout-inputs](screenshots/ST-G05-02/R01/S07-checkout-inputs.png)
+
+![ST-G05-02 step 7: S07-confirmation](screenshots/ST-G05-02/R01/S07-confirmation.png)
+
+#### Step 8 — Pass
+
+Order 774 matched the customer confirmation and had status Processing. Order notes recorded stock 3→1; the saved product Inventory Quantity was 1. Earlier cart changes caused no extra permanent stock deduction.
+
+![ST-G05-02 step 8: S08-order](screenshots/ST-G05-02/R01/S08-order.jpg)
+
+![ST-G05-02 step 8: S08-stock-one](screenshots/ST-G05-02/R01/S08-stock-one.jpg)
+
+#### Step 9 — Pass
+
+With one unit remaining, the product page exposed only Add to cart, not a quantity field. First click added one. Second click was rejected: You cannot add that amount to the cart — we have 1 in stock and you already have 1 in your cart. Cart retained quantity 1, total 150 THB and a disabled Increase quantity control.
+
+![ST-G05-02 step 9: S09-empty-cart](screenshots/ST-G05-02/R01/S09-empty-cart.png)
+
+![ST-G05-02 step 9: S09-one-in-stock](screenshots/ST-G05-02/R01/S09-one-in-stock.png)
+
+![ST-G05-02 step 9: S09-second-unit-rejected](screenshots/ST-G05-02/R01/S09-second-unit-rejected.png)
+
+![ST-G05-02 step 9: S09-cart-limit](screenshots/ST-G05-02/R01/S09-cart-limit.png)
 
 ## ST-G05-03
 
