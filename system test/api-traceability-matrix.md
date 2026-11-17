@@ -1,17 +1,18 @@
 # System Test Traceability Matrix — ITCS386 Group 5
 
-**Revision 3 — focused scope. Status: Designed / Not Run.**
+**Revision 3.2 — focused scope with storefront list navigation. Status: Designed / Not Run.**
 
 This matrix follows slide 40 of `W11-Integration, System and UI Testing_v3.pdf`: **Requirement | Test cases**. It maps observable behavior to the [three revised system scenarios](system-test-cases.md), each with nine steps.
 
-The group-defined R1–R22 identifiers are retained for continuity. Features deliberately removed from this revision remain visible as **No test case — outside selected scope**. Partial mappings are stated explicitly. A mapped requirement is planned, not passed; there is no claim of complete guide or API coverage.
+The group-defined R1–R22 identifiers are retained for continuity; R23 records storefront list-based product discovery. Features deliberately removed from this revision remain visible as **No test case — outside selected scope**. Partial mappings are stated explicitly. A mapped requirement is planned, not passed; there is no claim of complete guide or API coverage.
 
 ## Requirement-to-test-case matrix
 
 | Requirement | Test cases |
 |---|---|
-| **R1 Search for products by name** | ST-G05-01 (steps 3); ST-G05-02 (steps 2); ST-G05-03 (steps 2) |
+| **R1 Search for products by name** | No test case — no visible storefront search control; search is outside selected scope |
 | **R2 Browse products in a selected category** | No test case — outside selected scope |
+| **R23 Locate a product in the Shop list and open its details** | ST-G05-01 (step 3); ST-G05-02 (step 2); ST-G05-03 (step 2) |
 | **R3 View product details, current price and availability** | ST-G05-01 (steps 3); ST-G05-02 (steps 2, 9); ST-G05-03 (steps 2) |
 | **R4 Add products to the cart and display correct quantities and totals** | ST-G05-01 (steps 4); ST-G05-02 (steps 2, 6); ST-G05-03 (steps 3) |
 | **R5 Change cart quantities and enforce stock limits** | ST-G05-02 (steps 3, 4, 9) |
@@ -43,11 +44,13 @@ The group-defined R1–R22 identifiers are retained for continuity. Features del
 
 ## Scope summary
 
-- **14 requirements have full planned mappings within their stated behavior; 2 have partial mappings; 6 have no test case in the selected scope.**
-- Outside scope: R2, R8, R17, R18, R21 and R22, plus registration/logout under R12 and category assignment under R14.
-- All execution results remain **Not Run**. Record actual results, screenshots and defects after manual execution.
+- **14 requirements have full planned mappings within their stated behavior; 2 have partial mappings; 7 have no test case in the selected scope.**
+- Outside scope: R1, R2, R8, R17, R18, R21 and R22, plus registration/logout under R12 and category assignment under R14.
+- The revised discovery steps are **Not Run**. Keep the historical ST-G05-01 results distinct from the new list-navigation action; do not reuse its direct-link screenshot as proof of list discovery.
 - This is the group's reduced scope; it is not a claim that every guide feature or grading expectation is satisfied. The assignment asks for coverage of the main staff/customer features and a matrix that exposes omissions.
 - No additional system steps are required merely to map every documented endpoint. The separate API Testing deliverable still requires at least three operations, including one that creates or changes data.
+
+Product discovery now uses the visible Shop list and Next page as needed, followed by clicking the product name. This does not test search, category browsing, sorting, filters or pagination correctness. S01 remains a planned behavioral mapping for listing products, not a search assertion.
 
 ## Appendix — API behavioral mapping
 
@@ -101,10 +104,10 @@ Base URL: `http://157.85.102.236/shop/wp-json/wc/v3`
 - UI validation can block an invalid input before an API request is sent.
 - Registration, login and customer order history are Web UI features in the guide; no undocumented endpoints are invented.
 - Price filters, pagination, sorting, deletion, category creation, coupon removal and customer-list checks are intentionally excluded from this revision.
-- No live system tests were run while updating these documents.
+- No new live system tests were run for this revision. The historical ST-G05-01 run used a direct-link workaround and does not verify the new list-navigation step.
 
 ## Sources
 
 - `W11-Integration, System and UI Testing_v3.pdf`, slides 33 and 40.
 - WooCommerce API Guide, sections 3–5.
-- [System test cases — Revision 3](system-test-cases.md), the authoritative step definitions.
+- [System test cases — Revision 3.2](system-test-cases.md), the authoritative step definitions.
