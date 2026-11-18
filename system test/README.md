@@ -28,4 +28,4 @@ Test 2 ends with order 1260 in Processing and stock 1; completion is not a step 
 
 Mail-function errors appeared in staff order notes; no email-delivery success is claimed. No passwords appear in the reports. Browser chrome and mouse-pointer overlays are absent; normal page focus outlines/carets may remain.
 
-Superseded report URLs point to the current reports. Older screenshots are removed from the current tree and remain recoverable through Git history.
+Only the latest run for each case is kept in this folder: ST-G05-01 R04, ST-G05-02 R02 and ST-G05-03 R02.
