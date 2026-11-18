@@ -47,10 +47,6 @@
 
 The form fields were filled for this run. No real customer account or real personal details were used. The staff order showed shipping details matching billing; that is an observed saved value, not evidence of a shipping checkbox.
 
-### Run observations
-
-During initial catalog navigation, one click opened an unrelated demo-product page. Returned to the catalog without adding or changing that product, then continued through Next Page with navigation checks. The tested mug was opened from its own list entry on page 15. No extra order was placed.
-
 ## Screenshots by step
 
 ### Step 1 — Pass
@@ -150,9 +146,3 @@ During initial catalog navigation, one click opened an unrelated demo-product pa
 **Completed status persisted after reload**
 
 ![ST-G05-01 step 9: Completed status persisted after reload](screenshots/ST-G05-01/R04/S09-completed.jpg)
-
-
-## Related documents
-
-- [Current system test cases](system-test-cases.md#st-g05-01)
-- [Tested requirements](api-traceability-matrix.md)
