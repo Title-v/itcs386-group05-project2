@@ -45,10 +45,6 @@
 
 The form fields were filled for this run. No real customer account or real personal details were used. The staff order showed shipping details matching billing; that is an observed saved value, not evidence of a shipping checkbox.
 
-### Run observations
-
-Street address was verified empty before the validation attempt. The error was observed before correction; only the corrected request produced the successful order. No accidental order was created in this run. This case is guest checkout only and has seven steps; login and account-history checks are not included.
-
 ## Screenshots by step
 
 ### Step 1 — Pass
@@ -124,9 +120,3 @@ Street address was verified empty before the validation attempt. The error was o
 **Completed status persists after reload**
 
 ![ST-G05-03 step 7: Completed status persists after reload](screenshots/ST-G05-03/R02/S07-completed.jpg)
-
-
-## Related documents
-
-- [Current system test cases](system-test-cases.md#st-g05-03)
-- [Tested requirements](api-traceability-matrix.md)
