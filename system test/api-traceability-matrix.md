@@ -1,133 +1,34 @@
-# System Test Traceability Matrix — ITCS386 Group 5
+# Requirement Traceability Matrix — ITCS386 Group 5
 
-**Revision 3.3 — focused scope with storefront list navigation. Status: ST-G05-01 R02 passed 9/9 steps; ST-G05-02 R01 passed 9/9 steps; ST-G05-03 revised guest case passed 7 checks after an input-error retest.**
+This matrix includes **only the requirements actually checked** in the current system-test runs on **19 November 2026**. The two-column format follows the lecture's Requirement / Test cases example. Existing requirement IDs are retained to avoid breaking references; skipped numbers do not indicate additional rows.
 
-This matrix follows slide 40 of `W11-Integration, System and UI Testing_v3.pdf`: **Requirement | Test cases**. It maps observable behavior to the [three revised system scenarios](system-test-cases.md), with nine steps each for Tests 1–2 and seven revised steps for Test 3.
-
-The group-defined R1–R22 identifiers are retained for continuity; R23 records storefront list-based product discovery. Features deliberately removed from this revision remain visible as **No test case — outside selected scope**. Partial mappings are stated explicitly. A requirement-to-case link identifies scope. The reports record observed outcomes; a link alone is not proof of complete requirement or API coverage.
-
-## Requirement-to-test-case matrix
+The wording of R14 is limited to the product, price and stock checks actually performed. The matrix contains no untested or partially covered feature rows.
 
 | Requirement | Test cases |
 |---|---|
-| **R1 Search for products by name** | No test case — no visible storefront search control; search is outside selected scope |
-| **R2 Browse products in a selected category** | No test case — outside selected scope |
 | **R23 Locate a product in the Shop list and open its details** | ST-G05-01 (step 3); ST-G05-02 (step 2); ST-G05-03 (step 2) |
-| **R3 View product details, current price and availability** | ST-G05-01 (steps 3); ST-G05-02 (steps 2, 9); ST-G05-03 (steps 2) |
-| **R4 Add products to the cart and display correct quantities and totals** | ST-G05-01 (steps 4); ST-G05-02 (steps 2, 6); ST-G05-03 (steps 3) |
-| **R5 Change cart quantities and enforce stock limits** | ST-G05-02 (steps 3, 4, 9) |
-| **R6 Remove an item and recalculate the cart** | ST-G05-02 (steps 5) |
-| **R7 Apply a valid coupon and reject a nonexistent coupon** | ST-G05-01 (steps 5) |
-| **R8 Remove a coupon and restore the undiscounted total** | No test case — outside selected scope |
-| **R9 Preserve cart contents when returning from checkout** | ST-G05-01 (steps 6) |
-| **R10 Reject checkout when required address data is missing** | ST-G05-03 (steps 4) |
-| **R11 Place a COD order and display the correct confirmation** | ST-G05-01 (steps 7); ST-G05-02 (steps 7); ST-G05-03 (steps 5) |
-| **R12 Register a customer account and log out/log in** | No test case — removed from selected scope; no usable test customer account was available |
-| **R13 View the customer's own order history and updated status** | No test case — account-history checks removed from selected scope |
-| **R14 Create and publish a product with price, category and stock settings** | Partial: ST-G05-01 (step 1), ST-G05-02 (step 1), ST-G05-03 (step 1) check product creation, price and stock settings. Category assignment is outside selected scope. |
-| **R15 Update a product price and show the new price to customers** | ST-G05-03 (steps 1, 2, 3, 5) |
-| **R16 Reduce stock correctly after a successful purchase** | ST-G05-02 (steps 8) |
-| **R17 Permanently delete a group-owned product** | No test case — outside selected scope |
-| **R18 Create a product category** | No test case — outside selected scope |
-| **R19 Inspect order details and change the status to Completed** | ST-G05-01 (steps 8, 9); ST-G05-03 (steps 6, 7) |
-| **R20 Create a product-restricted percentage coupon** | ST-G05-01 (steps 2) |
-| **R21 List registered customers and locate a specific customer** | No test case — outside selected scope |
-| **R22 Browse catalog pages using sorting and price filters** | No test case — outside selected scope |
+| **R3 View the correct product, price and availability** | ST-G05-01 (step 3); ST-G05-02 (steps 2, 9); ST-G05-03 (step 2) |
+| **R4 Add items and display correct cart quantities and totals** | ST-G05-01 (step 4); ST-G05-02 (steps 2, 6); ST-G05-03 (step 3) |
+| **R5 Change cart quantities and enforce available-stock limits** | ST-G05-02 (steps 3, 4, 9) |
+| **R6 Remove a cart item and recalculate the cart** | ST-G05-02 (step 5) |
+| **R7 Reject a nonexistent coupon and apply the valid discount** | ST-G05-01 (step 5) |
+| **R9 Preserve cart contents and coupon when returning from checkout** | ST-G05-01 (step 6) |
+| **R10 Prevent checkout with an empty required Street address** | ST-G05-03 (step 4) |
+| **R11 Place a COD order and show the correct confirmation** | ST-G05-01 (step 7); ST-G05-02 (step 7); ST-G05-03 (step 5) |
+| **R14 Create and publish a new product with the specified price and stock settings** | ST-G05-01 (step 1); ST-G05-02 (step 1); ST-G05-03 (step 1) |
+| **R15 Persist a regular-price update and use it on the storefront and checkout** | ST-G05-03 (steps 1, 2, 3, 5) |
+| **R16 Reduce stock by the purchased quantity** | ST-G05-02 (step 8) |
+| **R19 Inspect order details and persist a Completed status** | ST-G05-01 (steps 8, 9); ST-G05-03 (steps 6, 7) |
+| **R20 Create a percentage coupon restricted to the test product** | ST-G05-01 (step 2) |
 
-## Test 2 execution evidence
+## Execution evidence
 
-[ST-G05-02 R01](ST-G05-02-R01-results.md) passed 9/9 steps on 17 November 2026. Product 773, order 774, total 300 THB; stock decreased from 3 to 1. Step 3 caps the attempted cart quantity 4 at 3. Step 9 uses two Add to cart clicks because the product page exposes no quantity input at stock 1; the second click is rejected. Input labels and methods are recorded from the actual UI. API relationships below still do not establish direct API execution coverage.
+| Case | Current run | Result | Recorded order | Report |
+|---|---|---|---|---|
+| ST-G05-01 | R04 | 9/9 Pass | 1252, Completed, 360 THB | [Results and images](ST-G05-01-R04-results.md) |
+| ST-G05-02 | R02 | 9/9 Pass | 1260, Processing, 300 THB | [Results and images](ST-G05-02-R02-results.md) |
+| ST-G05-03 | R02 | 7/7 Pass | 1274, Completed, 225 THB | [Results and images](ST-G05-03-R02-results.md) |
 
-## Test 3 revised execution
+All 14 rows are supported by the executed steps above. This is coverage of the selected behaviors, not a claim of exhaustive WooCommerce specification or REST API coverage. Direct API testing is documented separately in [API testing](../API%20testing/README.md); the [API inventory](api-inventory.md) is a reference list.
 
-[ST-G05-03 R01](ST-G05-03-R01-results.md) now tests guest checkout rather than login/account history. Product 775 changed from 250 to 225 THB; the verified empty Street address produced validation. Valid order 777 was completed at 225 THB. An earlier input-operation error created order 776, which was cancelled with stock restored; the report preserves this incident and the corrected attempt. The seven revised checks passed, not an error-free original nine-step account scenario.
-
-## Scenario summary
-
-| Test case | End-to-end scenario | Unusual input/action |
-|---|---|---|
-| ST-G05-01 | Staff creates product/coupon → customer purchases with discount → staff verifies and completes order | Invalid coupon; return from checkout before ordering |
-| ST-G05-02 | Staff sets stock → customer changes/removes/re-adds cart items and purchases → staff checks remaining stock → customer checks availability | Quantity above stock; removal and re-addition |
-| ST-G05-03 | Staff updates price → guest checks the price, corrects missing address and purchases → staff verifies and completes the order | Empty Street address, then correction |
-
-## Scope summary
-
-- **13 requirements have full behavioral mappings; 1 has a partial mapping; 9 have no test case in the selected scope.** Execution evidence is recorded separately from mapping scope.
-- Outside scope: R1, R2, R8, R12, R13, R17, R18, R21 and R22, plus category assignment under R14.
-- ST-G05-01 step 3 passed in R02: the customer found G05 Mug R02 through the Shop list on page 12. See the [R02 report and screenshots](ST-G05-01-R02-results.md#r02-screenshot-evidence). ST-G05-02 R01 also passed all nine steps; ST-G05-03 now records the revised seven-step guest run; see its execution incident and retest.
-- This is the group's reduced scope; it is not a claim that every guide feature or grading expectation is satisfied. The assignment asks for coverage of the main staff/customer features and a matrix that exposes omissions.
-- No additional system steps are required merely to map every documented endpoint. The separate API Testing deliverable still requires at least three operations, including one that creates or changes data.
-
-Product discovery now uses the visible Shop list and Next page as needed, followed by clicking the product name. This does not test search, category browsing, sorting, filters or pagination correctness. Inventory S01 remains a behavioral mapping for listing products, not a storefront-search assertion.
-
-## Appendix — API behavioral mapping
-
-This is a supporting mapping to the [API inventory](api-inventory.md). **Observed UI behavior** means an explicit related check was executed in the listed system steps; **Indirect** means only a related page/flow was exercised. Neither proves that the endpoint is called. WordPress Admin may use other mechanisms; direct API tests or network evidence with response assertions are required for verified API coverage.
-
-### Separate automated API suite IDs
-
-Inventory IDs below belong to this document. They differ from suite IDs in [API testing](../API%20testing/README.md).
-
-| Automated API suite | Operation | Inventory ID |
-|---|---|---|
-| S01 | GET /wc/store/v1/products | S01 |
-| S02 | GET /wc/store/v1/products/{id} | S02 |
-| S03 | POST /wc/v3/products | A02 |
-
-Inventory **S03** means GET /products/categories; it is not the automated product-creation suite. The separate API suites have their own direct execution evidence. Do not infer that the system screenshots exercised all 24 inventory operations.
-
-### Store API
-
-Base URL: `http://157.85.102.236/shop/wp-json/wc/store/v1`
-
-| API ID | Method / Endpoint | System test steps | Scope |
-|---|---|---|---|
-| S01 | `GET /products` | ST-G05-01 (steps 3); ST-G05-02 (steps 2); ST-G05-03 (steps 2) | Observed UI behavior |
-| S02 | `GET /products/{id}` | ST-G05-01 (steps 3); ST-G05-02 (steps 2, 9); ST-G05-03 (steps 2) | Observed UI behavior |
-| S03 | `GET /products/categories` | No test case — outside selected scope | Outside scope |
-| S04 | `GET /cart` | ST-G05-01 (steps 4, 6); ST-G05-02 (steps 2, 3, 4, 5, 6); ST-G05-03 (steps 3) | Observed UI behavior |
-| S05 | `POST /cart/add-item` | ST-G05-01 (steps 4); ST-G05-02 (steps 2, 6, 9); ST-G05-03 (steps 3) | Observed UI behavior |
-| S06 | `POST /cart/update-item` | ST-G05-02 (steps 3, 4) | Observed UI behavior |
-| S07 | `POST /cart/remove-item` | ST-G05-02 (steps 5) | Observed UI behavior |
-| S08 | `POST /cart/apply-coupon` | ST-G05-01 (steps 5) | Observed UI behavior |
-| S09 | `POST /cart/remove-coupon` | No test case — outside selected scope | Outside scope |
-| S10 | `GET /checkout` | ST-G05-01 (steps 6, 7); ST-G05-02 (steps 7); ST-G05-03 (steps 3) | Indirect |
-| S11 | `POST /checkout` | ST-G05-01 (steps 7); ST-G05-02 (steps 7); ST-G05-03 (steps 4, 5) | Observed UI behavior |
-
-### Admin REST API
-
-Base URL: `http://157.85.102.236/shop/wp-json/wc/v3`
-
-| API ID | Method / Endpoint | System test steps | Scope |
-|---|---|---|---|
-| A01 | `GET /products` | No test case — outside selected scope | Outside scope |
-| A02 | `POST /products` | ST-G05-01 (steps 1); ST-G05-02 (steps 1); ST-G05-03 (steps 1) | Observed UI behavior |
-| A03 | `GET /products/{id}` | ST-G05-01 (steps 1); ST-G05-02 (steps 1, 8); ST-G05-03 (steps 1) | Observed UI behavior |
-| A04 | `PUT /products/{id}` | ST-G05-03 (steps 1) | Observed UI behavior |
-| A05 | `DELETE /products/{id}?force=true` | No test case — outside selected scope | Outside scope |
-| A06 | `GET /products/categories` | No test case — outside selected scope | Outside scope |
-| A07 | `POST /products/categories` | No test case — outside selected scope | Outside scope |
-| A08 | `GET /orders` | ST-G05-01 (step 8); ST-G05-02 (step 8); ST-G05-03 (step 6) | Observed UI behavior |
-| A09 | `GET /orders/{id}` | ST-G05-01 (steps 8); ST-G05-02 (steps 8); ST-G05-03 (steps 6) | Observed UI behavior |
-| A10 | `PUT /orders/{id}` | ST-G05-01 (steps 9); ST-G05-03 (steps 7) | Observed UI behavior |
-| A11 | `GET /coupons` | No test case — outside selected scope | Outside scope |
-| A12 | `POST /coupons` | ST-G05-01 (steps 2) | Observed UI behavior |
-| A13 | `GET /customers` | No test case — outside selected scope | Outside scope |
-
-### API scope notes
-
-- 15 operations have explicit related UI checks, 1 is indirect and 8 are outside the system-test scope. These are behavioral relationships, not a count of verified API calls.
-- S10 is indirect because opening checkout does not inspect the draft-order API response.
-- A01 and A11 have no explicit list assertions; navigating through a list is not counted as testing it.
-- Inspecting the customer attached to an order does not test A13, the registered-customer list.
-- Automatic stock reduction does not count as calling A04.
-- UI validation can block an invalid input before an API request is sent.
-- Registration, login and customer order history are Web UI features in the guide; no undocumented endpoints are invented.
-- Price filters, pagination, sorting, deletion, category creation, coupon removal and customer-list checks are intentionally excluded from this revision.
-- R02 records actual UI execution of ST-G05-01, including list-based discovery. API mappings remain behavioral relationships; screenshots do not establish direct API test coverage.
-
-## Sources
-
-- `W11-Integration, System and UI Testing_v3.pdf`, slides 33 and 40.
-- WooCommerce API Guide, sections 3–5.
-- [System test cases — Revision 3.3](system-test-cases.md), the authoritative step definitions.
+See [system-test-cases.md](system-test-cases.md) for the exact UI inputs, expected/actual results and page-only evidence.

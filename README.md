@@ -4,12 +4,12 @@ Testing the classroom WooCommerce shop at http://157.85.102.236/shop/ with the G
 
 ## Current deliverables
 
-Status below was checked against committed evidence on **18 November 2026 (Asia/Bangkok)**. This is not a new live test run.
+System-test evidence was refreshed on **19 November 2026 (Asia/Bangkok)**. Other sections retain their own dated run evidence.
 
 | Part | Folder / evidence | Owner | Recorded status |
 |---|---|---|---|
 | API testing | [API testing](API%20testing/README.md) | Rattee Watperatam | 17/17 cases passed on 18 Nov 2026 at 00:54 Bangkok |
-| System testing | [System testing overview](system%20test/README.md) | Not recorded | Three executed cases: 9, 9 and 7 steps; Test 3 includes a documented input-operation error and successful retest |
+| System testing | [System testing overview](system%20test/README.md) | Not recorded | Rerun 19 Nov 2026: Test 1 9/9, Test 2 9/9, Test 3 7/7; 56 page-only screenshots |
 | Automated UI testing | No scripts or full-run evidence committed | Not recorded | Not present in this repository snapshot |
 | Performance testing | [Performance testing](Performance%20testing/README.md) | Not recorded | Four full runs completed on 17 Nov 2026; average-load and soak passed thresholds; stress and spike exceeded response-time limits; 0 failed requests |
 
@@ -37,15 +37,15 @@ API suite IDs and the system document's API inventory IDs are separate namespace
 
 ## System testing
 
-| Case / recorded run | Scenario | Final result | Order at the end of the run | Evidence |
+| Case / run | Scenario | Result | Order at end of run | Evidence |
 |---|---|---|---|---|
-| ST-G05-01 / R02 | Coupon purchase and order completion | 9/9 steps passed | 692 — Completed, 360 THB | [Report and 16 images](system%20test/ST-G05-01-R02-results.md) |
-| ST-G05-02 / R01 | Quantity limits, cart edits and remaining stock | 9/9 steps passed | 774 — Processing, 300 THB | [Report and 18 images](system%20test/ST-G05-02-R01-results.md) |
-| ST-G05-03 / R01 | Updated price and required-address validation, guest checkout | 7/7 revised checks passed after correcting a test-operation error | 777 — Completed, 225 THB; accidental order 776 cancelled | [Report and 14 images](system%20test/ST-G05-03-R01-results.md) |
+| ST-G05-01 / R04 | Purchase with a coupon and complete the order | 9/9 Pass | 1252 — Completed, 360 THB | [Report and 20 images](system%20test/ST-G05-01-R04-results.md) |
+| ST-G05-02 / R02 | Validate quantity limits and remaining stock | 9/9 Pass | 1260 — Processing, 300 THB | [Report and 21 images](system%20test/ST-G05-02-R02-results.md) |
+| ST-G05-03 / R02 | Verify updated pricing and required-address validation for a guest purchase | 7/7 Pass | 1274 — Completed, 225 THB | [Report and 15 images](system%20test/ST-G05-03-R02-results.md) |
 
-See the [complete test cases](system%20test/system-test-cases.md), [requirement traceability matrix](system%20test/api-traceability-matrix.md) and [API inventory](system%20test/api-inventory.md). All three cases use guest shopping; customer login and account history are outside the selected scope. Order statuses above are recorded results, not a fresh server query.
+See the [current test cases](system%20test/system-test-cases.md) and [tested-requirement matrix](system%20test/api-traceability-matrix.md). All new screenshots exclude browser tabs, URL bars and mouse-pointer overlays. Blank-form and pre-Publish screenshots make product creation explicit. The matrix contains only 14 requirements actually checked.
 
-The repository contains **48 distinct system-test images**. Test 3's 14 include 12 step images and 2 incident/cleanup images. Email-notification failures are recorded as environment observations, not silently treated as successful mail delivery.
+All three runs used guest shopping and new test products on 19 November 2026. Reported dates use Asia/Bangkok; the shop displays its server date. Mail-function errors are recorded separately from the case assertions. These results are not claims of complete specification or direct API coverage.
 
 ## Automated UI testing
 
