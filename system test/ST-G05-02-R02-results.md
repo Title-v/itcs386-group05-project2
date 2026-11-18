@@ -9,20 +9,6 @@
 | Result | **9/9 Pass** |
 | Screenshots | 21 page-only captures |
 
-## Execution and capture method
-
-- Staff account: `itcs386-g05`; use the browser password from D15 of the Group 5 accounts sheet. No password is stored in this repository.
-- Staff and guest roles were separated by logging out before each customer flow and signing back in for staff verification. These were sequential sessions in the in-app browser, not simultaneous isolated browser profiles.
-- Use new G05 names/codes for each rerun. The IDs and orders below are recorded outputs, not IDs to reuse for creation.
-- Customer product discovery used the Shop list and Next Page links. Storefront Search and direct product URLs were not used to locate the test items.
-- **Screenshots capture web-page content only:** no browser tabs, address bar, desktop or mouse pointer. They are direct browser captures, not retouched evidence. Text insertion carets/focus outlines may appear where a field was active.
-- New-product evidence includes the blank Add new product form, completed inputs before Publish, and Product published after creation. WordPress then changes the heading to Edit product; the blank and pre-Publish captures establish creation.
-- Inputs use the field labels actually displayed. Optional fields are left blank/unchecked as stated. No customer account is required.
-- Dates/times in this document use **Asia/Bangkok, 19 November 2026**. The shop screens display the server's date (18 November during these runs); this timezone difference is not a different run.
-- Expected results were retained from the approved scenarios. Outcomes below are from the new execution, not copied from prior screenshots.
-- Email-notification failures (mail function could not be instantiated) appeared in staff order notes. Mail delivery is outside these cases; no notification success is claimed.
-- These are manual system tests through Computer Use. They do not replace the separate automated UI deliverable or establish direct REST endpoint coverage.
-
 ## Step results
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
