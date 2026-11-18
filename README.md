@@ -10,7 +10,7 @@ System under test: the classroom WooCommerce shop at http://157.85.102.236/shop/
 | API testing | [`API testing/`](API%20testing/) | Rattee Watperatam | 17/17 passed (11 Nov 2026) |
 | System testing | [`system test/`](system%20test/) | | |
 | UI testing | | | |
-| Performance testing | [`Performance testing/`](Performance%20testing/) | | Scripts ready; full runs pending |
+| Performance testing | [`Performance testing/`](Performance%20testing/) | | 4/4 full runs (17 Nov 2026); answers in its README |
 
 Each owner fills in their row and their section below, and keeps the details in their own folder's README.
 
@@ -54,5 +54,7 @@ Run one test from the repository root (k6 must be installed; no credentials need
 ```bash
 python "Performance testing/run_perf_test.py" average-load    # or stress / soak / spike; add --quick for a 1-minute demo
 ```
+
+Results of the full runs on 17 Nov 2026: at normal load the shop is fast (p95 ≈ 0.3 s) and stays that way for an hour. It keeps p95 under 1 s up to about 30 VUs, then levels off at about 13 requests/s and slows down (p95 6–7 s at 50 VUs; the home page is the bottleneck), but **no request failed in any test**. After a 10× spike it is back to normal about 10 s after the load drops.
 
 Each run saves its k6 summary, time series and timeline analysis in `Performance testing/results/<UTC time>-<test>/`. Thresholds, their reasons, the run log and the answers to the analysis questions are in [Performance testing/README.md](Performance%20testing/README.md).
