@@ -11,7 +11,7 @@ Status below was checked against committed evidence on **18 November 2026 (Asia/
 | API testing | [API testing](API%20testing/README.md) | Rattee Watperatam | 17/17 cases passed on 18 Nov 2026 at 00:54 Bangkok |
 | System testing | [System testing overview](system%20test/README.md) | Not recorded | Three executed cases: 9, 9 and 7 steps; Test 3 includes a documented input-operation error and successful retest |
 | Automated UI testing | No scripts or full-run evidence committed | Not recorded | Not present in this repository snapshot |
-| Performance testing | No K6 scripts or run summaries committed | Not recorded | Not present in this repository snapshot |
+| Performance testing | [Performance testing](Performance%20testing/README.md) | Not recorded | Four full runs completed on 17 Nov 2026; average-load and soak passed thresholds; stress and spike exceeded response-time limits; 0 failed requests |
 
 Computer Use execution of the manual system cases is not the separate Selenium / Robot Framework / Cypress deliverable.
 
@@ -53,7 +53,24 @@ No automated UI scripts or execution evidence are committed. The project require
 
 ## Performance testing
 
-No K6 scripts or run summaries are committed. The project requires average-load, stress, soak and spike tests with response-time/error thresholds and analysis. Do not place orders or bookings during load tests.
+Four k6 tests of a shopper journey through the public Store API (home page, browse a category, search, product page, add/update/remove cart item). No orders are placed, and only demo products are used:
+
+- Average load: 10 VUs for 6 min (p95 < 1 s, errors < 1%)
+- Stress: 10 → 50 VUs in steps of 10 (p95 < 2 s, errors < 5%)
+- Soak: 10 VUs for 60 min (p95 < 1 s, errors < 1%)
+- Spike: 5 → 50 → 5 VUs with a 5 min recovery window (p95 < 3 s, errors < 10%)
+
+Run one test from the repository root (k6 must be installed; no credentials needed):
+
+```bash
+python "Performance testing/run_perf_test.py" average-load    # or stress / soak / spike; add --quick for a 1-minute demo
+```
+
+Results of the full runs on 17 Nov 2026: at normal load the shop is fast (p95 ≈ 0.3 s) and stays that way for an hour. It keeps p95 under 1 s up to about 30 VUs, then levels off at about 13 requests/s and slows down (p95 6–7 s at 50 VUs; the home page is the bottleneck), but **no request failed in any test**. After a 10× spike it is back to normal about 10 s after the load drops.
+
+Each run saves its k6 summary, time series and timeline analysis in `Performance testing/results/<UTC time>-<test>/`. Thresholds, their reasons, the run log and the answers to the analysis questions are in [Performance testing/README.md](Performance%20testing/README.md).
+
+All four full runs completed. Average-load and soak met their thresholds; stress and spike exceeded response-time thresholds while recording no failed requests.
 
 ## Supporting snapshots and final packaging
 

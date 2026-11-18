@@ -1,0 +1,670 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: average-load.js
+        output: csv (results/20261117T090645Z-average-load/timeseries.csv.gz)
+
+     scenarios: (100.00%) 1 scenario, 10 max VUs, 9m30s max duration (incl. graceful stop):
+              * default: Up to 10 looping VUs for 9m0s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+time="2026-11-17T16:06:46+07:00" level=info msg="Catalog: 6 categories, 14 demo products" source=console
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   3% ] 02/10 VUs  0m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   5% ] 03/10 VUs  0m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   8% ] 04/10 VUs  0m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  11% ] 05/10 VUs  0m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  14% ] 06/10 VUs  1m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  17% ] 07/10 VUs  1m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  19% ] 08/10 VUs  1m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  22% ] 09/10 VUs  1m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  25% ] 10/10 VUs  2m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  28% ] 10/10 VUs  2m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  30% ] 10/10 VUs  2m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  33% ] 10/10 VUs  2m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  36% ] 10/10 VUs  3m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  39% ] 10/10 VUs  3m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  42% ] 10/10 VUs  3m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  44% ] 10/10 VUs  3m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  47% ] 10/10 VUs  4m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  50% ] 10/10 VUs  4m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  53% ] 10/10 VUs  4m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  55% ] 10/10 VUs  4m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  58% ] 10/10 VUs  5m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  61% ] 10/10 VUs  5m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  64% ] 10/10 VUs  5m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  67% ] 10/10 VUs  5m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  69% ] 10/10 VUs  6m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  72% ] 10/10 VUs  6m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  75% ] 10/10 VUs  6m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  78% ] 10/10 VUs  6m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  80% ] 10/10 VUs  7m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  83% ] 10/10 VUs  7m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  86% ] 10/10 VUs  7m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  89% ] 10/10 VUs  7m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  92% ] 09/10 VUs  8m14.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  94% ] 08/10 VUs  8m29.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  97% ] 04/10 VUs  8m44.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [ 100% ] 02/10 VUs  8m59.1s/9m00.0s
+
+
+
+
+
+
+
+
+
+
+
+Test: average-load
+Target: http://157.85.102.236/shop
+Started: 2026-11-17T16:06:45.351+07:00 (Bangkok)  Ended: 2026-11-17T16:15:57.238+07:00
+
+     █ 1 home page
+
+       ✓ home: status 200
+       ✓ home: shop page rendered
+
+     █ 2 browse a category
+
+       ✓ categories: status 200
+       ✓ categories: list not empty
+       ✓ list: status 200
+       ✓ list: products returned
+       ✓ list: all in the chosen category
+
+     █ 3 search
+
+       ✓ search: status 200
+       ✓ search: at least one result
+
+     █ 4 product page
+
+       ✓ detail: status 200
+       ✓ detail: same product id
+       ✓ detail: price in THB
+
+     █ 5 cart
+
+       ✓ cart: status 200
+       ✓ cart: Cart-Token returned
+       ✓ add-item: status 200/201
+       ✓ add-item: product is in the cart
+       ✓ add-item: total is in THB
+       ✓ update-item: status 200
+       ✓ update-item: quantity is 2
+       ✓ remove-item: status 200
+       ✓ remove-item: line is gone
+
+   ✓ checks.........................: 100.00% ✓ 4882     ✗ 0   
+     data_received..................: 78 MB   142 kB/s
+     data_sent......................: 417 kB  755 B/s
+     group_duration.................: avg=739.22ms min=62.49ms  med=166.09ms max=8s       p(90)=3.72s    p(95)=5.47s   
+     http_req_blocked...............: avg=35.71µs  min=0s       med=0s       max=7.12ms   p(90)=0s       p(95)=0s      
+     http_req_connecting............: avg=34.98µs  min=0s       med=0s       max=7.12ms   p(90)=0s       p(95)=0s      
+   ✓ http_req_duration..............: avg=122.12ms min=57.76ms  med=88.41ms  max=505.67ms p(90)=280.23ms p(95)=303.86ms
+     ✓ { endpoint:cart_add }........: avg=89.71ms  min=67.9ms   med=85.63ms  max=166.22ms p(90)=106.93ms p(95)=117.74ms
+     ✓ { endpoint:cart_get }........: avg=78.37ms  min=67.51ms  med=74.61ms  max=98.59ms  p(90)=95.51ms  p(95)=97.05ms 
+     ✓ { endpoint:cart_remove }.....: avg=85.21ms  min=66.67ms  med=82.28ms  max=197.99ms p(90)=96.38ms  p(95)=101.78ms
+     ✓ { endpoint:cart_update }.....: avg=89.42ms  min=70.28ms  med=87.34ms  max=172.34ms p(90)=101.86ms p(95)=114.43ms
+     ✓ { endpoint:categories }......: avg=80.9ms   min=57.76ms  med=78.42ms  max=187.39ms p(90)=96.07ms  p(95)=102.46ms
+     ✓ { endpoint:detail }..........: avg=83.83ms  min=62.49ms  med=81.94ms  max=155.28ms p(90)=99.14ms  p(95)=109.46ms
+     ✓ { endpoint:home }............: avg=303.4ms  min=245.61ms med=289.45ms max=505.67ms p(90)=366.7ms  p(95)=398.43ms
+     ✓ { endpoint:list }............: avg=102.51ms min=60.97ms  med=99.71ms  max=211.91ms p(90)=126.58ms p(95)=142.97ms
+     ✓ { endpoint:search }..........: avg=92.89ms  min=64.49ms  med=89.71ms  max=181.25ms p(90)=112.81ms p(95)=119.63ms
+       { expected_response:true }...: avg=122.12ms min=57.76ms  med=88.41ms  max=505.67ms p(90)=280.23ms p(95)=303.86ms
+   ✓ http_req_failed................: 0.00%   ✓ 0        ✗ 2056
+     http_req_receiving.............: avg=4.1ms    min=0s       med=0s       max=100.96ms p(90)=18.33ms  p(95)=19.27ms 
+     http_req_sending...............: avg=2.93µs   min=0s       med=0s       max=1.01ms   p(90)=0s       p(95)=0s      
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s       p(90)=0s       p(95)=0s      
+     http_req_waiting...............: avg=118.01ms min=57.76ms  med=87.95ms  max=488.62ms p(90)=260.84ms p(95)=282.45ms
+     http_reqs......................: 2056    3.725405/s
+     iteration_duration.............: avg=14.7s    min=7.3s     med=13.59s   max=25.45s   p(90)=20.64s   p(95)=21.55s  
+     iterations.....................: 313     0.567146/s
+     vus............................: 1       min=1      max=10
+     vus_max........................: 10      min=10     max=10

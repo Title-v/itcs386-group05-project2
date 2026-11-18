@@ -1,0 +1,67 @@
+Test: stress
+Target: http://157.85.102.236/shop
+Started: 2026-11-17T16:15:58.257+07:00 (Bangkok)  Ended: 2026-11-17T16:33:13.269+07:00
+
+     █ 1 home page
+
+       ✓ home: status 200
+       ✓ home: shop page rendered
+
+     █ 2 browse a category
+
+       ✓ categories: status 200
+       ✓ categories: list not empty
+       ✓ list: status 200
+       ✓ list: products returned
+       ✓ list: all in the chosen category
+
+     █ 3 search
+
+       ✓ search: status 200
+       ✓ search: at least one result
+
+     █ 4 product page
+
+       ✓ detail: status 200
+       ✓ detail: same product id
+       ✓ detail: price in THB
+
+     █ 5 cart
+
+       ✓ cart: status 200
+       ✓ cart: Cart-Token returned
+       ✓ add-item: status 200/201
+       ✓ add-item: product is in the cart
+       ✓ add-item: total is in THB
+       ✓ update-item: status 200
+       ✓ update-item: quantity is 2
+       ✓ remove-item: status 200
+       ✓ remove-item: line is gone
+
+   ✓ checks.........................: 100.00% ✓ 23985    ✗ 0    
+     data_received..................: 382 MB  369 kB/s
+     data_sent......................: 2.1 MB  2.0 kB/s
+     group_duration.................: avg=1.69s    min=59.65ms  med=640.13ms max=12.89s p(90)=5.6s    p(95)=6.93s   
+     http_req_blocked...............: avg=31.71µs  min=0s       med=0s       max=7.02ms p(90)=0s      p(95)=0s      
+     http_req_connecting............: avg=31.36µs  min=0s       med=0s       max=7.02ms p(90)=0s      p(95)=0s      
+   ✗ http_req_duration..............: avg=776.19ms min=58.35ms  med=345.23ms max=9.8s   p(90)=1.61s   p(95)=2.87s   
+     ✓ { endpoint:cart_add }........: avg=507.66ms min=64.88ms  med=258.29ms max=2.51s  p(90)=1.33s   p(95)=1.57s   
+     ✓ { endpoint:cart_get }........: avg=375.99ms min=62.6ms   med=123.74ms max=1.59s  p(90)=1.28s   p(95)=1.48s   
+     ✓ { endpoint:cart_remove }.....: avg=479.41ms min=62.23ms  med=232.97ms max=3.04s  p(90)=1.23s   p(95)=1.41s   
+     ✓ { endpoint:cart_update }.....: avg=512.44ms min=64.7ms   med=264.62ms max=2.9s   p(90)=1.31s   p(95)=1.54s   
+     ✓ { endpoint:categories }......: avg=462.64ms min=58.35ms  med=236.95ms max=3.82s  p(90)=1.15s   p(95)=1.34s   
+     ✓ { endpoint:detail }..........: avg=492.31ms min=59.65ms  med=239.1ms  max=3.77s  p(90)=1.25s   p(95)=1.47s   
+     ✗ { endpoint:home }............: avg=2.22s    min=245.73ms med=1.03s    max=9.8s   p(90)=5.82s   p(95)=6.61s   
+     ✓ { endpoint:list }............: avg=610.27ms min=65.48ms  med=296.26ms max=4s     p(90)=1.58s   p(95)=1.9s    
+     ✓ { endpoint:search }..........: avg=538.56ms min=61.62ms  med=252.24ms max=3.53s  p(90)=1.37s   p(95)=1.62s   
+       { expected_response:true }...: avg=776.19ms min=58.35ms  med=345.23ms max=9.8s   p(90)=1.61s   p(95)=2.87s   
+   ✓ http_req_failed................: 0.00%   ✓ 0        ✗ 10075
+     http_req_receiving.............: avg=28.97ms  min=0s       med=0s       max=1.78s  p(90)=66.91ms p(95)=175.66ms
+     http_req_sending...............: avg=1.5µs    min=0s       med=0s       max=1.02ms p(90)=0s      p(95)=0s      
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s     p(90)=0s      p(95)=0s      
+     http_req_waiting...............: avg=747.21ms min=58.35ms  med=333.47ms max=8.39s  p(90)=1.59s   p(95)=2.69s   
+     http_reqs......................: 10075   9.734194/s
+     iteration_duration.............: avg=18.89s   min=6.42s    med=18.65s   max=39.41s p(90)=29.02s  p(95)=31.74s  
+     iterations.....................: 1529    1.477279/s
+     vus............................: 1       min=1      max=50 
+     vus_max........................: 50      min=50     max=50 

@@ -1,0 +1,1188 @@
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+
+     execution: local
+        script: stress.js
+        output: csv (results/20261117T091557Z-stress/timeseries.csv.gz)
+
+     scenarios: (100.00%) 1 scenario, 50 max VUs, 17m30s max duration (incl. graceful stop):
+              * default: Up to 50 looping VUs for 17m0s over 11 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+time="2026-11-17T16:15:59+07:00" level=info msg="Catalog: 6 categories, 14 demo products" source=console
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   1% ] 03/50 VUs  00m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   3% ] 05/50 VUs  00m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   4% ] 07/50 VUs  00m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   6% ] 09/50 VUs  00m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   7% ] 10/50 VUs  01m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [   9% ] 10/50 VUs  01m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  10% ] 10/50 VUs  01m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  12% ] 10/50 VUs  01m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  13% ] 10/50 VUs  02m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  15% ] 10/50 VUs  02m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  16% ] 10/50 VUs  02m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  18% ] 10/50 VUs  02m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  19% ] 12/50 VUs  03m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  21% ] 14/50 VUs  03m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  22% ] 17/50 VUs  03m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  23% ] 19/50 VUs  03m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  25% ] 20/50 VUs  04m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  26% ] 20/50 VUs  04m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  28% ] 20/50 VUs  04m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  29% ] 20/50 VUs  04m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  31% ] 20/50 VUs  05m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  32% ] 20/50 VUs  05m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  34% ] 20/50 VUs  05m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  35% ] 20/50 VUs  05m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  37% ] 22/50 VUs  06m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  38% ] 24/50 VUs  06m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  40% ] 27/50 VUs  06m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  41% ] 29/50 VUs  06m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  43% ] 30/50 VUs  07m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  44% ] 30/50 VUs  07m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  46% ] 30/50 VUs  07m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  47% ] 30/50 VUs  07m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  48% ] 30/50 VUs  08m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  50% ] 30/50 VUs  08m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  51% ] 30/50 VUs  08m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  53% ] 30/50 VUs  08m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  54% ] 32/50 VUs  09m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  56% ] 34/50 VUs  09m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  57% ] 37/50 VUs  09m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  59% ] 39/50 VUs  09m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  60% ] 40/50 VUs  10m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  62% ] 40/50 VUs  10m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  63% ] 40/50 VUs  10m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  65% ] 40/50 VUs  10m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  66% ] 40/50 VUs  11m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  68% ] 40/50 VUs  11m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  69% ] 40/50 VUs  11m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  71% ] 40/50 VUs  11m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  72% ] 42/50 VUs  12m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  73% ] 44/50 VUs  12m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  75% ] 47/50 VUs  12m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  76% ] 49/50 VUs  12m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  78% ] 50/50 VUs  13m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  79% ] 50/50 VUs  13m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  81% ] 50/50 VUs  13m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  82% ] 50/50 VUs  13m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  84% ] 50/50 VUs  14m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  85% ] 50/50 VUs  14m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  87% ] 50/50 VUs  14m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  88% ] 50/50 VUs  14m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  90% ] 49/50 VUs  15m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  91% ] 42/50 VUs  15m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  93% ] 39/50 VUs  15m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  94% ] 31/50 VUs  15m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  96% ] 22/50 VUs  16m14.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  97% ] 16/50 VUs  16m29.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [  98% ] 08/50 VUs  16m44.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default   [ 100% ] 04/50 VUs  16m59.2s/17m00.0s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+default ↓ [ 100% ] 04/50 VUs  17m0s
+Test: stress
+Target: http://157.85.102.236/shop
+Started: 2026-11-17T16:15:58.257+07:00 (Bangkok)  Ended: 2026-11-17T16:33:13.269+07:00
+
+     █ 1 home page
+
+       ✓ home: status 200
+       ✓ home: shop page rendered
+
+     █ 2 browse a category
+
+       ✓ categories: status 200
+       ✓ categories: list not empty
+       ✓ list: status 200
+       ✓ list: products returned
+       ✓ list: all in the chosen category
+
+     █ 3 search
+
+       ✓ search: status 200
+       ✓ search: at least one result
+
+     █ 4 product page
+
+       ✓ detail: status 200
+       ✓ detail: same product id
+       ✓ detail: price in THB
+
+     █ 5 cart
+
+       ✓ cart: status 200
+       ✓ cart: Cart-Token returned
+       ✓ add-item: status 200/201
+       ✓ add-item: product is in the cart
+       ✓ add-item: total is in THB
+       ✓ update-item: status 200
+       ✓ update-item: quantity is 2
+       ✓ remove-item: status 200
+       ✓ remove-item: line is gone
+
+   ✓ checks.........................: 100.00% ✓ 23985    ✗ 0    
+     data_received..................: 382 MB  369 kB/s
+     data_sent......................: 2.1 MB  2.0 kB/s
+     group_duration.................: avg=1.69s    min=59.65ms  med=640.13ms max=12.89s p(90)=5.6s    p(95)=6.93s   
+     http_req_blocked...............: avg=31.71µs  min=0s       med=0s       max=7.02ms p(90)=0s      p(95)=0s      
+     http_req_connecting............: avg=31.36µs  min=0s       med=0s       max=7.02ms p(90)=0s      p(95)=0s      
+   ✗ http_req_duration..............: avg=776.19ms min=58.35ms  med=345.23ms max=9.8s   p(90)=1.61s   p(95)=2.87s   
+     ✓ { endpoint:cart_add }........: avg=507.66ms min=64.88ms  med=258.29ms max=2.51s  p(90)=1.33s   p(95)=1.57s   
+     ✓ { endpoint:cart_get }........: avg=375.99ms min=62.6ms   med=123.74ms max=1.59s  p(90)=1.28s   p(95)=1.48s   
+     ✓ { endpoint:cart_remove }.....: avg=479.41ms min=62.23ms  med=232.97ms max=3.04s  p(90)=1.23s   p(95)=1.41s   
+     ✓ { endpoint:cart_update }.....: avg=512.44ms min=64.7ms   med=264.62ms max=2.9s   p(90)=1.31s   p(95)=1.54s   
+     ✓ { endpoint:categories }......: avg=462.64ms min=58.35ms  med=236.95ms max=3.82s  p(90)=1.15s   p(95)=1.34s   
+     ✓ { endpoint:detail }..........: avg=492.31ms min=59.65ms  med=239.1ms  max=3.77s  p(90)=1.25s   p(95)=1.47s   
+     ✗ { endpoint:home }............: avg=2.22s    min=245.73ms med=1.03s    max=9.8s   p(90)=5.82s   p(95)=6.61s   
+     ✓ { endpoint:list }............: avg=610.27ms min=65.48ms  med=296.26ms max=4s     p(90)=1.58s   p(95)=1.9s    
+     ✓ { endpoint:search }..........: avg=538.56ms min=61.62ms  med=252.24ms max=3.53s  p(90)=1.37s   p(95)=1.62s   
+       { expected_response:true }...: avg=776.19ms min=58.35ms  med=345.23ms max=9.8s   p(90)=1.61s   p(95)=2.87s   
+   ✓ http_req_failed................: 0.00%   ✓ 0        ✗ 10075
+     http_req_receiving.............: avg=28.97ms  min=0s       med=0s       max=1.78s  p(90)=66.91ms p(95)=175.66ms
+     http_req_sending...............: avg=1.5µs    min=0s       med=0s       max=1.02ms p(90)=0s      p(95)=0s      
+     http_req_tls_handshaking.......: avg=0s       min=0s       med=0s       max=0s     p(90)=0s      p(95)=0s      
+     http_req_waiting...............: avg=747.21ms min=58.35ms  med=333.47ms max=8.39s  p(90)=1.59s   p(95)=2.69s   
+     http_reqs......................: 10075   9.734194/s
+     iteration_duration.............: avg=18.89s   min=6.42s    med=18.65s   max=39.41s p(90)=29.02s  p(95)=31.74s  
+     iterations.....................: 1529    1.477279/s
+     vus............................: 1       min=1      max=50 
+     vus_max........................: 50      min=50     max=50 
+time="2026-11-17T16:33:13+07:00" level=error msg="thresholds on metrics 'http_req_duration, http_req_duration{endpoint:home}' have been crossed"
