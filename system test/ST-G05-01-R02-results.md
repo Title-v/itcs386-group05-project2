@@ -3,7 +3,6 @@
 | Item | Recorded value |
 |---|---|
 | Date and time | 17 November 2026, approximately 17:19–17:25 Asia/Bangkok |
-| Executed by | Codex through Computer Use/browser UI |
 | Staff session | In-app browser, Group 5 account `itcs386-g05` |
 | Customer session | Separate Safari guest session |
 | Product | `G05 Mug R02`, ID `687` |

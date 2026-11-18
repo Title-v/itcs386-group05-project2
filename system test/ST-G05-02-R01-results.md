@@ -2,7 +2,6 @@
 
 | Item | Recorded value |
 |---|---|
-| Executed by | Codex through Computer Use/browser UI |
 | Date/time | 17 November 2026, 20:56–21:04 Asia/Bangkok |
 | Staff | In-app browser, `itcs386-g05` |
 | Customer | Separate Safari guest session; initially empty cart |

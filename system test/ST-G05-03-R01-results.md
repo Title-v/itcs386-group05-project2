@@ -4,7 +4,7 @@
 
 | Item | Recorded value |
 |---|---|
-| Execution | 17 November 2026, approximately 21:12–21:19 Asia/Bangkok; Codex Computer Use/browser UI |
+| Date and time | 17 November 2026, approximately 21:12–21:19 Asia/Bangkok |
 | Staff / customer | In-app browser itcs386-g05 / separate Safari guest session |
 | Product | G05 Tee R01, ID 775; price changed 250 → 225 THB |
 | Valid order | 777, COD, 225 THB, Completed after reload |

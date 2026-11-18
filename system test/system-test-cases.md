@@ -62,7 +62,7 @@ Category creation/browsing, permanent deletion, coupon removal, customer-list ch
 | Objective | Verify product/coupon setup, invalid coupon rejection, discounted purchase and staff order completion. |
 | Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. Customer uses a separate session with an empty cart. COD is available. |
 | Test data | Product: `G05 Mug R02` (ID `687`), simple, 200 THB, stock 20, backorders disabled. Coupon: `G05SAVE10-R02` (ID `688`), 10% discount restricted to this product. Invalid code: `G05BAD-R02`. Quantity 2. Email: `g05.mug.r02@example.com`. Captured order: `692` (COD, 360.00 THB). Product/order IDs are runtime outputs, not values to enter when creating records. |
-| Tested by and date | Codex (browser-driven execution), 17 November 2026, approximately 17:19–17:25 Asia/Bangkok |
+| Date and time | 17 November 2026, approximately 17:19–17:25 Asia/Bangkok |
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
@@ -205,7 +205,7 @@ The recorded form exposed no Company field. Do not invent a value or add a field
 
 ## ST-G05-02
 
-**Recorded run: R01 — 9/9 Pass.** Executed by Codex through Computer Use/browser UI on 17 November 2026, 20:56–21:04 Asia/Bangkok. Staff used the in-app browser as `itcs386-g05`; the guest used a separate Safari session. Product ID: `773`; order ID: `774`, total `300.00 THB`, status `Processing`. See the [execution report](ST-G05-02-R01-results.md).
+**Recorded run: R01 — 9/9 Pass.** Recorded on 17 November 2026, 20:56–21:04 Asia/Bangkok, using Computer Use/browser UI. Staff used the in-app browser as `itcs386-g05`; the guest used a separate Safari session. Product ID: `773`; order ID: `774`, total `300.00 THB`, status `Processing`. See the [execution report](ST-G05-02-R01-results.md).
 
 Input data below uses observed UI labels and the actual interaction performed. The original expected results are retained. Step 9 uses two Add to cart clicks because the product page hides quantity entry when only one unit remains; this preserves the original attempt-to-add-two objective without inventing an unavailable field.
 
@@ -216,7 +216,7 @@ Input data below uses observed UI labels and the actual interaction performed. T
 | Objective | Verify stock-limit validation, cart quantity changes/removal and stock reduction after a successful purchase. |
 | Preconditions | Staff is logged in as `itcs386-g05` using the private browser password from D15. Customer uses a separate session with an empty cart. COD is available. |
 | Test data | Product: `G05 Cap R01` (created ID `773`), simple, 150 THB, stock 3. Enable stock management; disable backorders and Sold individually. Quantities 1, 4 and 2. Email: `g05.cap.r01@example.com`. |
-| Tested by and date | Codex, 17 November 2026, 20:56–21:04 Asia/Bangkok |
+| Date and time | 17 November 2026, 20:56–21:04 Asia/Bangkok |
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
@@ -353,7 +353,7 @@ With one unit remaining, the product page exposed only Add to cart, not a quanti
 | Objective | Verify the saved price update reaches the storefront, empty Street address prevents checkout, a corrected guest purchase uses the new price, and staff can complete the matching order. |
 | Preconditions | Staff is logged in as itcs386-g05; separate guest browser session with an empty cart; COD available. No customer account is required. |
 | Test data | G05 Tee R01 (product 775), Simple product; initial Regular price (฿) 250, updated to 225; Sale price blank; Stock management checked; Quantity 10; backorders Do not allow. Purchase quantity 1; email g05.tee.r01@example.com. Valid order 777; accidental order 776 cancelled. |
-| Tested by and date | Codex through Computer Use/browser UI, 17 November 2026, approximately 21:12–21:19 Asia/Bangkok |
+| Date and time | 17 November 2026, approximately 21:12–21:19 Asia/Bangkok |
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
