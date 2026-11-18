@@ -47,10 +47,6 @@
 
 The form fields were filled for this run. No real customer account or real personal details were used. The staff order showed shipping details matching billing; that is an observed saved value, not evidence of a shipping checkbox.
 
-### Run observations and cleanup
-
-Attempted cart quantity 4 was capped at 3 with no error banner. At remaining stock 1 the product page hid quantity input; two Add to cart clicks tested the total-of-two attempt. The second click was rejected. The unpurchased unit was removed after capture and the cart was confirmed empty. Order 1260 remains Processing as recorded; completing it is not a Test 2 step.
-
 ## Screenshots by step
 
 ### Step 1 — Pass
@@ -154,9 +150,3 @@ Attempted cart quantity 4 was capped at 3 with no error banner. At remaining sto
 **Cart retains one unit with Increase quantity disabled**
 
 ![ST-G05-02 step 9: Cart retains one unit with Increase quantity disabled](screenshots/ST-G05-02/R02/S09d-cart-limit.jpg)
-
-
-## Related documents
-
-- [Current system test cases](system-test-cases.md#st-g05-02)
-- [Tested requirements](api-traceability-matrix.md)
