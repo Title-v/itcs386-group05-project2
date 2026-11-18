@@ -6,9 +6,9 @@ All three scenarios were rerun on **19 November 2026 (Asia/Bangkok)**. Screensho
 
 | Case | Run | Steps | Result | Recorded order | Images |
 |---|---|---:|---|---|---:|
-| [ST-G05-01](ST-G05-01-R04-results.md) | R04 | 9 | Pass | 1252, Completed, 360 THB | 20 |
-| [ST-G05-02](ST-G05-02-R02-results.md) | R02 | 9 | Pass | 1260, Processing, 300 THB | 21 |
-| [ST-G05-03](ST-G05-03-R02-results.md) | R02 | 7 | Pass | 1274, Completed, 225 THB | 15 |
+| [ST-G05-01](ST-G05-01-results.md) | R04 | 9 | Pass | 1252, Completed, 360 THB | 20 |
+| [ST-G05-02](ST-G05-02-results.md) | R02 | 9 | Pass | 1260, Processing, 300 THB | 21 |
+| [ST-G05-03](ST-G05-03-results.md) | R02 | 7 | Pass | 1274, Completed, 225 THB | 15 |
 
 There are **56 current screenshots**. Every product has evidence from Add new product before input, completed inputs before Publish, and the saved result. Tests 1–2 verify creation; Test 3 creates at 250 THB before changing the regular price to 225 THB.
 
@@ -17,7 +17,7 @@ There are **56 current screenshots**. Every product has evidence from Add new pr
 - [System test cases](system-test-cases.md): current plans, UI inputs, expected/actual results and screenshots.
 - [Requirement traceability matrix](api-traceability-matrix.md): 14 requirements actually checked; no untested rows.
 - [API inventory](api-inventory.md): reference operations, separate from system-test coverage.
-- [ST-G05-01 report](ST-G05-01-R04-results.md), [ST-G05-02 report](ST-G05-02-R02-results.md), [ST-G05-03 report](ST-G05-03-R02-results.md).
+- [ST-G05-01 report](ST-G05-01-results.md), [ST-G05-02 report](ST-G05-02-results.md), [ST-G05-03 report](ST-G05-03-results.md).
 - [Screenshots](screenshots/): current page-only evidence.
 
 ## Interpretation

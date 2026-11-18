@@ -12,7 +12,7 @@
 | Date and time | 19 November 2026, 03:01–03:07 Asia/Bangkok |
 | Recorded run | R04; 9/9 Pass |
 
-[Open the execution report](ST-G05-01-R04-results.md).
+[Open the execution report](ST-G05-01-results.md).
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
@@ -167,7 +167,7 @@ During initial catalog navigation, one click opened an unrelated demo-product pa
 | Date and time | 19 November 2026, 03:08–03:12 Asia/Bangkok |
 | Recorded run | R02; 9/9 Pass |
 
-[Open the execution report](ST-G05-02-R02-results.md).
+[Open the execution report](ST-G05-02-results.md).
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|
@@ -326,7 +326,7 @@ Attempted cart quantity 4 was capped at 3 with no error banner. At remaining sto
 | Date and time | 19 November 2026, 03:12–03:15 Asia/Bangkok |
 | Recorded run | R02; 7/7 Pass |
 
-[Open the execution report](ST-G05-03-R02-results.md).
+[Open the execution report](ST-G05-03-results.md).
 
 | Step | Action | Input data | Expected result | Actual result | Pass or fail |
 |---|---|---|---|---|---|

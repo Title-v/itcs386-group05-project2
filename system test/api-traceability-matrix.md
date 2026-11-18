@@ -25,9 +25,9 @@ The wording of R14 is limited to the product, price and stock checks actually pe
 
 | Case | Current run | Result | Recorded order | Report |
 |---|---|---|---|---|
-| ST-G05-01 | R04 | 9/9 Pass | 1252, Completed, 360 THB | [Results and images](ST-G05-01-R04-results.md) |
-| ST-G05-02 | R02 | 9/9 Pass | 1260, Processing, 300 THB | [Results and images](ST-G05-02-R02-results.md) |
-| ST-G05-03 | R02 | 7/7 Pass | 1274, Completed, 225 THB | [Results and images](ST-G05-03-R02-results.md) |
+| ST-G05-01 | R04 | 9/9 Pass | 1252, Completed, 360 THB | [Results and images](ST-G05-01-results.md) |
+| ST-G05-02 | R02 | 9/9 Pass | 1260, Processing, 300 THB | [Results and images](ST-G05-02-results.md) |
+| ST-G05-03 | R02 | 7/7 Pass | 1274, Completed, 225 THB | [Results and images](ST-G05-03-results.md) |
 
 All 14 rows are supported by the executed steps above. This is coverage of the selected behaviors, not a claim of exhaustive WooCommerce specification or REST API coverage. Direct API testing is documented separately in [API testing](../API%20testing/README.md); the [API inventory](api-inventory.md) is a reference list.
 

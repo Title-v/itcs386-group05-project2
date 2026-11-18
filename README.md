@@ -39,9 +39,9 @@ API suite IDs and the system document's API inventory IDs are separate namespace
 
 | Case / run | Scenario | Result | Order at end of run | Evidence |
 |---|---|---|---|---|
-| ST-G05-01 / R04 | Purchase with a coupon and complete the order | 9/9 Pass | 1252 — Completed, 360 THB | [Report and 20 images](system%20test/ST-G05-01-R04-results.md) |
-| ST-G05-02 / R02 | Validate quantity limits and remaining stock | 9/9 Pass | 1260 — Processing, 300 THB | [Report and 21 images](system%20test/ST-G05-02-R02-results.md) |
-| ST-G05-03 / R02 | Verify updated pricing and required-address validation for a guest purchase | 7/7 Pass | 1274 — Completed, 225 THB | [Report and 15 images](system%20test/ST-G05-03-R02-results.md) |
+| ST-G05-01 / R04 | Purchase with a coupon and complete the order | 9/9 Pass | 1252 — Completed, 360 THB | [Report and 20 images](system%20test/ST-G05-01-results.md) |
+| ST-G05-02 / R02 | Validate quantity limits and remaining stock | 9/9 Pass | 1260 — Processing, 300 THB | [Report and 21 images](system%20test/ST-G05-02-results.md) |
+| ST-G05-03 / R02 | Verify updated pricing and required-address validation for a guest purchase | 7/7 Pass | 1274 — Completed, 225 THB | [Report and 15 images](system%20test/ST-G05-03-results.md) |
 
 See the [current test cases](system%20test/system-test-cases.md) and [tested-requirement matrix](system%20test/api-traceability-matrix.md). All new screenshots exclude browser tabs, URL bars and mouse-pointer overlays. Blank-form and pre-Publish screenshots make product creation explicit. The matrix contains only 14 requirements actually checked.
 
